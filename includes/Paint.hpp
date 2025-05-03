@@ -13,15 +13,15 @@ class Paint
 		void	routine(void);
 
 	private:
-		int			_width;
-		int			_height;
+		int				_width;
+		int				_height;
 
-		Window*		_mainWindow;
+		ClassicWindow*	_mainWindow;
 
-		SDL_Cursor*	_normalCursor;
-		SDL_Cursor*	_interactCursor;
+		SDL_Cursor*		_normalCursor;
+		SDL_Cursor*		_interactCursor;
 
-		int			_theme;
+		int				_theme;
 };
 
 #endif

@@ -19,3 +19,18 @@ Window::Window(const std::string name, const int width, const int height)
 
 	SDL_RenderClear(_mainRenderer);
 }
+
+ClassicWindow::ClassicWindow(const std::string name, const int width, const int height) : Window(name, width, height)
+{
+	;
+}
+
+YesNoWindow::YesNoWindow(const std::string name) : Window(name, 100, 25)
+{
+	;
+}
+
+OkCancelWindow::OkCancelWindow(const std::string name) : Window(name, 100, 25)
+{
+	;
+}

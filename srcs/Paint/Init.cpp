@@ -18,5 +18,5 @@ Paint::Paint(void)
 	if (_normalCursor == NULL || _interactCursor == NULL)
 		throw std::runtime_error("SDL failed.");
 
-	_mainWindow = new Window("paint-software", _width, _height);
+	_mainWindow = new ClassicWindow("paint-software", _width, _height);
 }
