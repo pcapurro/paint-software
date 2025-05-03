@@ -10,6 +10,7 @@ class Paint
 		Paint(void);
 		~Paint(void);
 
+		void	display(void);
 		void	routine(void);
 
 	private:

@@ -9,7 +9,15 @@ class Window
 		Window(const std::string name, const int width, const int height);
 		virtual ~Window(void);
 
-		virtual int	waitForEvent(void) = 0;
+		virtual int		waitForEvent(void) = 0;
+
+		void			render(void) { SDL_RenderPresent(_mainRenderer); };
+		void			clear(void) { SDL_RenderClear(_mainRenderer); };
+
+		SDL_Renderer*	getRenderer(void) { return (_mainRenderer); };
+
+		int				getWidth(void) { return (_width); };
+		int				getHeight(void) { return (_height); };
 
 	private:
 		int				_width;
