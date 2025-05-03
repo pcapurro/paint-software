@@ -3,6 +3,7 @@
 
 # include "Global.hpp"
 # include "Windows.hpp"
+# include "Textures.hpp"
 
 class Paint
 {
@@ -18,6 +19,8 @@ class Paint
 		int				_height;
 
 		ClassicWindow*	_mainWindow;
+
+		Textures		_textures;
 
 		SDL_Cursor*		_normalCursor;
 		SDL_Cursor*		_interactCursor;

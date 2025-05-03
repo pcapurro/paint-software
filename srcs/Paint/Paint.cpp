@@ -30,7 +30,19 @@ void	Paint::display(void)
 
 void	Paint::routine(void)
 {
-	display();
+	SDL_Event	event;
 
-	std::this_thread::sleep_for(std::chrono::seconds(2));
+	while (true)
+	{
+		if (SDL_PollEvent(&event) == true)
+		{
+			if (event.type == SDL_QUIT \
+				|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+				return ;
+			
+			display();
+		}
+
+		std::this_thread::sleep_for(std::chrono::microseconds(500));
+	}
 }
