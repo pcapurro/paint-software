@@ -11,10 +11,16 @@ class Paint
 		Paint(void);
 		~Paint(void);
 
+		void	drawBackground(SDL_Renderer* renderer);
+
+		void	drawToolBoxes(SDL_Renderer* renderer);
+		void	drawMap(SDL_Renderer* renderer);
+
 		void	display(void);
 		void	routine(void);
 
 	private:
+
 		int				_width;
 		int				_height;
 

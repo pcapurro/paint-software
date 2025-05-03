@@ -1,8 +1,7 @@
 #include "Paint.hpp"
 
-void	Paint::display(void)
+void	Paint::drawBackground(SDL_Renderer* renderer)
 {
-	SDL_Renderer*	renderer = _mainWindow->getRenderer();
 	SDL_Rect		obj;
 
 	obj.x = 0, obj.y = 0;
@@ -10,20 +9,44 @@ void	Paint::display(void)
 
 	_mainWindow->clear();
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(renderer, 42, 42, 42, 255);
 	SDL_RenderFillRect(renderer, &obj);
+}
 
-	obj.x = 25, obj.y = 25;
-	obj.w = _width - 50, obj.h = 125;
+void	Paint::drawToolBoxes(SDL_Renderer* renderer)
+{
+	SDL_Rect		obj;
 
-	SDL_SetRenderDrawColor(renderer, 121, 121, 121, 255);
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 25, obj.y = 175;
-	obj.w = _width - 50, obj.h = _height - 200;
+	obj.x = 30, obj.y = 30;
+	obj.w = 130, obj.h = 840;
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &obj);
+
+	obj.x = 190, obj.y = 780;
+	obj.w = 1280, obj.h = 90;
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &obj);
+}
+
+void	Paint::drawMap(SDL_Renderer* renderer)
+{
+	SDL_Rect		obj;
+
+	obj.x = 190, obj.y = 30;
+	obj.w = 1280, obj.h = 720;
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &obj);
+}
+
+void	Paint::display(void)
+{
+	drawBackground(_mainWindow->getRenderer());
+	drawToolBoxes(_mainWindow->getRenderer());
+
+	drawMap(_mainWindow->getRenderer());
 
 	_mainWindow->render();
 }

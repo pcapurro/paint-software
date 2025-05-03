@@ -4,8 +4,8 @@ Paint::Paint(void)
 {
 	_mainWindow = nullptr;
 
-	_width = 1280 + 50;
-	_height = 720 + 200;
+	_width = 1500;
+	_height = 900;
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		throw std::runtime_error("SDL failed.");
