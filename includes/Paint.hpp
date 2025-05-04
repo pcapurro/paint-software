@@ -19,6 +19,8 @@ class Paint
 		void	display(void);
 		void	routine(void);
 
+		int		getRandomNumber(void);
+
 	private:
 
 		int				_width;
