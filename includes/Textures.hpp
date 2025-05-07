@@ -41,14 +41,18 @@ struct Textures
 {
 	Texture	brush;
 	Texture	pencil;
+
+	Texture	spray;
+	Texture	bucket;
 	
 	Texture	eraser;
-	Texture	bucket;
-	Texture	color;
+	Texture	picker;
 
-	Texture	paint;
-	Texture save;
-	Texture settings;
+	Texture checkB;
+	Texture cancelB;
+
+	Texture checkG;
+	Texture cancelR;
 };
 
 #endif

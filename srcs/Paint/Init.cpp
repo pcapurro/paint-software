@@ -22,16 +22,20 @@ Paint::Paint(void)
 
 	int value = 0;
 
-	value += _textures.brush.load("materials/icons/brush.bmp", _mainWindow->getRenderer());
-	value += _textures.pencil.load("materials/icons/pencil.bmp", _mainWindow->getRenderer());
+	value += _textures.brush.load("materials/ui/brush.bmp", _mainWindow->getRenderer());
+	value += _textures.pencil.load("materials/ui/pencil.bmp", _mainWindow->getRenderer());
 
-	value += _textures.eraser.load("materials/icons/eraser.bmp", _mainWindow->getRenderer());
-	value += _textures.bucket.load("materials/icons/bucket.bmp", _mainWindow->getRenderer());
-	value += _textures.color.load("materials/icons/color-picker.bmp", _mainWindow->getRenderer());
+	value += _textures.spray.load("materials/ui/spray.bmp", _mainWindow->getRenderer());
+	value += _textures.bucket.load("materials/ui/bucket.bmp", _mainWindow->getRenderer());
 
-	value += _textures.paint.load("materials/icons/paint.bmp", _mainWindow->getRenderer());
-	value += _textures.save.load("materials/icons/save.bmp", _mainWindow->getRenderer());
-	value += _textures.settings.load("materials/icons/settings.bmp", _mainWindow->getRenderer());
+	value += _textures.picker.load("materials/ui/picker.bmp", _mainWindow->getRenderer());
+	value += _textures.eraser.load("materials/ui/eraser.bmp", _mainWindow->getRenderer());
+
+	value += _textures.checkB.load("materials/ui/check-b.bmp", _mainWindow->getRenderer());
+	value += _textures.cancelB.load("materials/ui/cancel-b.bmp", _mainWindow->getRenderer());
+
+	value += _textures.checkB.load("materials/ui/check-b.bmp", _mainWindow->getRenderer());
+	value += _textures.checkG.load("materials/ui/check-g.bmp", _mainWindow->getRenderer());
 
 	if (value != 0)
 		throw std::runtime_error("SDL failed.");
