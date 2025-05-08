@@ -14,6 +14,7 @@ class Paint
 		void	drawBackground(SDL_Renderer* renderer);
 
 		void	drawToolBoxes(SDL_Renderer* renderer);
+		void	drawTools(SDL_Renderer* renderer);
 		void	drawMap(SDL_Renderer* renderer);
 
 		void	display(void);

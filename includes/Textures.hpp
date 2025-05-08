@@ -15,6 +15,11 @@ class Texture
 				SDL_DestroyTexture(_texture), _texture = nullptr;
 		}
 
+		SDL_Texture*	getTexture(void) const
+		{
+			return (_texture);
+		}
+
 		int		load(const char* path, SDL_Renderer* renderer)
 		{
 			SDL_Surface*	surface = NULL;
@@ -48,11 +53,11 @@ struct Textures
 	Texture	eraser;
 	Texture	picker;
 
-	Texture checkB;
-	Texture cancelB;
+	Texture check;
+	Texture cancel;
 
-	Texture checkG;
-	Texture cancelR;
+	Texture select;
+	Texture random;
 };
 
 #endif

@@ -42,7 +42,6 @@ void	Paint::drawToolBoxes(SDL_Renderer* renderer)
 	obj.x = 30, obj.y = 520;
 	obj.w = 130, obj.h = 195;
 
-
 	SDL_RenderFillRect(renderer, &obj);
 
 	obj.x = 30, obj.y = 127;
@@ -97,6 +96,42 @@ void	Paint::drawToolBoxes(SDL_Renderer* renderer)
 	}
 }
 
+void	Paint::drawTools(SDL_Renderer* renderer)
+{
+	SDL_Rect		obj;
+
+	obj.w = 65, obj.h = 65;
+
+	obj.x = 30, obj.y = 30;
+	SDL_RenderCopy(renderer, _textures.check.getTexture(), NULL, &obj);
+
+	obj.x = 95, obj.y = 30;
+	SDL_RenderCopy(renderer, _textures.cancel.getTexture(), NULL, &obj);
+
+	obj.x = 30, obj.y = 160;
+	SDL_RenderCopy(renderer, _textures.brush.getTexture(), NULL, &obj);
+
+	obj.x = 95, obj.y = 160;
+	SDL_RenderCopy(renderer, _textures.pencil.getTexture(), NULL, &obj);
+
+	obj.x = 30, obj.y = 225;
+	SDL_RenderCopy(renderer, _textures.bucket.getTexture(), NULL, &obj);
+
+	obj.x = 95, obj.y = 225;
+	SDL_RenderCopy(renderer, _textures.spray.getTexture(), NULL, &obj);
+
+	obj.x = 30, obj.y = 290;
+	SDL_RenderCopy(renderer, _textures.eraser.getTexture(), NULL, &obj);
+
+	obj.x = 95, obj.y = 290;
+	SDL_RenderCopy(renderer, _textures.picker.getTexture(), NULL, &obj);
+
+	obj.x = 190, obj.y = 800;
+	obj.w = 50, obj.h = 50;
+
+	SDL_RenderCopy(renderer, _textures.random.getTexture(), NULL, &obj);
+}
+
 void	Paint::drawMap(SDL_Renderer* renderer)
 {
 	SDL_Rect		obj;
@@ -112,6 +147,8 @@ void	Paint::display(void)
 {
 	drawBackground(_mainWindow->getRenderer());
 	drawToolBoxes(_mainWindow->getRenderer());
+
+	drawTools(_mainWindow->getRenderer());
 
 	drawMap(_mainWindow->getRenderer());
 
