@@ -35,12 +35,21 @@ void	Paint::drawToolBoxes(SDL_Renderer* renderer)
 	SDL_RenderFillRect(renderer, &obj);
 
 	obj.x = 30, obj.y = 160;
+	obj.w = 130, obj.h = 195;
+
+	SDL_RenderFillRect(renderer, &obj);
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+
+	obj.x = 30, obj.y = 390;
 	obj.w = 130, obj.h = 325;
 
 	SDL_RenderFillRect(renderer, &obj);
 
-	obj.x = 30, obj.y = 520;
-	obj.w = 130, obj.h = 195;
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+	obj.x = 34, obj.y = 394;
+	obj.w = 122, obj.h = 317;
 
 	SDL_RenderFillRect(renderer, &obj);
 
@@ -75,6 +84,15 @@ void	Paint::drawToolBoxes(SDL_Renderer* renderer)
 
 	obj.x = 190, obj.y = 800;
 	obj.w = 50, obj.h = 50;
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
+	SDL_RenderFillRect(renderer, &obj);
+
+	obj.x = 194, obj.y = 804;
+	obj.w = 42, obj.h = 42;
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
 	SDL_RenderFillRect(renderer, &obj);
 
@@ -126,9 +144,8 @@ void	Paint::drawTools(SDL_Renderer* renderer)
 	obj.x = 95, obj.y = 290;
 	SDL_RenderCopy(renderer, _textures.picker.getTexture(), NULL, &obj);
 
-	obj.x = 190, obj.y = 800;
-	obj.w = 50, obj.h = 50;
-
+	obj.w = 44, obj.h = 44;
+	obj.x = 215 - obj.w / 2, obj.y = 825 - obj.h / 2;
 	SDL_RenderCopy(renderer, _textures.random.getTexture(), NULL, &obj);
 }
 
