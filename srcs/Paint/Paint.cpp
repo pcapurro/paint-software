@@ -10,166 +10,62 @@ int	Paint::getRandomNumber(void)
 	return (rand());
 }
 
-void	Paint::drawBackground(SDL_Renderer* renderer)
+void	Paint::randomizeColors(void)
 {
-	SDL_Rect		obj;
-
-	obj.x = 0, obj.y = 0;
-	obj.w = _width, obj.h = _height;
-
-	_mainWindow->clear();
-
-	SDL_SetRenderDrawColor(renderer, 42, 42, 42, 255);
-	SDL_RenderFillRect(renderer, &obj);
-}
-
-void	Paint::drawToolBoxes(SDL_Renderer* renderer)
-{
-	SDL_Rect		obj;
-
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-	obj.x = 30, obj.y = 30;
-	obj.w = 130, obj.h = 65;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 30, obj.y = 160;
-	obj.w = 130, obj.h = 195;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-
-	obj.x = 30, obj.y = 390;
-	obj.w = 130, obj.h = 325;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-	obj.x = 34, obj.y = 394;
-	obj.w = 122, obj.h = 317;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 30, obj.y = 127;
-	obj.w = 130, obj.h = 4;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 30, obj.y = 746;
-	obj.w = 130, obj.h = 4;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 30, obj.y = 780;
-	obj.w = 65, obj.h = 90;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-
-	obj.x = 115, obj.y = 780;
-	obj.w = 45, obj.h = 45;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-	obj.x = 115, obj.y = 825;
-	obj.w = 45, obj.h = 45;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 190, obj.y = 800;
-	obj.w = 50, obj.h = 50;
-
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 194, obj.y = 804;
-	obj.w = 42, obj.h = 42;
-
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 250, obj.y = 780;
-	obj.w = 61, obj.h = 45;
-
 	for (int i = 0; i != 20; i++)
 	{
-		SDL_SetRenderDrawColor(renderer, getRandomNumber(), getRandomNumber(), getRandomNumber(), 255);
-		SDL_RenderFillRect(renderer, &obj);
+		_colorsUp.at(i).r = getRandomNumber() % 256;
+		_colorsUp.at(i).g = getRandomNumber() % 256;
+		_colorsUp.at(i).b = getRandomNumber() % 256;
 
-		obj.y += 45;
-
-		SDL_SetRenderDrawColor(renderer, getRandomNumber(), getRandomNumber(), getRandomNumber(), 255);
-		SDL_RenderFillRect(renderer, &obj);
-
-		obj.x += 61;
-		obj.y -= 45;
+		_colorsDown.at(i).r = getRandomNumber() % 256;
+		_colorsDown.at(i).g = getRandomNumber() % 256;
+		_colorsDown.at(i).b = getRandomNumber() % 256;
 	}
-}
-
-void	Paint::drawTools(SDL_Renderer* renderer)
-{
-	SDL_Rect		obj;
-
-	obj.w = 65, obj.h = 65;
-
-	obj.x = 30, obj.y = 30;
-	SDL_RenderCopy(renderer, _textures.check.getTexture(), NULL, &obj);
-
-	obj.x = 95, obj.y = 30;
-	SDL_RenderCopy(renderer, _textures.cancel.getTexture(), NULL, &obj);
-
-	obj.x = 30, obj.y = 160;
-	SDL_RenderCopy(renderer, _textures.brush.getTexture(), NULL, &obj);
-
-	obj.x = 95, obj.y = 160;
-	SDL_RenderCopy(renderer, _textures.pencil.getTexture(), NULL, &obj);
-
-	obj.x = 30, obj.y = 225;
-	SDL_RenderCopy(renderer, _textures.bucket.getTexture(), NULL, &obj);
-
-	obj.x = 95, obj.y = 225;
-	SDL_RenderCopy(renderer, _textures.spray.getTexture(), NULL, &obj);
-
-	obj.x = 30, obj.y = 290;
-	SDL_RenderCopy(renderer, _textures.eraser.getTexture(), NULL, &obj);
-
-	obj.x = 95, obj.y = 290;
-	SDL_RenderCopy(renderer, _textures.picker.getTexture(), NULL, &obj);
-
-	obj.w = 44, obj.h = 44;
-	obj.x = 215 - obj.w / 2, obj.y = 825 - obj.h / 2;
-	SDL_RenderCopy(renderer, _textures.random.getTexture(), NULL, &obj);
-}
-
-void	Paint::drawMap(SDL_Renderer* renderer)
-{
-	SDL_Rect		obj;
-
-	obj.x = 190, obj.y = 30;
-	obj.w = 1280, obj.h = 720;
-
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderFillRect(renderer, &obj);
 }
 
 void	Paint::display(void)
 {
-	drawBackground(_mainWindow->getRenderer());
-	drawToolBoxes(_mainWindow->getRenderer());
+	SDL_Renderer*	renderer = _mainWindow->getRenderer();
 
-	drawTools(_mainWindow->getRenderer());
+	drawBackground(renderer);
 
-	drawMap(_mainWindow->getRenderer());
+	drawSaveCancel(renderer);
+	drawTools(renderer);
+	drawOptions(renderer);
+
+	drawColorTools(renderer);
+	drawColors(renderer);
+
+	drawMap(renderer);
 
 	_mainWindow->render();
+}
+
+bool	Paint::isOverZone(const int x, const int y)
+{
+	if (x >= 30 && x <= 160)
+	{
+		if (y >= 30 && y <= 95)
+			return (true);
+		
+		if (y >= 160 && y <= 355)
+			return (true);
+	}
+
+	if (x >= 30 && x <= 95 && y >= 390 && y <= 715)
+		return (true);
+
+	if (x >= 20 && x <= 85 && y >= 780 && y <= 870)
+		return (true);
+
+	if (x >= 115 && x <= 160 && y >= 780 && y <= 870)
+		return (true);
+
+	if (x >= 190 && x <= 240 && y >= 800 && y <= 850)
+		return (true);
+
+	return (false);
 }
 
 void	Paint::routine(void)
@@ -183,6 +79,17 @@ void	Paint::routine(void)
 			if (event.type == SDL_QUIT \
 				|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				return ;
+
+			int x = event.button.x;
+			int y = event.button.y;
+
+			if (x < 0 || x > _width || y < 0 || y > _height)
+				continue ;
+
+			if (isOverZone(x, y) == true)
+				SDL_SetCursor(_interactCursor);
+			else
+				SDL_SetCursor(_normalCursor);
 			
 			display();
 		}

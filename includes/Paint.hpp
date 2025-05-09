@@ -4,6 +4,7 @@
 # include "Global.hpp"
 # include "Windows.hpp"
 # include "Textures.hpp"
+# include "Colors.hpp"
 
 class Paint
 {
@@ -11,11 +12,21 @@ class Paint
 		Paint(void);
 		~Paint(void);
 
-		void	drawBackground(SDL_Renderer* renderer);
+		void	loadTextures(void);
+		void	initializeSDL(void);
 
-		void	drawToolBoxes(SDL_Renderer* renderer);
+		void	randomizeColors(void);
+		void	generateColors(void);
+
+		void	drawBackground(SDL_Renderer* renderer);
+		void	drawSaveCancel(SDL_Renderer* renderer);
 		void	drawTools(SDL_Renderer* renderer);
+		void	drawOptions(SDL_Renderer* renderer);
+		void	drawColorTools(SDL_Renderer* renderer);
+		void	drawColors(SDL_Renderer* renderer);
 		void	drawMap(SDL_Renderer* renderer);
+
+		bool	isOverZone(const int x, const int y);
 
 		void	display(void);
 		void	routine(void);
@@ -24,17 +35,22 @@ class Paint
 
 	private:
 
-		int				_width;
-		int				_height;
+		int					_width;
+		int					_height;
 
-		ClassicWindow*	_mainWindow;
+		Color				_currentColor;
+		std::vector<Color>	_colorsUp;
+		std::vector<Color>	_colorsDown;
 
-		Textures		_textures;
+		ClassicWindow*		_mainWindow;
 
-		SDL_Cursor*		_normalCursor;
-		SDL_Cursor*		_interactCursor;
+		ClassicWindow*		_saveWindow;
+		ClassicWindow*		_cancelWindow;
 
-		int				_theme;
+		Textures			_textures;
+
+		SDL_Cursor*			_normalCursor;
+		SDL_Cursor*			_interactCursor;
 };
 
 #endif

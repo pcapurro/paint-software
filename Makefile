@@ -8,6 +8,7 @@ NAME = paint-software
 
 SRCS = srcs/main.cpp \
 	srcs/Paint/Init.cpp \
+	srcs/Paint/Draw.cpp \
 	srcs/Paint/Paint.cpp \
 	srcs/Paint/Free.cpp \
 	srcs/Windows/Init.cpp \
