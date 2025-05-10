@@ -7,16 +7,17 @@
 NAME = paint-software
 
 SRCS = srcs/main.cpp \
-	srcs/Paint/Init.cpp \
-	srcs/Paint/Draw.cpp \
-	srcs/Paint/Paint.cpp \
-	srcs/Paint/Free.cpp \
-	srcs/Windows/Init.cpp \
-	srcs/Windows/Free.cpp \
+	srcs/Paint.cpp \
+	srcs/Windows/Window.cpp \
+	srcs/Windows/Software.cpp \
+	srcs/Windows/YesNo.cpp \
+	srcs/Windows/OkCancel.cpp \
+	srcs/Tools/Texture.cpp \
+	srcs/Tools/Tools.cpp \
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror -I includes/
+CXXFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/Tools -I includes/Windows
 
 SDLFLAG = -lSDL2
 

@@ -1,5 +1,5 @@
-#ifndef COLORS_HPP
-# define COLORS_HPP
+#ifndef COLOR_HPP
+# define COLOR_HPP
 
 struct Color
 {

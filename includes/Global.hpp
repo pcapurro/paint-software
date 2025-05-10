@@ -1,5 +1,5 @@
-#ifndef HEADER_HPP
-# define HEADER_HPP
+#ifndef GLOBAL_HPP
+# define GLOBAL_HPP
 
 # include <iostream>
 # include <string>
