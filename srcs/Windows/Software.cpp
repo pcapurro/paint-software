@@ -61,6 +61,11 @@ void	Software::generateColors(void)
 	}
 }
 
+void	Software::changeColor(Color newColor)
+{
+	_currentColor = newColor;
+}
+
 bool	Software::isOverZone(const int x, const int y) const
 {
 	if (x >= 30 && x <= 160)
@@ -279,6 +284,27 @@ void	Software::draw(void)
 	drawMap(renderer);
 }
 
+void	Software::reactEvent(SDL_Event* event, const int x, const int y)
+{
+	if (event->type == SDL_MOUSEBUTTONDOWN)
+	{
+		if (x >= 190 && x <= 240 && y >= 800 && y <= 850)
+			randomizeColors();
+
+		if (x >= 115 && x <= 160)
+		{
+			if (y > 780 && y < 825)
+				changeColor({0, 0, 0, 255});
+			if (y > 825 && y < 870)
+				changeColor({255, 255, 255, 255});
+		}
+	}
+	else
+	{
+		// ...
+	}
+}
+
 int		Software::waitForEvent(void)
 {
 	SDL_Event	event;
@@ -292,6 +318,8 @@ int		Software::waitForEvent(void)
 		int x = event.button.x;
 		int y = event.button.y;
 
+		std::cout << x << " ; " << y << std::endl;
+
 		if (x < 0 || x > getWidth() || y < 0 || y > getHeight())
 			return (0);
 
@@ -299,6 +327,10 @@ int		Software::waitForEvent(void)
 			SDL_SetCursor(getCursor(1));
 		else
 			SDL_SetCursor(getCursor(0));
+
+		if (event.type == SDL_MOUSEBUTTONDOWN \
+			|| event.type == SDL_MOUSEBUTTONUP)
+			reactEvent(&event, x, y);
 		
 		clear();
 		draw();

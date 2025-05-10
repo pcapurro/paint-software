@@ -14,6 +14,7 @@ class Software : public Window
 		void	loadTextures(void);
 
 		bool	isOverZone(const int x, const int y) const;
+		void	reactEvent(SDL_Event* event, const int x, const int y);
 
 		void	drawBackground(SDL_Renderer* renderer);
 		void	drawSaveCancel(SDL_Renderer* renderer);
@@ -27,6 +28,8 @@ class Software : public Window
 
 		void	randomizeColors(void);
 		void	generateColors(void);
+
+		void	changeColor(Color newColor);
 
 		int		waitForEvent(void);
 
