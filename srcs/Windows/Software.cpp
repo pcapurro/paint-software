@@ -11,6 +11,12 @@ void	Software::loadTextures(void)
 	int				value = 0;
 	SDL_Renderer*	renderer = getRenderer();
 
+	value += _icons.check.load("materials/check.bmp", renderer);
+	value += _icons.cancel.load("materials/cancel.bmp", renderer);
+
+	value += _icons.left.load("materials/left.bmp", renderer);
+	value += _icons.right.load("materials/right.bmp", renderer);
+
 	value += _icons.brush.load("materials/brush.bmp", renderer);
 	value += _icons.pencil.load("materials/pencil.bmp", renderer);
 
@@ -20,8 +26,8 @@ void	Software::loadTextures(void)
 	value += _icons.picker.load("materials/picker.bmp", renderer);
 	value += _icons.eraser.load("materials/eraser.bmp", renderer);
 
-	value += _icons.check.load("materials/check.bmp", renderer);
-	value += _icons.cancel.load("materials/cancel.bmp", renderer);
+	value += _icons.line.load("materials/line.bmp", renderer);
+	value += _icons.text.load("materials/text.bmp", renderer);
 
 	value += _icons.random.load("materials/random.bmp", renderer);
 	value += _icons.select.load("materials/select.bmp", renderer);
@@ -70,14 +76,14 @@ bool	Software::isOverZone(const int x, const int y) const
 {
 	if (x >= 30 && x <= 160)
 	{
-		if (y >= 30 && y <= 95)
+		if (y >= 30 && y <= 160)
 			return (true);
 		
-		if (y >= 160 && y <= 355)
+		if (y >= 226 && y <= 486)
 			return (true);
 	}
 
-	if (x >= 30 && x <= 95 && y >= 390 && y <= 715)
+	if (x >= 30 && x <= 95 && y >= 515 && y <= 715)
 		return (true);
 
 	if (x >= 20 && x <= 85 && y >= 780 && y <= 870)
@@ -110,17 +116,7 @@ void	Software::drawSaveCancel(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
 	obj.x = 30, obj.y = 30;
-	obj.w = 130, obj.h = 65;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 30, obj.y = 127;
-	obj.w = 130, obj.h = 4;
-
-	SDL_RenderFillRect(renderer, &obj);
-
-	obj.x = 30, obj.y = 160;
-	obj.w = 130, obj.h = 195;
+	obj.w = 130, obj.h = 130;
 
 	SDL_RenderFillRect(renderer, &obj);
 
@@ -131,31 +127,53 @@ void	Software::drawSaveCancel(SDL_Renderer* renderer)
 
 	obj.x = 95, obj.y = 30;
 	SDL_RenderCopy(renderer, _icons.cancel.getTexture(), NULL, &obj);
+
+	obj.x = 30, obj.y = 95;
+	SDL_RenderCopy(renderer, _icons.left.getTexture(), NULL, &obj);
+
+	obj.x = 95, obj.y = 95;
+	SDL_RenderCopy(renderer, _icons.right.getTexture(), NULL, &obj);
+
+	obj.x = 30, obj.y = 191;
+	obj.w = 130, obj.h = 4;
+
+	SDL_RenderFillRect(renderer, &obj);
 }
 
 void	Software::drawTools(SDL_Renderer* renderer)
 {
 	SDL_Rect	obj;
 
+	obj.x = 30, obj.y = 226;
+	obj.w = 130, obj.h = 260;
+
+	SDL_RenderFillRect(renderer, &obj);
+
 	obj.w = 65, obj.h = 65;
 
-	obj.x = 30, obj.y = 160;
+	obj.x = 30, obj.y = 226;
 	SDL_RenderCopy(renderer, _icons.brush.getTexture(), NULL, &obj);
 
-	obj.x = 95, obj.y = 160;
+	obj.x = 95, obj.y = 226;
 	SDL_RenderCopy(renderer, _icons.pencil.getTexture(), NULL, &obj);
 
-	obj.x = 30, obj.y = 225;
+	obj.x = 30, obj.y = 291;
 	SDL_RenderCopy(renderer, _icons.bucket.getTexture(), NULL, &obj);
 
-	obj.x = 95, obj.y = 225;
+	obj.x = 95, obj.y = 291;
 	SDL_RenderCopy(renderer, _icons.spray.getTexture(), NULL, &obj);
 
-	obj.x = 30, obj.y = 290;
+	obj.x = 30, obj.y = 356;
 	SDL_RenderCopy(renderer, _icons.eraser.getTexture(), NULL, &obj);
 
-	obj.x = 95, obj.y = 290;
+	obj.x = 95, obj.y = 356;
 	SDL_RenderCopy(renderer, _icons.picker.getTexture(), NULL, &obj);
+
+	obj.x = 30, obj.y = 421;
+	SDL_RenderCopy(renderer, _icons.line.getTexture(), NULL, &obj);
+
+	obj.x = 95, obj.y = 421;
+	SDL_RenderCopy(renderer, _icons.text.getTexture(), NULL, &obj);
 }
 
 void	Software::drawOptions(SDL_Renderer* renderer)
@@ -164,15 +182,15 @@ void	Software::drawOptions(SDL_Renderer* renderer)
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
-	obj.x = 30, obj.y = 390;
-	obj.w = 130, obj.h = 325;
+	obj.x = 30, obj.y = 515;
+	obj.w = 130, obj.h = 200;
 
 	SDL_RenderFillRect(renderer, &obj);
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-	obj.x = 34, obj.y = 394;
-	obj.w = 122, obj.h = 317;
+	obj.x = 34, obj.y = 519;
+	obj.w = 122, obj.h = 192;
 
 	SDL_RenderFillRect(renderer, &obj);
 

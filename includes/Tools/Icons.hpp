@@ -5,6 +5,12 @@
 
 struct Icons
 {
+	Texture check;
+	Texture cancel;
+
+	Texture	left;
+	Texture	right;
+
 	Texture	brush;
 	Texture	pencil;
 
@@ -14,8 +20,8 @@ struct Icons
 	Texture	eraser;
 	Texture	picker;
 
-	Texture check;
-	Texture cancel;
+	Texture line;
+	Texture text;
 
 	Texture select;
 	Texture random;
