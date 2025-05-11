@@ -16,9 +16,6 @@ class Paint
 
 		void	initializeSDL(void);
 
-		void	randomizeColors(void);
-		void	generateColors(void);
-
 		void	routine(void);
 
 	private:
