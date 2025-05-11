@@ -2,8 +2,22 @@
 
 Software::Software(const std::string name, const int width, const int height) : Window(name, width, height)
 {
+	loadFont();
 	loadTextures();
 	generateColors();
+}
+
+Software::~Software(void)
+{
+	if (_font != NULL && _font != nullptr)
+		TTF_CloseFont(_font);
+}
+
+void	Software::loadFont(void)
+{
+	_font = TTF_OpenFont("materials/font/OpenSans.ttf", 24);
+	if (_font == NULL)
+		throw std::runtime_error("SDL failed.");
 }
 
 void	Software::loadTextures(void)
@@ -11,26 +25,26 @@ void	Software::loadTextures(void)
 	int				value = 0;
 	SDL_Renderer*	renderer = getRenderer();
 
-	value += _icons.check.load("materials/check.bmp", renderer);
-	value += _icons.cancel.load("materials/cancel.bmp", renderer);
+	value += _icons.check.load("materials/icons/check.bmp", renderer);
+	value += _icons.cancel.load("materials/icons/cancel.bmp", renderer);
 
-	value += _icons.left.load("materials/left.bmp", renderer);
-	value += _icons.right.load("materials/right.bmp", renderer);
+	value += _icons.left.load("materials/icons/left.bmp", renderer);
+	value += _icons.right.load("materials/icons/right.bmp", renderer);
 
-	value += _icons.brush.load("materials/brush.bmp", renderer);
-	value += _icons.pencil.load("materials/pencil.bmp", renderer);
+	value += _icons.brush.load("materials/icons/brush.bmp", renderer);
+	value += _icons.pencil.load("materials/icons/pencil.bmp", renderer);
 
-	value += _icons.spray.load("materials/spray.bmp", renderer);
-	value += _icons.bucket.load("materials/bucket.bmp", renderer);
+	value += _icons.spray.load("materials/icons/spray.bmp", renderer);
+	value += _icons.bucket.load("materials/icons/bucket.bmp", renderer);
 
-	value += _icons.picker.load("materials/picker.bmp", renderer);
-	value += _icons.eraser.load("materials/eraser.bmp", renderer);
+	value += _icons.picker.load("materials/icons/picker.bmp", renderer);
+	value += _icons.eraser.load("materials/icons/eraser.bmp", renderer);
 
-	value += _icons.line.load("materials/line.bmp", renderer);
-	value += _icons.text.load("materials/text.bmp", renderer);
+	value += _icons.line.load("materials/icons/line.bmp", renderer);
+	value += _icons.text.load("materials/icons/text.bmp", renderer);
 
-	value += _icons.random.load("materials/random.bmp", renderer);
-	value += _icons.select.load("materials/select.bmp", renderer);
+	value += _icons.random.load("materials/icons/random.bmp", renderer);
+	value += _icons.select.load("materials/icons/select.bmp", renderer);
 
 	if (value != 0)
 		throw std::runtime_error("SDL failed.");

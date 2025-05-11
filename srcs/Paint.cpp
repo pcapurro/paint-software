@@ -12,6 +12,8 @@ Paint::~Paint(void)
 	if (_mainWindow != nullptr)
 		delete _mainWindow;
 
+	TTF_Quit();
+
 	SDL_Quit();
 }
 
@@ -23,6 +25,8 @@ void	Paint::initializeSDL(void)
 		throw std::runtime_error("SDL failed.");
 
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+
+	TTF_Init();
 }
 
 void	Paint::routine(void)

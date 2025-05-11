@@ -19,7 +19,7 @@ CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/Tools -I includes/Windows
 
-SDLFLAG = -lSDL2
+SDLFLAGS = -lSDL2 -lSDL2_ttf
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -28,7 +28,7 @@ OBJS = $(SRCS:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) $(SDLFLAG)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) $(SDLFLAGS)
 
 re: fclean all
 

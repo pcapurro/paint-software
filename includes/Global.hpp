@@ -19,6 +19,7 @@
 # include <unistd.h>
 
 # include <SDL2/SDL.h>
+# include <SDL2/SDL_ttf.h>
 
 using std::cout;
 using std::cerr;

@@ -9,8 +9,9 @@ class Software : public Window
 	public:
 
 		Software(const std::string name, const int width, const int height);
-		~Software(void) = default;
+		~Software(void);
 
+		void	loadFont(void);
 		void	loadTextures(void);
 
 		bool	isOverZone(const int x, const int y) const;
@@ -36,6 +37,8 @@ class Software : public Window
 	private:
 
 		Icons				_icons;
+
+		TTF_Font*			_font;
 
 		Color				_currentColor;
 		std::vector<Color>	_colorsUp;
