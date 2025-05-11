@@ -2,6 +2,9 @@
 
 Software::Software(const std::string name, const int width, const int height) : Window(name, width, height)
 {
+	_brushType = 2;
+	_opacity = 100;
+
 	loadFont();
 	loadTextures();
 	generateColors();
@@ -212,6 +215,35 @@ void	Software::drawOptions(SDL_Renderer* renderer)
 	obj.w = 130, obj.h = 4;
 
 	SDL_RenderFillRect(renderer, &obj);
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+
+	obj.w = 50, obj.h = 2;
+	obj.x = 95 + (65 / 2) - (obj.w / 2), obj.y = 519 + (24 - (obj.h / 2));
+
+	SDL_RenderFillRect(renderer, &obj);
+
+	obj.w = 50, obj.h = 4;
+	obj.x = 95 + (65 / 2) - (obj.w / 2), obj.y = 567 + (24 - (obj.h / 2));
+
+	SDL_RenderFillRect(renderer, &obj);
+
+	obj.w = 50, obj.h = 8;
+	obj.x = 95 + (65 / 2) - (obj.w / 2), obj.y = 615 + (24 - (obj.h / 2));
+
+	SDL_RenderFillRect(renderer, &obj);
+
+	obj.w = 32, obj.h = 32;
+	obj.x = 30 + 65 / 2 - (obj.w / 2);
+
+	if (_brushType == 1)
+		obj.y = 519 + (24 - (obj.h / 2));
+	else if (_brushType == 2)
+		obj.y = 567 + (24 - (obj.h / 2));
+	else if (_brushType == 3)
+		obj.y = 615 + (24 - (obj.h / 2));
+
+	SDL_RenderCopy(renderer, _icons.select.getTexture(), NULL, &obj);
 }
 
 void	Software::drawColorTools(SDL_Renderer* renderer)
@@ -329,6 +361,16 @@ void	Software::reactEvent(SDL_Event* event, const int x, const int y)
 				changeColor({0, 0, 0, 255});
 			if (y > 825 && y < 870)
 				changeColor({255, 255, 255, 255});
+		}
+
+		if (x >= 30 && x <= 95)
+		{
+			if (y >= 519 && y <= 567)
+				_brushType = 1;
+			if (y >= 567 && y <= 615)
+				_brushType = 2;
+			if (y >= 615 && y <= 663)
+				_brushType = 3;
 		}
 	}
 	else

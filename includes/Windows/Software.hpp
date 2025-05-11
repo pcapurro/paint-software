@@ -40,6 +40,9 @@ class Software : public Window
 
 		TTF_Font*			_font;
 
+		int					_brushType;
+		int					_opacity;
+
 		Color				_currentColor;
 		std::vector<Color>	_colorsUp;
 		std::vector<Color>	_colorsDown;
