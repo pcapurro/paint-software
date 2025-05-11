@@ -2,8 +2,13 @@
 
 Software::Software(const std::string name, const int width, const int height) : Window(name, width, height)
 {
+	_x = 0;
+	_y = 0;
+
 	_brushType = 2;
 	_opacity = 100;
+
+	_highlight = false;
 
 	loadFont();
 	loadTextures();
@@ -89,28 +94,14 @@ void	Software::changeColor(Color newColor)
 	_currentColor = newColor;
 }
 
-bool	Software::isOverZone(const int x, const int y) const
+bool	Software::isOverZone(void) const
 {
-	if (x >= 30 && x <= 160)
-	{
-		if (y >= 30 && y <= 160)
-			return (true);
-		
-		if (y >= 226 && y <= 486)
-			return (true);
-	}
-
-	if (x >= 30 && x <= 95 && y >= 515 && y <= 715)
-		return (true);
-
-	if (x >= 20 && x <= 85 && y >= 780 && y <= 870)
-		return (true);
-
-	if (x >= 115 && x <= 160 && y >= 780 && y <= 870)
-		return (true);
-
-	if (x >= 190 && x <= 240 && y >= 800 && y <= 850)
-		return (true);
+	// for (unsigned int i = 0; i != _boxes.size(); i++)
+	// {
+	// 	if (_x >= _boxes.at(i).x && _x <= _boxes.at(i).x + _boxes.at(i).w
+	// 		&& _y >= _boxes.at(i).y && _y <= _boxes.at(i).y + _boxes.at(i).h)
+	// 		return (true);
+	// }
 
 	return (false);
 }
@@ -142,19 +133,29 @@ void	Software::drawSaveCancel(SDL_Renderer* renderer)
 	obj.x = 30, obj.y = 30;
 	SDL_RenderCopy(renderer, _icons.check.getTexture(), NULL, &obj);
 
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
+
 	obj.x = 95, obj.y = 30;
 	SDL_RenderCopy(renderer, _icons.cancel.getTexture(), NULL, &obj);
+
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
 
 	obj.x = 30, obj.y = 95;
 	SDL_RenderCopy(renderer, _icons.left.getTexture(), NULL, &obj);
 
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
+
 	obj.x = 95, obj.y = 95;
 	SDL_RenderCopy(renderer, _icons.right.getTexture(), NULL, &obj);
+
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
 
 	obj.x = 30, obj.y = 191;
 	obj.w = 130, obj.h = 4;
 
 	SDL_RenderFillRect(renderer, &obj);
+
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
 }
 
 void	Software::drawTools(SDL_Renderer* renderer)
@@ -171,26 +172,42 @@ void	Software::drawTools(SDL_Renderer* renderer)
 	obj.x = 30, obj.y = 226;
 	SDL_RenderCopy(renderer, _icons.brush.getTexture(), NULL, &obj);
 
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
+
 	obj.x = 95, obj.y = 226;
 	SDL_RenderCopy(renderer, _icons.pencil.getTexture(), NULL, &obj);
+
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
 
 	obj.x = 30, obj.y = 291;
 	SDL_RenderCopy(renderer, _icons.bucket.getTexture(), NULL, &obj);
 
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
+
 	obj.x = 95, obj.y = 291;
 	SDL_RenderCopy(renderer, _icons.spray.getTexture(), NULL, &obj);
+
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
 
 	obj.x = 30, obj.y = 356;
 	SDL_RenderCopy(renderer, _icons.eraser.getTexture(), NULL, &obj);
 
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
+
 	obj.x = 95, obj.y = 356;
 	SDL_RenderCopy(renderer, _icons.picker.getTexture(), NULL, &obj);
+
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
 
 	obj.x = 30, obj.y = 421;
 	SDL_RenderCopy(renderer, _icons.line.getTexture(), NULL, &obj);
 
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
+
 	obj.x = 95, obj.y = 421;
 	SDL_RenderCopy(renderer, _icons.text.getTexture(), NULL, &obj);
+
+	// _boxes.push_back({obj.x, obj.y, obj.w, obj.h});
 }
 
 void	Software::drawOptions(SDL_Renderer* renderer)
@@ -244,6 +261,10 @@ void	Software::drawOptions(SDL_Renderer* renderer)
 		obj.y = 615 + (24 - (obj.h / 2));
 
 	SDL_RenderCopy(renderer, _icons.select.getTexture(), NULL, &obj);
+
+	// _boxes.push_back({obj.x, 519 + (24 - (obj.h / 2)), obj.w, obj.h});
+	// _boxes.push_back({obj.x, 567 + (24 - (obj.h / 2)), obj.w, obj.h});
+	// _boxes.push_back({obj.x, obj.y = 615 + (24 - (obj.h / 2)), obj.w, obj.h});
 }
 
 void	Software::drawColorTools(SDL_Renderer* renderer)
@@ -321,6 +342,29 @@ void	Software::drawColors(SDL_Renderer* renderer)
 	}
 }
 
+void	Software::drawHighlight(SDL_Renderer* renderer)
+{
+	SDL_Rect	obj;
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 121);
+
+	if (_y < 750)
+		obj.w = 65, obj.h = 65;
+	else
+	{
+		if (_x <= 95)
+			obj.w = 65, obj.h = 90;
+		else if (_x >= 115 && _x <= 160)
+			obj.w = 45, obj.h = 45;
+		else if (_x >= 194 && _x <= 236)
+			obj.w = 44, obj.h = 44;
+		else
+			obj.w = 61, obj.h = 45;
+	}
+
+	SDL_RenderFillRect(renderer, &obj);
+}
+
 void	Software::drawMap(SDL_Renderer* renderer)
 {
 	SDL_Rect	obj;
@@ -344,6 +388,9 @@ void	Software::draw(void)
 
 	drawColorTools(renderer);
 	drawColors(renderer);
+
+	if (_highlight == true)
+		drawHighlight(renderer);
 
 	drawMap(renderer);
 }
@@ -389,22 +436,22 @@ int		Software::waitForEvent(void)
 			|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 			return (-1);
 
-		int x = event.button.x;
-		int y = event.button.y;
+		_x = event.button.x;
+		_y = event.button.y;
 
-		std::cout << x << " ; " << y << std::endl;
-
-		if (x < 0 || x > getWidth() || y < 0 || y > getHeight())
+		if (_x < 0 || _x > getWidth() || _y < 0 || _y > getHeight())
 			return (0);
 
-		if (isOverZone(x, y) == true)
-			SDL_SetCursor(getCursor(1));
+		std::cout << _x << " ; " << _y << std::endl;
+
+		if (isOverZone() == true)
+			SDL_SetCursor(getCursor(1)), _highlight = true;
 		else
-			SDL_SetCursor(getCursor(0));
+			SDL_SetCursor(getCursor(0)), _highlight = false;
 
 		if (event.type == SDL_MOUSEBUTTONDOWN \
 			|| event.type == SDL_MOUSEBUTTONUP)
-			reactEvent(&event, x, y);
+			reactEvent(&event, _x, _y);
 		
 		clear();
 		draw();

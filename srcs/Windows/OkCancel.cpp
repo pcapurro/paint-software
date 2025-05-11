@@ -21,7 +21,7 @@ int	OkCancel::waitForEvent(void)
 		if (x < 0 || x > getWidth() || y < 0 || y > getHeight())
 			return (0);
 
-		if (isOverZone(x, y) == true)
+		if (isOverZone() == true)
 			SDL_SetCursor(getCursor(1));
 		else
 			SDL_SetCursor(getCursor(0));

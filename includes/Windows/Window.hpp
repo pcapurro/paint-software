@@ -19,7 +19,7 @@ class Window
 		virtual void	loadTextures(void) = 0;
 
 		virtual void	reactEvent(SDL_Event* event, const int x, const int y) = 0;
-		virtual bool	isOverZone(const int x, const int y) const = 0;
+		virtual bool	isOverZone(void) const = 0;
 
 		void			render(void);
 		void			clear(void);
