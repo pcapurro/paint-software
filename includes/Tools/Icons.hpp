@@ -25,6 +25,11 @@ struct Icons
 
 	Texture select;
 	Texture random;
+
+	Texture	r;
+	Texture	g;
+	Texture	b;
+	Texture	a;
 };
 
 typedef struct Icons Icons;

@@ -19,7 +19,7 @@ class Window
 		virtual void	loadTextures(void) = 0;
 
 		virtual void	reactEvent(SDL_Event* event) = 0;
-		virtual bool	isOverZone(void) const = 0;
+		virtual int		isOverZone(void) const = 0;
 
 		void			render(void);
 		void			clear(void);
@@ -41,6 +41,8 @@ class Window
 
 		SDL_Cursor*			_normalCursor;
 		SDL_Cursor*			_interactCursor;
+		SDL_Cursor*			_crossHairCursor;
+		SDL_Cursor*			_textCursor;
 };
 
 #endif

@@ -19,8 +19,11 @@ Window::Window(const std::string name, const int width, const int height)
 
 	_normalCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	_interactCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+	_crossHairCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+	_textCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_IBEAM);
 
-	if (_normalCursor == NULL || _interactCursor == NULL)
+	if (_normalCursor == NULL || _interactCursor == NULL \
+		|| _crossHairCursor == NULL || _textCursor == NULL)
 		throw std::runtime_error("SDL failed.");
 }
 
@@ -30,6 +33,10 @@ Window::~Window(void)
 		SDL_FreeCursor(_normalCursor);
 	if (_interactCursor != nullptr && _interactCursor != NULL)
 		SDL_FreeCursor(_interactCursor);
+	if (_crossHairCursor != nullptr && _interactCursor != NULL)
+		SDL_FreeCursor(_crossHairCursor);
+	if (_textCursor != nullptr && _textCursor != NULL)
+		SDL_FreeCursor(_crossHairCursor);
 
 	if (_mainRenderer != nullptr && _mainRenderer != NULL)
 		SDL_DestroyRenderer(_mainRenderer);
@@ -68,6 +75,10 @@ SDL_Cursor*		Window::getCursor(const int value) const
 		return (_normalCursor);
 	if (value == 1)
 		return (_interactCursor);
+	if (value == 2)
+		return (_crossHairCursor);
+	if (value == 3)
+		return (_textCursor);
 
 	return (nullptr);
 }

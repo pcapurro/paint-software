@@ -27,7 +27,12 @@
 # define BLACK 17
 # define WHITE 18
 
-# define RANDOM 19
+# define R 19
+# define G 20
+# define B 21
+# define A 22
+
+# define RANDOM 254
 # define COLORS 255
 
 class Software : public Window
@@ -40,7 +45,7 @@ class Software : public Window
 		void	loadFont(void);
 		void	loadTextures(void);
 
-		bool	isOverZone(void) const;
+		int		isOverZone(void) const;
 		void	reactEvent(SDL_Event* event);
 
 		void	generateElements(void);

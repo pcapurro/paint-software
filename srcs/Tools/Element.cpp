@@ -2,7 +2,7 @@
 
 Element::Element(const int x, const int y, const int w, const int h, \
 	SDL_Texture* texture, Color color, const int type, const bool highlight, \
-	const bool visibility)
+	const int highlightValue, const bool visibility)
 {
 	_x = x;
 	_y = y;
@@ -13,6 +13,7 @@ Element::Element(const int x, const int y, const int w, const int h, \
 	_type = type;
 
 	_highlight = highlight;
+	_highlightValue = highlightValue;
 	_visibility = visibility;
 
 	_texture = texture;

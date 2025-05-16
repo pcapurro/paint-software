@@ -38,7 +38,7 @@ void	Software::generateElements(void)
 
 	_elements.push_back(Element(30, 30, 130, 130, NULL, {255, 255, 255, 255}));
 
-	_elements.push_back(Element(30, 30, 65, 65, _icons.check.getTexture(), {255, 255, 255, 255}, CHECK, true));
+	_elements.push_back(Element(30, 30, 65, 65, _icons.check.getTexture(), {255, 255, 255, 255}, CHECK));
 	_elements.push_back(Element(95, 30, 65, 65, _icons.cancel.getTexture(), {255, 255, 255, 255}, CANCEL, true));
 
 	_elements.push_back(Element(30, 95, 65, 65, _icons.left.getTexture(), {255, 255, 255, 255}, LEFT, true));
@@ -82,30 +82,52 @@ void	Software::generateElements(void)
 	_elements.push_back(Element(95 + (65 / 2) - (w / 2), 615 + (24 - (h / 2)), w, h, NULL, {0, 0, 0, 255}));
 
 	w = 32, h = 32;
-	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 519 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_A, true, false));
-	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 567 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_B, true, true));
-	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 615 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_C, true, false));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 519 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_A, true, 1, false));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 567 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_B, true, 1, true));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 615 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_C, true, 1, false));
 
 	// colors tools
 
 	_elements.push_back(Element(115, 780, 45, 45, NULL, {0, 0, 0, 255}, BLACK, true));
 	_elements.push_back(Element(115, 825, 45, 45, NULL, {255, 255, 255, 255}, WHITE, true));
 
-	_elements.push_back(Element(190, 800, 50, 50, NULL, {0, 0, 0, 255}));
-	_elements.push_back(Element(194, 804, 42, 42, NULL, {255, 255, 255, 255}));
+	_elements.push_back(Element(375, 800, 50, 50, NULL, {0, 0, 0, 255}));
+	_elements.push_back(Element(379, 804, 42, 42, NULL, {255, 255, 255, 255}));
 
 	w = 44, h = 44;
-	_elements.push_back(Element(215 - w / 2, 825 - h / 2, w, h, _icons.random.getTexture(), {255, 255, 255, 255}, RANDOM, true));
+	_elements.push_back(Element(400 - (w / 2), 825 - (h / 2), w, h, _icons.random.getTexture(), {255, 255, 255, 255}, RANDOM, true));
+
+	// rgba
+
+	h = 25;
+
+	_elements.push_back(Element(190, 792, w, h, NULL, {0, 0, 0, 255}, R, true, 3));
+	_elements.push_back(Element(192, 794, w - 4, h - 4, NULL, {255, 255, 255, 255}, R, false));
+
+	_elements.push_back(Element(244, 792, w, h, NULL, {0, 0, 0, 255}, G, true, 3));
+	_elements.push_back(Element(246, 794, w - 4, h - 4, NULL, {255, 255, 255, 255}, G, false));
+
+	_elements.push_back(Element(298, 792, w, h, NULL, {0, 0, 0, 255}, B, true, 3));
+	_elements.push_back(Element(300, 794, w - 4, h - 4, NULL, {255, 255, 255, 255}, B, false));
+
+	_elements.push_back(Element(244, 842, w, h, NULL, {0, 0, 0, 255}, A, true, 3));
+	_elements.push_back(Element(246, 844, w - 4, h - 4, NULL, {255, 255, 255, 255}, A, false));
+
+	w = 18;
+	_elements.push_back(Element(203, 768, 18, 25, _icons.r.getTexture(), {0, 0, 0, 255}, R, false));
+	_elements.push_back(Element(257, 768, 18, 25, _icons.g.getTexture(), {0, 0, 0, 255}, G, false));
+	_elements.push_back(Element(311, 768, 18, 25, _icons.b.getTexture(), {0, 0, 0, 255}, B, false));
+	_elements.push_back(Element(257, 818, 18, 25, _icons.a.getTexture(), {0, 0, 0, 255}, A, false));
 
 	// colors
 
 	int x = 0;
 	int y = 0;
 
-	x = 250, y = 780;
+	x = 433, y = 780;
 	w = 61, h = 45;
 
-	for (int i = 0; i != 20; i++)
+	for (int i = 0; i != 17; i++)
 	{
 		_elements.push_back({x, y, w, h, NULL, {getRandomNumber() % 256, \
 			getRandomNumber() % 256, getRandomNumber() % 256, 255}, COLORS, true});
@@ -130,26 +152,31 @@ void	Software::loadTextures(void)
 	int				value = 0;
 	SDL_Renderer*	renderer = getRenderer();
 
-	value += _icons.check.load("materials/icons/check.bmp", renderer);
-	value += _icons.cancel.load("materials/icons/cancel.bmp", renderer);
+	value += _icons.check.loadTexture("materials/icons/check.bmp", renderer);
+	value += _icons.cancel.loadTexture("materials/icons/cancel.bmp", renderer);
 
-	value += _icons.left.load("materials/icons/left.bmp", renderer);
-	value += _icons.right.load("materials/icons/right.bmp", renderer);
+	value += _icons.left.loadTexture("materials/icons/left.bmp", renderer);
+	value += _icons.right.loadTexture("materials/icons/right.bmp", renderer);
 
-	value += _icons.brush.load("materials/icons/brush.bmp", renderer);
-	value += _icons.pencil.load("materials/icons/pencil.bmp", renderer);
+	value += _icons.brush.loadTexture("materials/icons/brush.bmp", renderer);
+	value += _icons.pencil.loadTexture("materials/icons/pencil.bmp", renderer);
 
-	value += _icons.spray.load("materials/icons/spray.bmp", renderer);
-	value += _icons.bucket.load("materials/icons/bucket.bmp", renderer);
+	value += _icons.spray.loadTexture("materials/icons/spray.bmp", renderer);
+	value += _icons.bucket.loadTexture("materials/icons/bucket.bmp", renderer);
 
-	value += _icons.picker.load("materials/icons/picker.bmp", renderer);
-	value += _icons.eraser.load("materials/icons/eraser.bmp", renderer);
+	value += _icons.picker.loadTexture("materials/icons/picker.bmp", renderer);
+	value += _icons.eraser.loadTexture("materials/icons/eraser.bmp", renderer);
 
-	value += _icons.line.load("materials/icons/line.bmp", renderer);
-	value += _icons.text.load("materials/icons/text.bmp", renderer);
+	value += _icons.line.loadTexture("materials/icons/line.bmp", renderer);
+	value += _icons.text.loadTexture("materials/icons/text.bmp", renderer);
 
-	value += _icons.random.load("materials/icons/random.bmp", renderer);
-	value += _icons.select.load("materials/icons/select.bmp", renderer);
+	value += _icons.random.loadTexture("materials/icons/random.bmp", renderer);
+	value += _icons.select.loadTexture("materials/icons/select.bmp", renderer);
+
+	value += _icons.r.loadText("R", _font, {255, 255, 255, 255}, renderer);
+	value += _icons.g.loadText("G", _font, {255, 255, 255, 255}, renderer);
+	value += _icons.b.loadText("B", _font, {255, 255, 255, 255}, renderer);
+	value += _icons.a.loadText("A", _font, {255, 255, 255, 255}, renderer);
 
 	if (value != 0)
 		throw std::runtime_error("SDL failed.");
@@ -172,14 +199,15 @@ void	Software::changeColor(Color newColor)
 	_currentColor->setColor(newColor);
 }
 
-bool	Software::isOverZone(void) const
+int	Software::isOverZone(void) const
 {
 	for (unsigned int i = 0; i != _elements.size(); i++)
 	{
 		if (_elements.at(i).isAbove(_x, _y) == true)
-			return (true);
+			return (_elements.at(i).getHighlight());
 	}
-	return (false);
+
+	return (0);
 }
 
 void	Software::drawBackground(SDL_Renderer* renderer)
@@ -334,8 +362,10 @@ int		Software::waitForEvent(void)
 
 		std::cout << _x << " ; " << _y << std::endl;
 
-		if (isOverZone() == true)
-			SDL_SetCursor(getCursor(1)), _highlight = true;
+		int value = isOverZone();
+
+		if (value != 0)
+			SDL_SetCursor(getCursor(value)), _highlight = true;
 		else
 			SDL_SetCursor(getCursor(0)), _highlight = false;
 
