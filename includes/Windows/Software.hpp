@@ -22,15 +22,16 @@
 # define BRUSH_A 13
 # define BRUSH_B 14
 # define BRUSH_C 15
+# define BRUSH_D 16
 
-# define COLOR 16
-# define BLACK 17
-# define WHITE 18
+# define COLOR 17
+# define BLACK 18
+# define WHITE 19
 
-# define R 19
-# define G 20
-# define B 21
-# define A 22
+# define R 20
+# define G 21
+# define B 22
+# define A 23
 
 # define RANDOM 254
 # define COLORS 255

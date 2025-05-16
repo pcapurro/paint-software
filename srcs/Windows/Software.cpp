@@ -72,19 +72,23 @@ void	Software::generateElements(void)
 	int w = 0;
 	int h = 0;
 
-	w = 50, h = 2;
+	w = 50, h = 1;
 	_elements.push_back(Element(95 + (65 / 2) - (w / 2), 519 + (24 - (h / 2)), w, h, NULL, {0, 0, 0, 255}));
 
+	w = 50, h = 2;
+	_elements.push_back(Element(95 + (65 / 2) - (w / 2), 551 + (24 - (h / 2)), w, h, NULL, {0, 0, 0, 255}));
+
 	w = 50, h = 4;
-	_elements.push_back(Element(95 + (65 / 2) - (w / 2), 567 + (24 - (h / 2)), w, h, NULL, {0, 0, 0, 255}));
+	_elements.push_back(Element(95 + (65 / 2) - (w / 2), 583 + (24 - (h / 2)), w, h, NULL, {0, 0, 0, 255}));
 
 	w = 50, h = 8;
 	_elements.push_back(Element(95 + (65 / 2) - (w / 2), 615 + (24 - (h / 2)), w, h, NULL, {0, 0, 0, 255}));
 
 	w = 32, h = 32;
 	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 519 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_A, true, 1, false));
-	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 567 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_B, true, 1, true));
-	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 615 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_C, true, 1, false));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 551 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_B, true, 1, true));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 583 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_C, true, 1, false));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 615 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_D, true, 1, false));
 
 	// colors tools
 
@@ -226,6 +230,7 @@ void	Software::setOption(void)
 	Element*	element1 = NULL;
 	Element*	element2 = NULL;
 	Element*	element3 = NULL;
+	Element*	element4 = NULL;
 
 	for (unsigned int i = 0; i != _elements.size(); i++)
 	{
@@ -237,12 +242,15 @@ void	Software::setOption(void)
 				element2 = &_elements.at(i);
 			else if (element3 == NULL)
 				element3 = &_elements.at(i);
+			else if (element4 == NULL)
+				element4 = &_elements.at(i);
 		}
 	}
 
 	element1->setVisibility(false);
 	element2->setVisibility(false);
 	element3->setVisibility(false);
+	element4->setVisibility(false);
 
 	if (_brushType == 1)
 		element1->setVisibility(true);
@@ -250,6 +258,8 @@ void	Software::setOption(void)
 		element2->setVisibility(true);
 	else if (_brushType == 3)
 		element3->setVisibility(true);
+	else if (_brushType == 4)
+		element4->setVisibility(true);
 }
 
 void	Software::drawHighlight(SDL_Renderer* renderer)
@@ -337,6 +347,8 @@ void	Software::reactEvent(SDL_Event* event)
 				_brushType = 2, setOption();
 			if (type == BRUSH_C)
 				_brushType = 3, setOption();
+			if (type == BRUSH_D)
+				_brushType = 4, setOption();
 
 			if (type == COLORS)
 				changeColor(element->getColor());
