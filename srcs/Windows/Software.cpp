@@ -90,6 +90,15 @@ void	Software::generateElements(void)
 	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 583 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_C, true, 1, false));
 	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 615 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_D, true, 1, false));
 
+	w = 100, h = 4;
+	_elements.push_back(Element(45, 690, w, h, NULL, {0, 0, 0, 255}));
+
+	w = 10, h = 10;
+	_elements.push_back(Element(70 - w, 692 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_A, true, 1, false));
+	_elements.push_back(Element(95 - w, 692 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_B, true, 1, false));
+	_elements.push_back(Element(120 - w, 692 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_C, true, 1, false));
+	_elements.push_back(Element(145 - w, 692 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_D, true, 1, true));
+
 	// colors tools
 
 	_elements.push_back(Element(115, 780, 45, 45, NULL, {0, 0, 0, 255}, BLACK, true));
@@ -201,6 +210,44 @@ void	Software::randomizeColors(void)
 void	Software::changeColor(Color newColor)
 {
 	_currentColor->setColor(newColor);
+	_currentColor->setOpacity(_opacity);
+}
+
+void	Software::setOpacity(void)
+{
+	Element*	element1 = NULL;
+	Element*	element2 = NULL;
+	Element*	element3 = NULL;
+	Element*	element4 = NULL;
+
+	for (unsigned int i = 0; i != _elements.size(); i++)
+	{
+		if (_elements.at(i).getType() >= OP_A && _elements.at(i).getType() <= OP_D)
+		{
+			if (element1 == NULL)
+				element1 = &_elements.at(i);
+			else if (element2 == NULL)
+				element2 = &_elements.at(i);
+			else if (element3 == NULL)
+				element3 = &_elements.at(i);
+			else if (element4 == NULL)
+				element4 = &_elements.at(i);
+		}
+	}
+
+	element1->setVisibility(false);
+	element2->setVisibility(false);
+	element3->setVisibility(false);
+	element4->setVisibility(false);
+
+	if (_opacity <= 63)
+		element1->setVisibility(true);
+	else if (_opacity <= 127)
+		element2->setVisibility(true);
+	else if (_opacity <= 191)
+		element3->setVisibility(true);
+	else if (_opacity <= 255)
+		element4->setVisibility(true);
 }
 
 void	Software::setOption(void)
@@ -315,14 +362,33 @@ void	Software::reactEvent(SDL_Event* event)
 			if (type == WHITE)
 				changeColor({255, 255, 255, 255});
 
-			if (type == BRUSH_A)
-				_brushType = 1, setOption();
-			if (type == BRUSH_B)
-				_brushType = 2, setOption();
-			if (type == BRUSH_C)
-				_brushType = 3, setOption();
-			if (type == BRUSH_D)
-				_brushType = 4, setOption();
+			if (type >= BRUSH_A && type <= BRUSH_D)
+			{
+				if (type == BRUSH_A)
+					_brushType = 1;
+				if (type == BRUSH_B)
+					_brushType = 2;
+				if (type == BRUSH_C)
+					_brushType = 3;
+				if (type == BRUSH_D)
+					_brushType = 4;
+
+				setOption();
+			}
+
+			if (type >= OP_A && type <= OP_D)
+			{
+				if (type == OP_A)
+					_opacity = 63;
+				if (type == OP_B)
+					_opacity = 127;
+				if (type == OP_C)
+					_opacity = 191;
+				if (type == OP_D)
+					_opacity = 255;
+	
+				setOpacity();
+			}
 
 			if (type == COLORS)
 				changeColor(element->getColor());

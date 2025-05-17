@@ -24,14 +24,19 @@
 # define BRUSH_C 15
 # define BRUSH_D 16
 
-# define COLOR 17
-# define BLACK 18
-# define WHITE 19
+# define OP_A 17
+# define OP_B 18
+# define OP_C 19
+# define OP_D 20
 
-# define R 20
-# define G 21
-# define B 22
-# define A 23
+# define COLOR 21
+# define BLACK 22
+# define WHITE 23
+
+# define R 24
+# define G 25
+# define B 26
+# define A 27
 
 # define RANDOM 254
 # define COLORS 255
@@ -50,6 +55,7 @@ class Software final : public Window
 		void	generateElements(void);
 
 		void	setOption(void);
+		void	setOpacity(void);
 	
 		void	drawHighlight(SDL_Renderer* renderer);
 		void	drawMap(SDL_Renderer* renderer);

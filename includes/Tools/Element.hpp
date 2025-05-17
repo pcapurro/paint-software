@@ -26,6 +26,7 @@ class Element
 
 		void			setVisibility(const bool value) { _visibility = value; };
 		void			setColor(Color color) { _color = color; };
+		void			setOpacity(const int opacity) { _color.a = opacity; };
 
 		void			draw(SDL_Renderer* renderer);
 		bool			isAbove(int x, int y) const;
