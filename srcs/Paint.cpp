@@ -5,7 +5,7 @@ Paint::Paint(void)
 	initializeSDL();
 
 	_mainWindow = new Software("🎨 paint-software / Edit an image", 1500, 900);
-	_otherWindow = new Ok("🎨 paint-software / Welcome");
+	_otherWindow = new Ok("🎨 paint-software / Welcome", "Welcome to paint-software\nProject made by pcapurro\nGithub: https://github.com/pcapurro");
 
 	_mainWindow->clear();
 	_mainWindow->draw();

@@ -36,7 +36,7 @@
 # define RANDOM 254
 # define COLORS 255
 
-class Software : public Window
+class Software final : public Window
 {
 	public:
 
@@ -64,9 +64,6 @@ class Software : public Window
 		Icons					_icons;
 		TTF_Font*				_font;
 
-		int						_x;
-		int						_y;
-
 		int						_frameW;
 		int						_frameH;
 
@@ -76,7 +73,6 @@ class Software : public Window
 		bool					_highlight;
 
 		Element*				_currentColor;
-
 		std::vector<Element>	_elements;
 };
 

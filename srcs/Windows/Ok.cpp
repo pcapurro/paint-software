@@ -1,9 +1,11 @@
 #include "Ok.hpp"
 
-Ok::Ok(const std::string name) : Window(name, 400, 200)
+Ok::Ok(const std::string name, const std::string text) : Window(name, 400, 200)
 {
-	_x = 0;
-	_y = 0;
+	_text = text;
+
+	setX(0);
+	setY(0);
 
 	_state = 0;
 
@@ -36,11 +38,12 @@ void	Ok::draw(void)
 
 void	Ok::reactEvent(SDL_Event* event)
 {
+	int			x = getX(), y = getY();
 	Element*	element = NULL;
 
 	for (unsigned int i = 0; i != _elements.size(); i++)
 	{
-		if (_elements.at(i).isAbove(_x, _y) == true)
+		if (_elements.at(i).isAbove(x, y) == true)
 			element = &_elements.at(i);
 	}
 
@@ -55,24 +58,29 @@ void	Ok::reactEvent(SDL_Event* event)
 
 int	Ok::waitForEvent(void)
 {
+	int			x = 0, y = 0;
 	SDL_Event	event;
 
 	if (SDL_PollEvent(&event) == true)
 	{
-		if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) \
-			|| event.type == SDL_QUIT || event.window.event == SDL_WINDOWEVENT_CLOSE \
+		if (event.type == SDL_QUIT || event.window.event == SDL_WINDOWEVENT_CLOSE \
+			|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) \
+			|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_KP_ENTER) \
 			|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 			return (2);
 
-		int x = event.button.x;
-		int y = event.button.y;
+		x = event.button.x;
+		y = event.button.y;
 
 		if (x < 0 || x > getWidth() || y < 0 || y > getHeight())
 			return (0);
+		else
+			setX(x), setY(y);
 
-		// std::cout << _x << " ; " << _y << std::endl;
+		// cout << event.button.x << " ; " << event.button.y << endl;
+		// cout << x << " ; " << y << endl;
 
-		int value = isOverZone(&_elements, _x, _y);
+		int value = isOverZone(&_elements, x, y);
 
 		if (value != 0)
 			SDL_SetCursor(getCursor(value));

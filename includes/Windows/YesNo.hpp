@@ -6,10 +6,10 @@
 # define YES 1
 # define NO 2
 
-class YesNo : public Window
+class YesNo final : public Window
 {
 	public:
-		YesNo(const std::string name);
+		YesNo(const std::string name, const std::string text);
 		~YesNo(void) = default;
 
 		int		waitForEvent(void);
@@ -23,10 +23,8 @@ class YesNo : public Window
 	private:
 		TTF_Font*				_font;
 
+		std::string				_text;
 		std::vector<Element>	_elements;
-
-		int						_x;
-		int						_y;
 
 		int						_state;
 

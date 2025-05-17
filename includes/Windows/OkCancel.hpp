@@ -6,10 +6,10 @@
 # define OK 1
 # define CANCEL 2
 
-class OkCancel : public Window
+class OkCancel final : public Window
 {
 	public:
-		OkCancel(const std::string name);
+		OkCancel(const std::string name, const std::string text);
 		~OkCancel(void) = default;
 
 		int		waitForEvent(void);
@@ -23,10 +23,8 @@ class OkCancel : public Window
 	private:
 		TTF_Font*				_font;
 
+		std::string				_text;
 		std::vector<Element>	_elements;
-
-		int						_x;
-		int						_y;
 
 		int						_state;
 

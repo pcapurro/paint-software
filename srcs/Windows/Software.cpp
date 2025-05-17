@@ -2,8 +2,8 @@
 
 Software::Software(const std::string name, const int width, const int height) : Window(name, width, height)
 {
-	_x = 0;
-	_y = 0;
+	setX(0);
+	setY(0);
 
 	_brushType = 2;
 	_opacity = 100;
@@ -242,13 +242,14 @@ void	Software::setOption(void)
 
 void	Software::drawHighlight(SDL_Renderer* renderer)
 {
+	int			x = getX(), y = getY();
 	SDL_Rect	obj;
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 121);
 
 	for (unsigned int i = 0; i != _elements.size(); i++)
 	{
-		if (_elements.at(i).isAbove(_x, _y) == true)
+		if (_elements.at(i).isAbove(x, y) == true)
 		{
 			obj.x = _elements.at(i).getX();
 			obj.y = _elements.at(i).getY();
@@ -289,11 +290,12 @@ void	Software::draw(void)
 
 void	Software::reactEvent(SDL_Event* event)
 {
+	int			x = getX(), y = getY();
 	Element*	element = NULL;
 
 	for (unsigned int i = 0; i != _elements.size(); i++)
 	{
-		if (_elements.at(i).isAbove(_x, _y) == true)
+		if (_elements.at(i).isAbove(x, y) == true)
 			element = &_elements.at(i);
 	}
 
@@ -330,6 +332,7 @@ void	Software::reactEvent(SDL_Event* event)
 
 int		Software::waitForEvent(void)
 {
+	int			x = 0, y = 0;
 	SDL_Event	event;
 
 	if (SDL_PollEvent(&event) == true)
@@ -338,15 +341,18 @@ int		Software::waitForEvent(void)
 			|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 			return (1);
 
-		_x = event.button.x;
-		_y = event.button.y;
+		x = event.button.x;
+		y = event.button.y;
 
-		if (_x < 0 || _x > getWidth() || _y < 0 || _y > getHeight())
+		if (x < 0 || x > getWidth() || y < 0 || y > getHeight())
 			return (0);
+		else
+			setX(x), setY(y);
 
-		// std::cout << _x << " ; " << _y << std::endl;
+		// cout << event.button.x << " ; " << event.button.y << endl;
+		// cout << x << " ; " << y << endl;
 
-		int value = isOverZone(&_elements, _x, _y);
+		int value = isOverZone(&_elements, x, y);
 
 		if (value != 0)
 			SDL_SetCursor(getCursor(value)), _highlight = true;

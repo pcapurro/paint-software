@@ -38,9 +38,18 @@ class Window
 		int				getWidth(void) const;
 		int				getHeight(void) const;
 
+		int				getX(void) const;
+		int				getY(void) const;
+
+		void			setX(const int x);
+		void			setY(const int y);
+
 	private:
 		int						_width;
 		int						_height;
+
+		int						_x;
+		int						_y;
 
 		std::string				_name;
 

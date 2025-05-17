@@ -3,10 +3,10 @@
 
 # include "Window.hpp"
 
-class Ok : public Window
+class Ok final : public Window
 {
 	public:
-		Ok(const std::string name);
+		Ok(const std::string name, const std::string text);
 		~Ok(void) = default;
 
 		int		waitForEvent(void);
@@ -20,10 +20,8 @@ class Ok : public Window
 	private:
 		TTF_Font*				_font;
 
+		std::string				_text;
 		std::vector<Element>	_elements;
-
-		int						_x;
-		int						_y;
 
 		int						_state;
 

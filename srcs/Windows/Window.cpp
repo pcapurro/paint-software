@@ -91,6 +91,26 @@ int	Window::getHeight(void) const
 	return (_height);
 }
 
+int	Window::getX(void) const
+{
+	return (_x);
+}
+
+int	Window::getY(void) const
+{
+	return (_y);
+}
+
+void	Window::setX(const int x)
+{
+	_x = x;
+}
+
+void	Window::setY(const int y)
+{
+	_y = y;
+}
+
 SDL_Cursor*		Window::getCursor(const int value) const
 {
 	if (value == 0)
