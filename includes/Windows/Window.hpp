@@ -3,6 +3,7 @@
 
 # include "Global.hpp"
 
+# include "Element.hpp"
 # include "Tools.hpp"
 # include "Color.hpp"
 # include "Texture.hpp"
@@ -19,8 +20,15 @@ class Window
 		virtual void	loadTextures(void) = 0;
 
 		virtual void	reactEvent(SDL_Event* event) = 0;
-		virtual int		isOverZone(void) const = 0;
 
+		virtual void	generateElements(void) = 0;
+
+		int				isOverZone(std::vector<Element>* elements, const int x, const int y) const;
+		
+		void			drawBackground(Color color);
+		void			drawElements(std::vector<Element>* elements);
+	
+		void			blur(void);
 		void			render(void);
 		void			clear(void);
 
@@ -31,18 +39,18 @@ class Window
 		int				getHeight(void) const;
 
 	private:
-		int					_width;
-		int					_height;
+		int						_width;
+		int						_height;
 
-		std::string			_name;
+		std::string				_name;
 
-		SDL_Window*			_mainWindow;
-		SDL_Renderer*		_mainRenderer;
+		SDL_Window*				_mainWindow;
+		SDL_Renderer*			_mainRenderer;
 
-		SDL_Cursor*			_normalCursor;
-		SDL_Cursor*			_interactCursor;
-		SDL_Cursor*			_crossHairCursor;
-		SDL_Cursor*			_textCursor;
+		SDL_Cursor*				_normalCursor;
+		SDL_Cursor*				_interactCursor;
+		SDL_Cursor*				_crossHairCursor;
+		SDL_Cursor*				_textCursor;
 };
 
 #endif

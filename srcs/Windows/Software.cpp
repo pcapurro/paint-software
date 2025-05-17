@@ -203,28 +203,6 @@ void	Software::changeColor(Color newColor)
 	_currentColor->setColor(newColor);
 }
 
-int	Software::isOverZone(void) const
-{
-	for (unsigned int i = 0; i != _elements.size(); i++)
-	{
-		if (_elements.at(i).isAbove(_x, _y) == true)
-			return (_elements.at(i).getHighlight());
-	}
-
-	return (0);
-}
-
-void	Software::drawBackground(SDL_Renderer* renderer)
-{
-	SDL_Rect	obj;
-
-	obj.x = 0, obj.y = 0;
-	obj.w = getWidth(), obj.h = getHeight();
-
-	SDL_SetRenderDrawColor(renderer, 42, 42, 42, 255);
-	SDL_RenderFillRect(renderer, &obj);
-}
-
 void	Software::setOption(void)
 {
 	Element*	element1 = NULL;
@@ -285,12 +263,6 @@ void	Software::drawHighlight(SDL_Renderer* renderer)
 	SDL_RenderFillRect(renderer, &obj);
 }
 
-void	Software::drawElements(SDL_Renderer* renderer)
-{
-	for (unsigned int i = 0; i != _elements.size(); i++)
-		_elements.at(i).draw(renderer);
-}
-
 void	Software::drawMap(SDL_Renderer* renderer)
 {
 	SDL_Rect	obj;
@@ -306,8 +278,8 @@ void	Software::draw(void)
 {
 	SDL_Renderer*	renderer = getRenderer();
 
-	drawBackground(renderer);
-	drawElements(renderer);
+	drawBackground({42, 42, 42, 255});
+	drawElements(&_elements);
 
 	if (_highlight == true)
 		drawHighlight(renderer);
@@ -364,7 +336,7 @@ int		Software::waitForEvent(void)
 	{
 		if (event.type == SDL_QUIT \
 			|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-			return (-1);
+			return (1);
 
 		_x = event.button.x;
 		_y = event.button.y;
@@ -372,9 +344,9 @@ int		Software::waitForEvent(void)
 		if (_x < 0 || _x > getWidth() || _y < 0 || _y > getHeight())
 			return (0);
 
-		std::cout << _x << " ; " << _y << std::endl;
+		// std::cout << _x << " ; " << _y << std::endl;
 
-		int value = isOverZone();
+		int value = isOverZone(&_elements, _x, _y);
 
 		if (value != 0)
 			SDL_SetCursor(getCursor(value)), _highlight = true;

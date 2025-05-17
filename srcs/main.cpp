@@ -7,7 +7,7 @@ int	main(void)
 	{
 		Paint	program;
 
-		program.routine();
+		program.routineInit();
 	}
 	catch (const std::exception& except)
 	{

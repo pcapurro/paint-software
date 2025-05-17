@@ -1,6 +1,6 @@
-#include "YesNo.hpp"
+#include "Ok.hpp"
 
-YesNo::YesNo(const std::string name) : Window(name, 400, 200)
+Ok::Ok(const std::string name) : Window(name, 400, 200)
 {
 	_x = 0;
 	_y = 0;
@@ -12,29 +12,29 @@ YesNo::YesNo(const std::string name) : Window(name, 400, 200)
 	loadFont();
 }
 
-void	YesNo::generateElements(void)
+void	Ok::generateElements(void)
 {
 	;
 }
 
-void	YesNo::loadFont(void)
+void	Ok::loadFont(void)
 {
 	_font = TTF_OpenFont("materials/font/OpenSans.ttf", 24);
 	if (_font == NULL)
 		throw std::runtime_error("SDL failed.");
 }
 
-void	YesNo::draw(void)
+void	Ok::draw(void)
 {
 	SDL_Renderer*	renderer = getRenderer();
 
-	drawBackground({42, 42, 42, 255});
+	drawBackground({0, 0, 0, 255});
 	drawElements(&_elements);
 
 	(void) renderer;
 }
 
-void	YesNo::reactEvent(SDL_Event* event)
+void	Ok::reactEvent(SDL_Event* event)
 {
 	Element*	element = NULL;
 
@@ -48,30 +48,20 @@ void	YesNo::reactEvent(SDL_Event* event)
 		return ;
 	else
 	{
-		int type = element->getType();
-
 		if (event->type == SDL_MOUSEBUTTONDOWN)
-		{
-			if (type == YES)
-				_state = 2;
-			if (type == NO)
-				_state = 1;
-		}
+			_state = 2;
 	}
 }
 
-int	YesNo::waitForEvent(void)
+int	Ok::waitForEvent(void)
 {
 	SDL_Event	event;
 
 	if (SDL_PollEvent(&event) == true)
 	{
-		if (event.type == SDL_QUIT \
+		if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) \
+			|| event.type == SDL_QUIT || event.window.event == SDL_WINDOWEVENT_CLOSE \
 			|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-			return (1);
-
-		if (event.type == SDL_KEYDOWN \
-			&& event.key.keysym.sym == SDLK_RETURN)
 			return (2);
 
 		int x = event.button.x;

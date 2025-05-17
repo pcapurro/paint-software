@@ -3,7 +3,9 @@
 
 # include "Global.hpp"
 
-# include "Window.hpp"
+# include "Ok.hpp"
+# include "OkCancel.hpp"
+# include "YesNo.hpp"
 # include "Software.hpp"
 
 # include "Texture.hpp"
@@ -16,10 +18,12 @@ class Paint
 
 		void	initializeSDL(void);
 
+		void	routineInit(void);
 		void	routine(void);
 
 	private:
-		Window*				_mainWindow;
+		Software*			_mainWindow;
+		Window*				_otherWindow;
 };
 
 #endif

@@ -44,6 +44,28 @@ Window::~Window(void)
 		SDL_DestroyWindow(_mainWindow);
 }
 
+int	Window::isOverZone(std::vector<Element>* elements, const int x, const int y) const
+{
+	for (unsigned int i = 0; i != elements->size(); i++)
+	{
+		if (elements->at(i).isAbove(x, y) == true)
+			return (elements->at(i).getHighlight());
+	}
+
+	return (0);
+}
+
+void	Window::blur(void)
+{
+	SDL_Rect	obj;
+
+	obj.w = _width, obj.h = _height;
+	obj.x = 0, obj.y = 0;
+
+	SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 125);
+	SDL_RenderFillRect(_mainRenderer, &obj);
+}
+
 void	Window::render(void)
 {
 	SDL_RenderPresent(_mainRenderer);
@@ -81,4 +103,21 @@ SDL_Cursor*		Window::getCursor(const int value) const
 		return (_textCursor);
 
 	return (nullptr);
+}
+
+void	Window::drawBackground(Color color)
+{
+	SDL_Rect	obj;
+
+	obj.x = 0, obj.y = 0;
+	obj.w = _width, obj.h = _height;
+
+	SDL_SetRenderDrawColor(_mainRenderer, color.r, color.g, color.b, color.a);
+	SDL_RenderFillRect(_mainRenderer, &obj);
+}
+
+void	Window::drawElements(std::vector<Element>* elements)
+{
+	for (unsigned int i = 0; i != elements->size(); i++)
+		elements->at(i).draw(_mainRenderer);
 }

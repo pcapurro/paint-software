@@ -43,35 +43,32 @@ class Software : public Window
 		Software(const std::string name, const int width, const int height);
 		~Software(void);
 
-		void	loadFont(void);
+		int		waitForEvent(void);
+		void	draw(void);
 		void	loadTextures(void);
-
-		int		isOverZone(void) const;
 		void	reactEvent(SDL_Event* event);
-
 		void	generateElements(void);
+
 		void	setOption(void);
 	
-		void	drawBackground(SDL_Renderer* renderer);
 		void	drawHighlight(SDL_Renderer* renderer);
 		void	drawMap(SDL_Renderer* renderer);
-		void	drawElements(SDL_Renderer* renderer);
-		void	draw(void);
+		
+		void	loadFont(void);
 
 		void	randomizeColors(void);
 		void	changeColor(Color newColor);
-
-		int		waitForEvent(void);
 
 	private:
 
 		Icons					_icons;
 		TTF_Font*				_font;
 
-		std::vector<Element>	_elements;
-
 		int						_x;
 		int						_y;
+
+		int						_frameW;
+		int						_frameH;
 
 		int						_brushType;
 		int						_opacity;
@@ -79,6 +76,8 @@ class Software : public Window
 		bool					_highlight;
 
 		Element*				_currentColor;
+
+		std::vector<Element>	_elements;
 };
 
 #endif

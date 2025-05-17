@@ -12,6 +12,7 @@ SRCS = srcs/main.cpp \
 	srcs/Windows/Software.cpp \
 	srcs/Windows/YesNo.cpp \
 	srcs/Windows/OkCancel.cpp \
+	srcs/Windows/Ok.cpp \
 	srcs/Tools/Element.cpp \
 	srcs/Tools/Texture.cpp \
 	srcs/Tools/Tools.cpp \

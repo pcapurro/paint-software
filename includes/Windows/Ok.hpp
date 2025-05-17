@@ -1,16 +1,13 @@
-#ifndef OKCANCEL_HPP
-# define OKCANCEL_HPP
+#ifndef OK_HPP
+# define OK_HPP
 
 # include "Window.hpp"
 
-# define OK 1
-# define CANCEL 2
-
-class OkCancel : public Window
+class Ok : public Window
 {
 	public:
-		OkCancel(const std::string name);
-		~OkCancel(void) = default;
+		Ok(const std::string name);
+		~Ok(void) = default;
 
 		int		waitForEvent(void);
 		void	draw(void);
