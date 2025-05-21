@@ -6,7 +6,7 @@ Software::Software(const std::string name, const int width, const int height) : 
 	setY(0);
 
 	_brushType = 2;
-	_opacity = 100;
+	_opacity = 255;
 
 	_highlight = false;
 
@@ -91,13 +91,13 @@ void	Software::generateElements(void)
 	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 615 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_D, true, 1, false));
 
 	w = 100, h = 4;
-	_elements.push_back(Element(45, 690, w, h, NULL, {0, 0, 0, 255}));
+	_elements.push_back(Element(45, 685, w, h, NULL, {0, 0, 0, 255}));
 
 	w = 10, h = 10;
-	_elements.push_back(Element(70 - w, 692 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_A, true, 1, false));
-	_elements.push_back(Element(95 - w, 692 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_B, true, 1, false));
-	_elements.push_back(Element(120 - w, 692 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_C, true, 1, false));
-	_elements.push_back(Element(145 - w, 692 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_D, true, 1, true));
+	_elements.push_back(Element(70 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_A, true, 1, false));
+	_elements.push_back(Element(95 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_B, true, 1, false));
+	_elements.push_back(Element(120 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_C, true, 1, false));
+	_elements.push_back(Element(145 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_D, true, 1, true));
 
 	// colors tools
 
@@ -126,11 +126,15 @@ void	Software::generateElements(void)
 	_elements.push_back(Element(244, 842, w, h, NULL, {0, 0, 0, 255}, A, true, 3));
 	_elements.push_back(Element(246, 844, w - 4, h - 4, NULL, {255, 255, 255, 255}, A, false));
 
-	w = 18;
-	_elements.push_back(Element(203, 768, 18, 25, _icons.r.getTexture(), {0, 0, 0, 255}, R, false));
-	_elements.push_back(Element(257, 768, 18, 25, _icons.g.getTexture(), {0, 0, 0, 255}, G, false));
-	_elements.push_back(Element(311, 768, 18, 25, _icons.b.getTexture(), {0, 0, 0, 255}, B, false));
-	_elements.push_back(Element(257, 818, 18, 25, _icons.a.getTexture(), {0, 0, 0, 255}, A, false));
+	
+	TTF_SizeText(_font, "R", &w, &h);
+	_elements.push_back(Element(212 - (w / 2), 764, w, h, _icons.r.getTexture(), {0, 0, 0, 255}, R, false));
+	TTF_SizeText(_font, "G", &w, &h);
+	_elements.push_back(Element(266 - (w / 2), 764, w, h, _icons.g.getTexture(), {0, 0, 0, 255}, G, false));
+	TTF_SizeText(_font, "B", &w, &h);
+	_elements.push_back(Element(320 - (w / 2), 764, w, h, _icons.b.getTexture(), {0, 0, 0, 255}, B, false));
+	TTF_SizeText(_font, "A", &w, &h);
+	_elements.push_back(Element(266 - (w / 2), 813, w, h, _icons.a.getTexture(), {0, 0, 0, 255}, A, false));
 
 	// colors
 

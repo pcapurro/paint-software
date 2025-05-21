@@ -70,8 +70,6 @@ int	OkCancel::waitForEvent(void)
 
 	if (SDL_PollEvent(&event) == true)
 	{
-		cout << event.type << endl;
-
 		if (event.type == SDL_QUIT || event.window.event == SDL_WINDOWEVENT_CLOSE
 			|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 			return (1);
