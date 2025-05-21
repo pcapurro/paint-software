@@ -67,6 +67,11 @@ class Software final : public Window
 		
 		void	loadFont(void);
 
+		int		getKeyValue(const int key);
+
+		void	deleteRGB(const int type);
+		void	decreaseRGB(const int type);
+		void	increaseRGB(const int type, const int value);
 		void	refreshRGB(void);
 
 		void	randomizeColors(void);

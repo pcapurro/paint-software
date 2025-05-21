@@ -417,6 +417,96 @@ void	Software::refreshRGB(void)
 	_colorChanged = false;
 }
 
+int		Software::getKeyValue(const int key)
+{
+	if (key == SDLK_0 || key == SDLK_KP_0)
+		return (0);
+	else if (key == SDLK_1 || key == SDLK_KP_1)
+		return (1);
+	else if (key == SDLK_2 || key == SDLK_KP_2)
+		return (2);
+	else if (key == SDLK_3 || key == SDLK_KP_3)
+		return (3);
+	else if (key == SDLK_4 || key == SDLK_KP_4)
+		return (4);
+	else if (key == SDLK_5 || key == SDLK_KP_5)
+		return (5);
+	else if (key == SDLK_6 || key == SDLK_KP_6)
+		return (6);
+	else if (key == SDLK_7 || key == SDLK_KP_7)
+		return (7);
+	else if (key == SDLK_8 || key == SDLK_KP_8)
+		return (8);
+	else if (key == SDLK_9 || key == SDLK_KP_9)
+		return (9);
+	
+	return (-1);
+}
+
+void	Software::deleteRGB(const int type)
+{
+	Color	color = _currentColor->getColor();
+
+	if (type == R)
+		color.r = 0;
+	if (type == G)
+		color.g = 0;
+	if (type == B)
+		color.b = 0;
+	if (type == A)
+	{
+		color.a = 0;
+		_opacity = 0;
+	}
+
+	changeColor(color);
+	_colorChanged = true;
+}
+
+void	Software::decreaseRGB(const int type)
+{
+	Color	color = _currentColor->getColor();
+
+	if (type == R)
+		color.r = color.r / 10;
+	if (type == G)
+		color.g = color.g / 10;
+	if (type == B)
+		color.b = color.b / 10;
+	if (type == A)
+	{
+		color.a = color.a / 10;
+		_opacity = color.a;
+	}
+
+	changeColor(color);
+	_colorChanged = true;
+}
+
+void	Software::increaseRGB(const int type, const int value)
+{
+	Color	color = _currentColor->getColor();
+
+	if (type == R && color.r <= 99)
+		color.r = color.r * 10, color.r += value;
+	if (type == G && color.g <= 99)
+		color.g = color.g * 10, color.g += value;
+	if (type == B && color.b <= 99)
+		color.b = color.b * 10, color.b += value;
+	if (type == A && color.a <= 99)
+	{
+		color.a = color.a * 10, color.a += value;
+		_opacity = color.a;
+	}
+
+	if (color.r > 255 || color.g > 255 \
+		|| color.b > 255 || color.a > 255)
+		return ;
+
+	changeColor(color);
+	_colorChanged = true;
+}
+
 void	Software::reactEvent(SDL_Event* event)
 {
 	int			x = getX(), y = getY();
@@ -452,6 +542,18 @@ void	Software::reactEvent(SDL_Event* event)
 			if (type == COLORS)
 				changeColor(element->getColor());
 		}
+
+		if (event->type == SDL_KEYDOWN && type >= R && type <= A)
+		{
+			if (event->key.keysym.sym == SDLK_BACKSPACE)
+				decreaseRGB(type);
+			else if (event->key.keysym.sym == SDLK_DELETE)
+				deleteRGB(type);
+			
+			int value = getKeyValue(event->key.keysym.sym);
+			if (value != -1)
+				increaseRGB(type, value);
+		}
 	}
 }
 
@@ -469,13 +571,10 @@ int		Software::waitForEvent(void)
 		x = event.button.x;
 		y = event.button.y;
 
-		if (x < 0 || x > getWidth() || y < 0 || y > getHeight())
-			return (0);
-		else
-			setX(x), setY(y);
-
-		// cout << event.button.x << " ; " << event.button.y << endl;
 		// cout << x << " ; " << y << endl;
+
+		if (x >= 0 && x <= getWidth() && y >= 0 && y <= getHeight())
+			setX(x), setY(y);
 
 		int value = isOverZone(&_elements, x, y);
 
@@ -485,7 +584,8 @@ int		Software::waitForEvent(void)
 			SDL_SetCursor(getCursor(0)), _highlight = false;
 
 		if (event.type == SDL_MOUSEBUTTONDOWN \
-			|| event.type == SDL_MOUSEBUTTONUP)
+			|| event.type == SDL_MOUSEBUTTONUP \
+			|| event.type == SDL_KEYDOWN)
 			reactEvent(&event);
 
 		if (_colorChanged == true)
