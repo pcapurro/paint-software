@@ -17,7 +17,7 @@ class Window
 		virtual int		waitForEvent(void) = 0;
 		virtual void	draw(void) = 0;
 
-		virtual void	loadTextures(void) = 0;
+		virtual void	loadImages(void) = 0;
 
 		virtual void	reactEvent(SDL_Event* event) = 0;
 

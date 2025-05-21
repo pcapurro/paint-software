@@ -38,6 +38,11 @@
 # define B 26
 # define A 27
 
+# define R_VALUE 28
+# define G_VALUE 29
+# define B_VALUE 30
+# define A_VALUE 31
+
 # define RANDOM 254
 # define COLORS 255
 
@@ -50,17 +55,19 @@ class Software final : public Window
 
 		int		waitForEvent(void);
 		void	draw(void);
-		void	loadTextures(void);
+		void	loadImages(void);
 		void	reactEvent(SDL_Event* event);
 		void	generateElements(void);
 
-		void	setOption(void);
-		void	setOpacity(void);
+		void	setBrushType(const int type);
+		void	setOpacity(const int type);
 	
 		void	drawHighlight(SDL_Renderer* renderer);
 		void	drawMap(SDL_Renderer* renderer);
 		
 		void	loadFont(void);
+
+		void	refreshRGB(void);
 
 		void	randomizeColors(void);
 		void	changeColor(Color newColor);
@@ -77,6 +84,7 @@ class Software final : public Window
 		int						_opacity;
 
 		bool					_highlight;
+		bool					_colorChanged;
 
 		Element*				_currentColor;
 		std::vector<Element>	_elements;

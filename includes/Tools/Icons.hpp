@@ -30,6 +30,11 @@ struct Icons
 	Texture	g;
 	Texture	b;
 	Texture	a;
+
+	Texture	rValue;
+	Texture	gValue;
+	Texture	bValue;
+	Texture	aValue;
 };
 
 typedef struct Icons Icons;

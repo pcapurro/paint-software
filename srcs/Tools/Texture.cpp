@@ -11,7 +11,16 @@ SDL_Texture*	Texture::getTexture(void) const
 	return (_texture);
 }
 
-int		Texture::loadTexture(const char* path, SDL_Renderer* renderer)
+void	Texture::setTexture(const char* path, const char* text, TTF_Font* font, \
+	SDL_Color color, SDL_Renderer* renderer)
+{
+	if (path == NULL)
+		loadText(text, font, color, renderer);
+	else
+		loadImage(path, renderer);
+}
+
+int		Texture::loadImage(const char* path, SDL_Renderer* renderer)
 {
 	SDL_Surface*	surface = NULL;
 
@@ -20,6 +29,9 @@ int		Texture::loadTexture(const char* path, SDL_Renderer* renderer)
 		return (1);
 	else
 	{
+		if (_texture != NULL)
+			SDL_DestroyTexture(_texture), _texture = NULL;
+
 		_texture = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
 		if (_texture == NULL)
@@ -38,6 +50,9 @@ int		Texture::loadText(const char* text, TTF_Font* font, SDL_Color color, SDL_Re
 		return (1);
 	else
 	{
+		if (_texture != NULL)
+			SDL_DestroyTexture(_texture), _texture = NULL;
+
 		_texture = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
 		if (_texture == NULL)

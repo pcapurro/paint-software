@@ -9,11 +9,12 @@ Software::Software(const std::string name, const int width, const int height) : 
 	_opacity = 255;
 
 	_highlight = false;
+	_colorChanged = false;
 
 	SDL_SetRenderDrawBlendMode(getRenderer(), SDL_BLENDMODE_BLEND);
 
 	loadFont();
-	loadTextures();
+	loadImages();
 
 	generateElements();
 	randomizeColors();
@@ -115,26 +116,38 @@ void	Software::generateElements(void)
 	h = 25;
 
 	_elements.push_back(Element(190, 792, w, h, NULL, {0, 0, 0, 255}, R, true, 3));
-	_elements.push_back(Element(192, 794, w - 4, h - 4, NULL, {255, 255, 255, 255}, R, false));
+	_elements.push_back(Element(192, 794, w - 4, h - 4, NULL, {255, 255, 255, 255}));
 
 	_elements.push_back(Element(244, 792, w, h, NULL, {0, 0, 0, 255}, G, true, 3));
-	_elements.push_back(Element(246, 794, w - 4, h - 4, NULL, {255, 255, 255, 255}, G, false));
+	_elements.push_back(Element(246, 794, w - 4, h - 4, NULL, {255, 255, 255, 255}));
 
 	_elements.push_back(Element(298, 792, w, h, NULL, {0, 0, 0, 255}, B, true, 3));
-	_elements.push_back(Element(300, 794, w - 4, h - 4, NULL, {255, 255, 255, 255}, B, false));
+	_elements.push_back(Element(300, 794, w - 4, h - 4, NULL, {255, 255, 255, 255}));
 
 	_elements.push_back(Element(244, 842, w, h, NULL, {0, 0, 0, 255}, A, true, 3));
-	_elements.push_back(Element(246, 844, w - 4, h - 4, NULL, {255, 255, 255, 255}, A, false));
+	_elements.push_back(Element(246, 844, w - 4, h - 4, NULL, {255, 255, 255, 255}));
 
+	TTF_SetFontSize(_font, 21);
 	
 	TTF_SizeText(_font, "R", &w, &h);
-	_elements.push_back(Element(212 - (w / 2), 764, w, h, _icons.r.getTexture(), {0, 0, 0, 255}, R, false));
+	_elements.push_back(Element(212 - (w / 2), 793 - h, w, h, _icons.r.getTexture(), {0, 0, 0, 255}, R, false));
 	TTF_SizeText(_font, "G", &w, &h);
-	_elements.push_back(Element(266 - (w / 2), 764, w, h, _icons.g.getTexture(), {0, 0, 0, 255}, G, false));
+	_elements.push_back(Element(266 - (w / 2), 793 - h, w, h, _icons.g.getTexture(), {0, 0, 0, 255}, G, false));
 	TTF_SizeText(_font, "B", &w, &h);
-	_elements.push_back(Element(320 - (w / 2), 764, w, h, _icons.b.getTexture(), {0, 0, 0, 255}, B, false));
+	_elements.push_back(Element(320 - (w / 2), 793 - h, w, h, _icons.b.getTexture(), {0, 0, 0, 255}, B, false));
 	TTF_SizeText(_font, "A", &w, &h);
-	_elements.push_back(Element(266 - (w / 2), 813, w, h, _icons.a.getTexture(), {0, 0, 0, 255}, A, false));
+	_elements.push_back(Element(266 - (w / 2), 843 - h, w, h, _icons.a.getTexture(), {0, 0, 0, 255}, A, false));
+
+	TTF_SetFontSize(_font, 18);
+
+	TTF_SizeText(_font, std::to_string(0).c_str(), &w, &h);
+
+	_elements.push_back(Element(212 - (w / 2), 803 - (h / 2), w, h, _icons.rValue.getTexture(), {0, 0, 0, 255}, R_VALUE));
+	_elements.push_back(Element(266 - (w / 2), 803 - (h / 2), w, h, _icons.gValue.getTexture(), {0, 0, 0, 255}, G_VALUE));
+	_elements.push_back(Element(320 - (w / 2), 803 - (h / 2), w, h, _icons.bValue.getTexture(), {0, 0, 0, 255}, B_VALUE));
+
+	TTF_SizeText(_font, std::to_string(255).c_str(), &w, &h);
+	_elements.push_back(Element(266 - (w / 2), 853 - (h / 2), w, h, _icons.aValue.getTexture(), {0, 0, 0, 255}, A_VALUE));
 
 	// colors
 
@@ -160,40 +173,46 @@ void	Software::generateElements(void)
 
 	// color
 
+	_elements.push_back(Element(30, 780, 65, 90, NULL, {255, 255, 255, 255}));
 	_elements.push_back(Element(30, 780, 65, 90, NULL, {0, 0, 0, 255}, COLOR));
 	_currentColor = &_elements.at(_elements.size() - 1);
 }
 
-void	Software::loadTextures(void)
+void	Software::loadImages(void)
 {
 	int				value = 0;
 	SDL_Renderer*	renderer = getRenderer();
 
-	value += _icons.check.loadTexture("materials/icons/check.bmp", renderer);
-	value += _icons.cancel.loadTexture("materials/icons/cancel.bmp", renderer);
+	value += _icons.check.loadImage("materials/icons/check.bmp", renderer);
+	value += _icons.cancel.loadImage("materials/icons/cancel.bmp", renderer);
 
-	value += _icons.left.loadTexture("materials/icons/left.bmp", renderer);
-	value += _icons.right.loadTexture("materials/icons/right.bmp", renderer);
+	value += _icons.left.loadImage("materials/icons/left.bmp", renderer);
+	value += _icons.right.loadImage("materials/icons/right.bmp", renderer);
 
-	value += _icons.brush.loadTexture("materials/icons/brush.bmp", renderer);
-	value += _icons.pencil.loadTexture("materials/icons/pencil.bmp", renderer);
+	value += _icons.brush.loadImage("materials/icons/brush.bmp", renderer);
+	value += _icons.pencil.loadImage("materials/icons/pencil.bmp", renderer);
 
-	value += _icons.spray.loadTexture("materials/icons/spray.bmp", renderer);
-	value += _icons.bucket.loadTexture("materials/icons/bucket.bmp", renderer);
+	value += _icons.spray.loadImage("materials/icons/spray.bmp", renderer);
+	value += _icons.bucket.loadImage("materials/icons/bucket.bmp", renderer);
 
-	value += _icons.picker.loadTexture("materials/icons/picker.bmp", renderer);
-	value += _icons.eraser.loadTexture("materials/icons/eraser.bmp", renderer);
+	value += _icons.picker.loadImage("materials/icons/picker.bmp", renderer);
+	value += _icons.eraser.loadImage("materials/icons/eraser.bmp", renderer);
 
-	value += _icons.line.loadTexture("materials/icons/line.bmp", renderer);
-	value += _icons.text.loadTexture("materials/icons/text.bmp", renderer);
+	value += _icons.line.loadImage("materials/icons/line.bmp", renderer);
+	value += _icons.text.loadImage("materials/icons/text.bmp", renderer);
 
-	value += _icons.random.loadTexture("materials/icons/random.bmp", renderer);
-	value += _icons.select.loadTexture("materials/icons/select.bmp", renderer);
+	value += _icons.random.loadImage("materials/icons/random.bmp", renderer);
+	value += _icons.select.loadImage("materials/icons/select.bmp", renderer);
 
 	value += _icons.r.loadText("R", _font, {255, 255, 255, 255}, renderer);
 	value += _icons.g.loadText("G", _font, {255, 255, 255, 255}, renderer);
 	value += _icons.b.loadText("B", _font, {255, 255, 255, 255}, renderer);
 	value += _icons.a.loadText("A", _font, {255, 255, 255, 255}, renderer);
+
+	value += _icons.rValue.loadText("0", _font, {0, 0, 0, 255}, renderer);
+	value += _icons.gValue.loadText("0", _font, {0, 0, 0, 255}, renderer);
+	value += _icons.bValue.loadText("0", _font, {0, 0, 0, 255}, renderer);
+	value += _icons.aValue.loadText("255", _font, {0, 0, 0, 255}, renderer);
 
 	if (value != 0)
 		throw std::runtime_error("SDL failed.");
@@ -215,9 +234,11 @@ void	Software::changeColor(Color newColor)
 {
 	_currentColor->setColor(newColor);
 	_currentColor->setOpacity(_opacity);
+
+	_colorChanged = true;
 }
 
-void	Software::setOpacity(void)
+void	Software::setOpacity(const int type)
 {
 	Element*	element1 = NULL;
 	Element*	element2 = NULL;
@@ -244,17 +265,24 @@ void	Software::setOpacity(void)
 	element3->setVisibility(false);
 	element4->setVisibility(false);
 
-	if (_opacity <= 63)
-		element1->setVisibility(true);
-	else if (_opacity <= 127)
-		element2->setVisibility(true);
-	else if (_opacity <= 191)
-		element3->setVisibility(true);
-	else if (_opacity <= 255)
-		element4->setVisibility(true);
+	if (type <= OP_A)
+		element1->setVisibility(true), _opacity = 63;
+	else if (type <= OP_B)
+		element2->setVisibility(true), _opacity = 127;
+	else if (type <= OP_C)
+		element3->setVisibility(true), _opacity = 191;
+	else if (type <= OP_D)
+		element4->setVisibility(true), _opacity = 255;
+
+	Color	newColor = _currentColor->getColor();
+
+	newColor.a = _opacity;
+	_currentColor->setColor(newColor);
+
+	_colorChanged = true;
 }
 
-void	Software::setOption(void)
+void	Software::setBrushType(const int type)
 {
 	Element*	element1 = NULL;
 	Element*	element2 = NULL;
@@ -281,14 +309,14 @@ void	Software::setOption(void)
 	element3->setVisibility(false);
 	element4->setVisibility(false);
 
-	if (_brushType == 1)
-		element1->setVisibility(true);
-	else if (_brushType == 2)
-		element2->setVisibility(true);
-	else if (_brushType == 3)
-		element3->setVisibility(true);
-	else if (_brushType == 4)
-		element4->setVisibility(true);
+	if (type == BRUSH_A)
+		element1->setVisibility(true), _brushType = 1;
+	else if (type == BRUSH_B)
+		element2->setVisibility(true), _brushType = 2;
+	else if (type == BRUSH_C)
+		element3->setVisibility(true), _brushType = 3;
+	else if (type == BRUSH_D)
+		element4->setVisibility(true), _brushType = 4;
 }
 
 void	Software::drawHighlight(SDL_Renderer* renderer)
@@ -339,6 +367,56 @@ void	Software::draw(void)
 	drawMap(renderer);
 }
 
+void	Software::refreshRGB(void)
+{
+	Element	*r, *g, *b, *a;
+	Color	color = _currentColor->getColor();
+
+	for (unsigned int i = 0; i != _elements.size(); i++)
+	{
+		if (_elements.at(i).getType() == R_VALUE)
+			r = &_elements.at(i);
+		else if (_elements.at(i).getType() == G_VALUE)
+			g = &_elements.at(i);
+		else if (_elements.at(i).getType() == B_VALUE)
+			b = &_elements.at(i);
+		else if (_elements.at(i).getType() == A_VALUE)
+			a = &_elements.at(i);
+	}
+
+	_icons.rValue.setTexture(NULL, std::to_string(color.r).c_str(), _font, {0, 0, 0, 255}, getRenderer());
+	_icons.gValue.setTexture(NULL, std::to_string(color.g).c_str(), _font, {0, 0, 0, 255}, getRenderer());
+	_icons.bValue.setTexture(NULL, std::to_string(color.b).c_str(), _font, {0, 0, 0, 255}, getRenderer());
+	_icons.aValue.setTexture(NULL, std::to_string(color.a).c_str(), _font, {0, 0, 0, 255}, getRenderer());
+
+	r->setTexture(_icons.rValue.getTexture());
+	g->setTexture(_icons.gValue.getTexture());
+	b->setTexture(_icons.bValue.getTexture());
+	a->setTexture(_icons.aValue.getTexture());
+
+	int w = 0, h = 0;
+
+	TTF_SetFontSize(_font, 18);
+
+	TTF_SizeText(_font, std::to_string(color.r).c_str(), &w, &h);
+	r->setW(w), r->setH(h);
+	r->setX(212 - (w / 2)), r->setY(803 - (h / 2));
+
+	TTF_SizeText(_font, std::to_string(color.g).c_str(), &w, &h);
+	g->setW(w), g->setH(h);
+	g->setX(266 - (w / 2)), g->setY(803 - (h / 2));
+
+	TTF_SizeText(_font, std::to_string(color.b).c_str(), &w, &h);
+	b->setW(w), b->setH(h);
+	b->setX(320 - (w / 2)), b->setY(803 - (h / 2));
+
+	TTF_SizeText(_font, std::to_string(color.a).c_str(), &w, &h);
+	a->setW(w), a->setH(h);
+	a->setX(266 - (w / 2)), a->setY(853 - (h / 2));
+
+	_colorChanged = false;
+}
+
 void	Software::reactEvent(SDL_Event* event)
 {
 	int			x = getX(), y = getY();
@@ -367,32 +445,9 @@ void	Software::reactEvent(SDL_Event* event)
 				changeColor({255, 255, 255, 255});
 
 			if (type >= BRUSH_A && type <= BRUSH_D)
-			{
-				if (type == BRUSH_A)
-					_brushType = 1;
-				if (type == BRUSH_B)
-					_brushType = 2;
-				if (type == BRUSH_C)
-					_brushType = 3;
-				if (type == BRUSH_D)
-					_brushType = 4;
-
-				setOption();
-			}
-
+				setBrushType(type);
 			if (type >= OP_A && type <= OP_D)
-			{
-				if (type == OP_A)
-					_opacity = 63;
-				if (type == OP_B)
-					_opacity = 127;
-				if (type == OP_C)
-					_opacity = 191;
-				if (type == OP_D)
-					_opacity = 255;
-	
-				setOpacity();
-			}
+				setOpacity(type);
 
 			if (type == COLORS)
 				changeColor(element->getColor());
@@ -432,6 +487,9 @@ int		Software::waitForEvent(void)
 		if (event.type == SDL_MOUSEBUTTONDOWN \
 			|| event.type == SDL_MOUSEBUTTONUP)
 			reactEvent(&event);
+
+		if (_colorChanged == true)
+			refreshRGB();
 		
 		clear();
 		draw();

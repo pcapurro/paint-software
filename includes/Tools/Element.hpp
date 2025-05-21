@@ -14,9 +14,13 @@ class Element
 
 		int				getX(void) const { return (_x); };
 		int				getY(void) const { return (_y); };
-
 		int				getW(void) const { return (_w); };
 		int				getH(void) const { return (_h); };
+
+		void			setX(const int x) { _x = x; };
+		void			setY(const int y) { _y = y; };
+		void			setW(const int w) { _w = w; };
+		void			setH(const int h) { _h = h; };
 
 		SDL_Texture*	getTexture(void) const { return (_texture); };
 		Color			getColor(void) const { return (_color); };
@@ -24,6 +28,7 @@ class Element
 		int				getType(void) const { return (_type); };
 		int				getHighlight(void) const { return (_highlightValue); };
 
+		void			setTexture(SDL_Texture* texture) { _texture = texture; };
 		void			setVisibility(const bool value) { _visibility = value; };
 		void			setColor(Color color) { _color = color; };
 		void			setOpacity(const int opacity) { _color.a = opacity; };

@@ -14,7 +14,7 @@ class OkCancel final : public Window
 
 		int		waitForEvent(void);
 		void	draw(void);
-		void	loadTextures(void) {};
+		void	loadImages(void) {};
 		void	reactEvent(SDL_Event* event);
 		void	generateElements(void);
 
