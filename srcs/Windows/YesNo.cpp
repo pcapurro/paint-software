@@ -89,16 +89,7 @@ int	YesNo::waitForEvent(void)
 		// cout << event.button.x << " ; " << event.button.y << endl;
 		// cout << x << " ; " << y << endl;
 
-		int value = isOverZone(&_elements, x, y);
-
-		if (value != 0)
-			SDL_SetCursor(getCursor(value));
-		else
-			SDL_SetCursor(getCursor(0));
-
-		if (event.type == SDL_MOUSEBUTTONDOWN \
-			|| event.type == SDL_MOUSEBUTTONUP)
-			reactEvent(&event);
+		reactEvent(&event);
 
 		clear();
 		draw();

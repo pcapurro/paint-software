@@ -22,8 +22,6 @@ class Window
 		virtual void	reactEvent(SDL_Event* event) = 0;
 
 		virtual void	generateElements(void) = 0;
-
-		int				isOverZone(std::vector<Element>* elements, const int x, const int y) const;
 		
 		void			drawBackground(Color color);
 		void			drawElements(std::vector<Element>* elements);

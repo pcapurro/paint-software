@@ -61,8 +61,10 @@ class Software final : public Window
 
 		void	setBrushType(const int type);
 		void	setOpacity(const int type);
+
+		void	unSelect(void);
+		void	unHighlight(void);
 	
-		void	drawHighlight(SDL_Renderer* renderer);
 		void	drawMap(SDL_Renderer* renderer);
 		
 		void	loadFont(void);
@@ -88,10 +90,11 @@ class Software final : public Window
 		int						_brushType;
 		int						_opacity;
 
-		bool					_highlight;
 		bool					_colorChanged;
 
-		Element*				_currentColor;
+		bool					_tool;
+
+		Element*				_color;
 		std::vector<Element>	_elements;
 };
 

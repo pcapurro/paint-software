@@ -44,17 +44,6 @@ Window::~Window(void)
 		SDL_DestroyWindow(_mainWindow);
 }
 
-int	Window::isOverZone(std::vector<Element>* elements, const int x, const int y) const
-{
-	for (unsigned int i = 0; i != elements->size(); i++)
-	{
-		if (elements->at(i).isAbove(x, y) == true)
-			return (elements->at(i).getHighlight());
-	}
-
-	return (0);
-}
-
 void	Window::blur(void)
 {
 	SDL_Rect	obj;

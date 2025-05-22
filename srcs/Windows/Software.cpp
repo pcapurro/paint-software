@@ -8,7 +8,6 @@ Software::Software(const std::string name, const int width, const int height) : 
 	_brushType = 2;
 	_opacity = 255;
 
-	_highlight = false;
 	_colorChanged = false;
 
 	SDL_SetRenderDrawBlendMode(getRenderer(), SDL_BLENDMODE_BLEND);
@@ -17,6 +16,16 @@ Software::Software(const std::string name, const int width, const int height) : 
 	loadImages();
 
 	generateElements();
+
+	_tool = BRUSH;
+	for (unsigned int i = 0; i != _elements.size(); i++)
+	{
+		if (_elements.at(i).getType() == BRUSH) {
+			_elements.at(i).select();
+			break ;
+		}
+	}
+
 	randomizeColors();
 }
 
@@ -39,7 +48,7 @@ void	Software::generateElements(void)
 
 	_elements.push_back(Element(30, 30, 130, 130, NULL, {255, 255, 255, 255}));
 
-	_elements.push_back(Element(30, 30, 65, 65, _icons.check.getTexture(), {255, 255, 255, 255}, CHECK));
+	_elements.push_back(Element(30, 30, 65, 65, _icons.check.getTexture(), {255, 255, 255, 255}, CHECK, true));
 	_elements.push_back(Element(95, 30, 65, 65, _icons.cancel.getTexture(), {255, 255, 255, 255}, CANCEL, true));
 
 	_elements.push_back(Element(30, 95, 65, 65, _icons.left.getTexture(), {255, 255, 255, 255}, LEFT, true));
@@ -86,19 +95,19 @@ void	Software::generateElements(void)
 	_elements.push_back(Element(95 + (65 / 2) - (w / 2), 615 + (24 - (h / 2)), w, h, NULL, {0, 0, 0, 255}));
 
 	w = 32, h = 32;
-	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 519 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_A, true, 1, false));
-	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 551 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_B, true, 1, true));
-	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 583 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_C, true, 1, false));
-	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 615 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_D, true, 1, false));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 519 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_A, true, 1, 1, false));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 551 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_B, true, 1, 1, true));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 583 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_C, true, 1, 1, false));
+	_elements.push_back(Element(30 + 65 / 2 - (w / 2), 615 + (24 - (h / 2)), w, h, _icons.select.getTexture(), {255, 255, 255, 255}, BRUSH_D, true, 1, 1, false));
 
 	w = 100, h = 4;
 	_elements.push_back(Element(45, 685, w, h, NULL, {0, 0, 0, 255}));
 
 	w = 10, h = 10;
-	_elements.push_back(Element(70 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_A, true, 1, false));
-	_elements.push_back(Element(95 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_B, true, 1, false));
-	_elements.push_back(Element(120 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_C, true, 1, false));
-	_elements.push_back(Element(145 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_D, true, 1, true));
+	_elements.push_back(Element(70 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_A, true, 1, 1, false));
+	_elements.push_back(Element(95 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_B, true, 1, 1, false));
+	_elements.push_back(Element(120 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_C, true, 1, 1, false));
+	_elements.push_back(Element(145 - w, 687 - (h / 2), w, h, NULL, {0, 0, 0, 255}, OP_D, true, 1, 1, true));
 
 	// colors tools
 
@@ -175,7 +184,7 @@ void	Software::generateElements(void)
 
 	_elements.push_back(Element(30, 780, 65, 90, NULL, {255, 255, 255, 255}));
 	_elements.push_back(Element(30, 780, 65, 90, NULL, {0, 0, 0, 255}, COLOR));
-	_currentColor = &_elements.at(_elements.size() - 1);
+	_color = &_elements.at(_elements.size() - 1);
 }
 
 void	Software::loadImages(void)
@@ -232,8 +241,8 @@ void	Software::randomizeColors(void)
 
 void	Software::changeColor(Color newColor)
 {
-	_currentColor->setColor(newColor);
-	_currentColor->setOpacity(_opacity);
+	_color->setColor(newColor);
+	_color->setOpacity(_opacity);
 
 	_colorChanged = true;
 }
@@ -274,10 +283,10 @@ void	Software::setOpacity(const int type)
 	else if (type <= OP_D)
 		element4->setVisibility(true), _opacity = 255;
 
-	Color	newColor = _currentColor->getColor();
+	Color	newColor = _color->getColor();
 
 	newColor.a = _opacity;
-	_currentColor->setColor(newColor);
+	_color->setColor(newColor);
 
 	_colorChanged = true;
 }
@@ -319,30 +328,6 @@ void	Software::setBrushType(const int type)
 		element4->setVisibility(true), _brushType = 4;
 }
 
-void	Software::drawHighlight(SDL_Renderer* renderer)
-{
-	int			x = getX(), y = getY();
-	SDL_Rect	obj;
-
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 121);
-
-	for (unsigned int i = 0; i != _elements.size(); i++)
-	{
-		if (_elements.at(i).isAbove(x, y) == true)
-		{
-			obj.x = _elements.at(i).getX();
-			obj.y = _elements.at(i).getY();
-		
-			obj.w = _elements.at(i).getW();
-			obj.h = _elements.at(i).getH();
-	
-			break ;
-		}
-	}
-
-	SDL_RenderFillRect(renderer, &obj);
-}
-
 void	Software::drawMap(SDL_Renderer* renderer)
 {
 	SDL_Rect	obj;
@@ -359,18 +344,15 @@ void	Software::draw(void)
 	SDL_Renderer*	renderer = getRenderer();
 
 	drawBackground({42, 42, 42, 255});
+
 	drawElements(&_elements);
-
-	if (_highlight == true)
-		drawHighlight(renderer);
-
 	drawMap(renderer);
 }
 
 void	Software::refreshRGB(void)
 {
 	Element	*r, *g, *b, *a;
-	Color	color = _currentColor->getColor();
+	Color	color = _color->getColor();
 
 	for (unsigned int i = 0; i != _elements.size(); i++)
 	{
@@ -445,7 +427,7 @@ int		Software::getKeyValue(const int key)
 
 void	Software::deleteRGB(const int type)
 {
-	Color	color = _currentColor->getColor();
+	Color	color = _color->getColor();
 
 	if (type == R)
 		color.r = 0;
@@ -465,7 +447,7 @@ void	Software::deleteRGB(const int type)
 
 void	Software::decreaseRGB(const int type)
 {
-	Color	color = _currentColor->getColor();
+	Color	color = _color->getColor();
 
 	if (type == R)
 		color.r = color.r / 10;
@@ -485,7 +467,7 @@ void	Software::decreaseRGB(const int type)
 
 void	Software::increaseRGB(const int type, const int value)
 {
-	Color	color = _currentColor->getColor();
+	Color	color = _color->getColor();
 
 	if (type == R && color.r <= 99)
 		color.r = color.r * 10, color.r += value;
@@ -507,6 +489,18 @@ void	Software::increaseRGB(const int type, const int value)
 	_colorChanged = true;
 }
 
+void	Software::unSelect(void)
+{
+	for (unsigned int i = 0; i != _elements.size(); i++)
+		_elements.at(i).unSelect();
+}
+
+void	Software::unHighlight(void)
+{
+	for (unsigned int i = 0; i != _elements.size(); i++)
+		_elements.at(i).unHighlight();
+}
+
 void	Software::reactEvent(SDL_Event* event)
 {
 	int			x = getX(), y = getY();
@@ -518,43 +512,51 @@ void	Software::reactEvent(SDL_Event* event)
 			element = &_elements.at(i);
 	}
 
-	if (element == NULL)
+	if (element == NULL) {
+		SDL_SetCursor(getCursor(0));
 		return ;
-	else
-	{
-		int type = element->getType();
-
-		if (event->type == SDL_MOUSEBUTTONDOWN)
-		{
-			if (type == RANDOM)
-				randomizeColors();
-
-			if (type == BLACK)
-				changeColor({0, 0, 0, 255});
-			if (type == WHITE)
-				changeColor({255, 255, 255, 255});
-
-			if (type >= BRUSH_A && type <= BRUSH_D)
-				setBrushType(type);
-			if (type >= OP_A && type <= OP_D)
-				setOpacity(type);
-
-			if (type == COLORS)
-				changeColor(element->getColor());
-		}
-
-		if (event->type == SDL_KEYDOWN && type >= R && type <= A)
-		{
-			if (event->key.keysym.sym == SDLK_BACKSPACE)
-				decreaseRGB(type);
-			else if (event->key.keysym.sym == SDLK_DELETE)
-				deleteRGB(type);
-			
-			int value = getKeyValue(event->key.keysym.sym);
-			if (value != -1)
-				increaseRGB(type, value);
-		}
 	}
+	else
+		element->highlight();
+	
+	int type = element->getType();
+
+	if (event->type == SDL_MOUSEBUTTONDOWN)
+	{
+		if (type == RANDOM)
+			randomizeColors();
+
+		if (type == BLACK)
+			changeColor({0, 0, 0, 255});
+		if (type == WHITE)
+			changeColor({255, 255, 255, 255});
+
+		if (type >= BRUSH_A && type <= BRUSH_D)
+			setBrushType(type);
+		if (type >= OP_A && type <= OP_D)
+			setOpacity(type);
+
+		if (type >= BRUSH && type <= TEXT)
+			unSelect(), element->select(), _tool = type;
+
+		if (type == COLORS)
+			changeColor(element->getColor());
+	}
+
+	if (event->type == SDL_KEYDOWN && type >= R && type <= A)
+	{
+		if (event->key.keysym.sym == SDLK_BACKSPACE)
+			decreaseRGB(type);
+		else if (event->key.keysym.sym == SDLK_DELETE)
+			deleteRGB(type);
+		
+		int value = getKeyValue(event->key.keysym.sym);
+		if (value != -1)
+			increaseRGB(type, value);
+	}
+
+	if (event->type == SDL_MOUSEMOTION)
+		SDL_SetCursor(getCursor(element->getHighlightCursor()));
 }
 
 int		Software::waitForEvent(void)
@@ -576,18 +578,9 @@ int		Software::waitForEvent(void)
 		if (x >= 0 && x <= getWidth() && y >= 0 && y <= getHeight())
 			setX(x), setY(y);
 
-		int value = isOverZone(&_elements, x, y);
-
-		if (value != 0)
-			SDL_SetCursor(getCursor(value)), _highlight = true;
-		else
-			SDL_SetCursor(getCursor(0)), _highlight = false;
-
-		if (event.type == SDL_MOUSEBUTTONDOWN \
-			|| event.type == SDL_MOUSEBUTTONUP \
-			|| event.type == SDL_KEYDOWN)
-			reactEvent(&event);
-
+		unHighlight();
+	
+		reactEvent(&event);
 		if (_colorChanged == true)
 			refreshRGB();
 		
