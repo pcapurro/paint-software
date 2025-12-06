@@ -56,6 +56,21 @@ void	Ok::reactEvent(SDL_Event* event)
 	}
 }
 
+int	Ok::routine(void)
+{
+	int	value = 0;
+
+	while (true)
+	{
+		value = waitForEvent();
+
+		if (value == 2)
+			break;
+	}
+
+	return value;
+}
+
 int	Ok::waitForEvent(void)
 {
 	int			x = 0, y = 0;

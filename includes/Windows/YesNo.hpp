@@ -12,7 +12,9 @@ class YesNo final : public Window
 		YesNo(const std::string name, const std::string text);
 		~YesNo(void) = default;
 
+		int		routine(void);
 		int		waitForEvent(void);
+
 		void	draw(void);
 		void	loadImages(void) {};
 		void	reactEvent(SDL_Event* event);

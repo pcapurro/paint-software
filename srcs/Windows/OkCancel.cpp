@@ -63,6 +63,11 @@ void	OkCancel::reactEvent(SDL_Event* event)
 	}
 }
 
+int	OkCancel::routine(void)
+{
+	return 0;
+}
+
 int	OkCancel::waitForEvent(void)
 {
 	int			x = 0, y = 0;

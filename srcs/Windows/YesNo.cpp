@@ -36,6 +36,11 @@ void	YesNo::draw(void)
 	(void) renderer;
 }
 
+int	YesNo::routine(void)
+{
+	return 0;
+}
+
 void	YesNo::reactEvent(SDL_Event* event)
 {
 	int			x = getX(), y = getY();

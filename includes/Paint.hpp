@@ -10,20 +10,24 @@
 
 # include "Texture.hpp"
 
+# define PAINT_W 1500
+# define PAINT_H 900
+
+# define MAIN_TITLE "🎨 paint-software / Edit an image"
+
+# define WELCOME_TITLE "🎨 paint-software / Welcome"
+# define WELCOME_DESC "Welcome to paint-software\n\
+	Project made by pcapurro\n\
+	Github: github.com/pcapurro"
+
 class Paint
 {
 	public:
-		Paint(void);
+		Paint(void) = default;
 		~Paint(void);
 
 		void	initializeSDL(void);
-
-		void	routineInit(void);
-		void	routine(void);
-
-	private:
-		Software*			_mainWindow;
-		Window*				_otherWindow;
+		void	start(void);
 };
 
 #endif

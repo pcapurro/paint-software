@@ -1,26 +1,7 @@
 #include "Paint.hpp"
 
-Paint::Paint(void)
-{
-	initializeSDL();
-
-	_mainWindow = new Software("🎨 paint-software / Edit an image", 1500, 900);
-	_otherWindow = new Ok("🎨 paint-software / Welcome", "Welcome to paint-software\nProject made by pcapurro\nGithub: https://github.com/pcapurro");
-
-	_mainWindow->clear();
-	_mainWindow->draw();
-	_mainWindow->blur();
-	_mainWindow->render();
-}
-
 Paint::~Paint(void)
 {
-	if (_mainWindow != nullptr)
-		delete _mainWindow;
-
-	if (_otherWindow != nullptr)
-		delete _otherWindow;
-
 	TTF_Quit();
 
 	SDL_Quit();
@@ -36,40 +17,20 @@ void	Paint::initializeSDL(void)
 	TTF_Init();
 }
 
-void	Paint::routineInit(void)
+void	Paint::start(void)
 {
-	int		value = 0;
+	auto 	mainWindow = std::make_shared<Software>(MAIN_TITLE, PAINT_W, PAINT_H);
+	auto	welcomeWindow = std::make_shared<Ok>(WELCOME_TITLE, WELCOME_DESC);
 
-	while (true)
-	{
-		value = _otherWindow->waitForEvent();
+	mainWindow.get()->draw();
+	mainWindow.get()->blur();
+	mainWindow.get()->render();
 
-		if (value == 1)
-			return ;
+	std::thread	t2(&Ok::routine, welcomeWindow);
+	t2.join();
 
-		if (value == 2)
-		{
-			delete _otherWindow;
-			_otherWindow = nullptr;
-			routine();
-			return ;
-		}
+	welcomeWindow.reset();
 
-		std::this_thread::sleep_for(std::chrono::microseconds(500));
-	}
-}
-
-void	Paint::routine(void)
-{
-	int		value = 0;
-
-	while (true)
-	{
-		value = _mainWindow->waitForEvent();
-
-		if (value == 1)
-			return ;
-
-		std::this_thread::sleep_for(std::chrono::microseconds(500));
-	}
+	std::thread	t1(&Software::routine, mainWindow);
+	t1.join();
 }

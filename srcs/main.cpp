@@ -5,9 +5,11 @@ int	main(void)
 {
 	try
 	{
-		Paint	program;
+		Paint	paint;
 
-		program.routineInit();
+		paint.initializeSDL();
+
+		paint.start();
 	}
 	catch (const std::exception& except)
 	{

@@ -559,6 +559,23 @@ void	Software::reactEvent(SDL_Event* event)
 		SDL_SetCursor(getCursor(element->getHighlightCursor()));
 }
 
+int		Software::routine(void)
+{
+	int	value = 0;
+
+	while (true)
+	{
+		value = waitForEvent();
+
+		if (value == 1)
+			return 1;
+
+		std::this_thread::sleep_for(std::chrono::microseconds(500));
+	}
+
+	return value;
+}
+
 int		Software::waitForEvent(void)
 {
 	int			x = 0, y = 0;

@@ -53,7 +53,9 @@ class Software final : public Window
 		Software(const std::string name, const int width, const int height);
 		~Software(void);
 
+		int		routine(void);
 		int		waitForEvent(void);
+
 		void	draw(void);
 		void	loadImages(void);
 		void	reactEvent(SDL_Event* event);

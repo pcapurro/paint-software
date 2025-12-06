@@ -9,7 +9,9 @@ class Ok final : public Window
 		Ok(const std::string name, const std::string text);
 		~Ok(void) = default;
 
+		int		routine(void);
 		int		waitForEvent(void);
+
 		void	draw(void);
 		void	loadImages(void) {};
 		void	reactEvent(SDL_Event* event);

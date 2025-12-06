@@ -14,7 +14,9 @@ class Window
 		Window(const std::string name, const int width, const int height);
 		virtual ~Window(void);
 
+		virtual int		routine(void) = 0;
 		virtual int		waitForEvent(void) = 0;
+		
 		virtual void	draw(void) = 0;
 
 		virtual void	loadImages(void) = 0;
