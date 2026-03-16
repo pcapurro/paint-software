@@ -3,17 +3,15 @@
 
 # include <iostream>
 # include <string>
-# include <algorithm>
 # include <vector>
 # include <thread>
 # include <chrono>
 # include <stdexcept>
 # include <memory>
-# include <fstream>
-# include <sstream>
 # include <cstdlib>
 # include <cstdio>
-# include <thread>
+# include <optional>
+# include <algorithm>
 
 # include <time.h>
 # include <sys/time.h>
@@ -22,10 +20,23 @@
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_ttf.h>
 
+# include "Macros.hpp"
+
+using std::string;
+using std::vector;
+
+using std::optional;
+using std::unique_ptr;
+
 using std::cout;
-using std::cerr;
 using std::endl;
 
-int		main(void);
+using std::cerr;
+
+void	getPaintingSize(int& paintWidth, int& paintHeight);
+void	getWindowSize(const int paintWidth, const int paintHeight, \
+            int& globalWidth, int& globalHeight);
+
+int     main(void);
 
 #endif
