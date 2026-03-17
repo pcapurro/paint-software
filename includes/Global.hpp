@@ -33,6 +33,8 @@ using std::endl;
 
 using std::cerr;
 
+void    getProjectName(string& projectName);
+
 void	getPaintingSize(int& paintWidth, int& paintHeight);
 void	getWindowSize(const int paintWidth, const int paintHeight, \
             int& globalWidth, int& globalHeight);

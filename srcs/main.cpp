@@ -2,7 +2,31 @@
 
 #include "Engine.hpp"
 #include "DialogValuesBox.hpp"
+#include "DialogTextBox.hpp"
+
 #include "Paint.hpp"
+
+void    getProjectName(string& projectName)
+{
+	DialogTextBox      window(
+		"Create a new painting...",
+		"materials/font/OpenSans.ttf",
+		400, 170,
+		LIGHT_MODE,
+		"Project name",
+		true,
+		"Specify the name of the project.",
+		30
+	);
+
+	if (window.routine() == END)
+		return;
+
+	string	newName = window.getFinalAnswer();
+
+	if (newName.size() > 0)
+		projectName = window.getFinalAnswer();
+}
 
 void	getPaintingSize(int& paintWidth, int& paintHeight)
 {
@@ -53,6 +77,13 @@ int		main(void)
 		Engine	engine(true, true, true, \
 			true, true, false);
 
+		string	projectName = "untitled";
+
+		getProjectName(projectName);
+
+		// cout << "Creating a painting named " \
+			// << projectName << endl;
+
 		int		paintWidth = DEF_MAX_PAINT_W;
 		int		paintHeight = DEF_MAX_PAINT_H;
 
@@ -70,7 +101,7 @@ int		main(void)
 		// cout << "Creating a window of "
 			// << globalWidth << "x" << globalHeight << endl;
 
-		Paint	paint("paint-software", globalWidth, globalHeight, \
+		Paint	paint("paint-software – " + projectName, globalWidth, globalHeight, \
 			paintWidth, paintHeight);
 
 		paint.routine();
