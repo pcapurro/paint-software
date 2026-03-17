@@ -7,8 +7,10 @@
 NAME = paint-software
 
 SRCS = srcs/main.cpp \
-	srcs/paint/Paint.cpp \
-	srcs/paint/Frame.cpp \
+	srcs/paint/paintsoftware/Init.cpp \
+	srcs/paint/paintsoftware/React.cpp \
+	srcs/paint/paintsoftware/Routine.cpp \
+	srcs/paint/paintframe/Init.cpp \
 	srcs/lib/base/Color.cpp \
 	srcs/lib/base/Cursor.cpp \
 	srcs/lib/base/Engine.cpp \

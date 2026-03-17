@@ -74,4 +74,8 @@
 # define DEF_MIN_W DEF_MAX_PAINT_W
 # define DEF_MIN_H DEF_MAX_PAINT_H
 
+/* Default colors */
+
+# define DEF_BACK_COLOR {42, 42, 42, 255}
+
 #endif

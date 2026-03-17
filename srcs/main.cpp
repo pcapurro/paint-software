@@ -1,10 +1,11 @@
 #include "Global.hpp"
 
 #include "Engine.hpp"
+
 #include "DialogValuesBox.hpp"
 #include "DialogTextBox.hpp"
 
-#include "Paint.hpp"
+#include "PaintSoftware.hpp"
 
 void    getProjectName(string& projectName)
 {
@@ -101,8 +102,8 @@ int		main(void)
 		// cout << "Creating a window of "
 			// << globalWidth << "x" << globalHeight << endl;
 
-		Paint	paint("paint-software – " + projectName, globalWidth, globalHeight, \
-			paintWidth, paintHeight);
+		PaintSoftware	paint("paint-software – " + projectName, \
+			globalWidth, globalHeight, paintWidth, paintHeight);
 
 		paint.routine();
 	}
