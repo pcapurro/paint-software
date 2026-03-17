@@ -11,36 +11,40 @@
 class PaintSoftware : public Window
 {
     private:
-        PaintFrame			_frame;
+        optional<PaintFrame>	_paintFrame;
 
-		vector<Image>		_mainButtons;
-		vector<Image>		_tools;
-		vector<Image>		_brushCursors;
-		vector<Shape>		_brushOptions;
-		vector<Shape>		_opacityCursors;
-		optional<Shape>		_opacityOption;
+		vector<Image>			_mainButtons;
+		vector<Image>			_tools;
 
-		vector<Shape>		_colorsOptions;
-		vector<Shape>		_randomColors;
+		vector<Image>			_brushCursors;
+		vector<Shape>			_opacityCursors;
+
+		vector<Shape>			_colorsOptions;
+		vector<Shape>			_randomColors;
+
+		vector<Shape>			_decoyShapes;
+
+		void					initFrame(const int frameWidth, const int frameHeight);
+
+		void					initMainButtons(SDL_Renderer* renderer);
+		void					initTools(SDL_Renderer* renderer);
+
+		void					initBrushOptions(SDL_Renderer* renderer);
+		void					initOpacityOption(SDL_Renderer* renderer);
+
+		void					initColorsOptions(SDL_Renderer* renderer);
+		void					initRandomColors(SDL_Renderer* renderer);
 
     public:
 		PaintSoftware(const string& name, const int width, const int height, \
 			const int frameWidth, const int frameHeight);
 		~PaintSoftware(void) = default;
 
-		void				initMainButtons(void);
-		void				initTools(void);
-		void				initBrushOptions(void);
-		void				initOpacityOption(void);
+		int         			routine(void);
+		int         			waitForEvent(void);
 
-		void				initColorsOptions(void);
-		void				initRandomColors(void);
-
-		int         		routine(void);
-		int         		waitForEvent(void);
-
-		void        		render(void);
-		int         		reactEvent(SDL_Event* event, const int x = 0, const int y = 0);
+		void        			render(void);
+		int         			reactEvent(SDL_Event* event, const int x = 0, const int y = 0);
 };
 
 #endif

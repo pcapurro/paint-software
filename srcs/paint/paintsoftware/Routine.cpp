@@ -9,6 +9,17 @@ void	PaintSoftware::render(void)
 	if (!renderer)
 		return;
 
+	_paintFrame->render(renderer);
+
+	for (auto& element : _mainButtons)
+		element.render(renderer);
+
+	for (auto& tool : _tools)
+		tool.render(renderer);
+
+	for (auto& shape : _decoyShapes)
+		shape.render(renderer);
+
     // ...
 }
 

@@ -42,7 +42,7 @@ void	getPaintingSize(int& paintWidth, int& paintHeight)
 		4,
 		{"width:", "height:"},
 		{"px", "px"},
-		{1, 1},
+		{50, 50},
 		{DEF_MAX_PAINT_W, DEF_MAX_PAINT_H}
 	);
 

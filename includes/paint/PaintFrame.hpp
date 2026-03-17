@@ -1,19 +1,22 @@
 #ifndef PAINTFRAME_HPP
 # define PAINTFRAME_HPP
 
+# include "Element.hpp"
 # include "Shape.hpp"
 
-class PaintFrame
+class PaintFrame : public Element
 {
     private:
-        const int   _width;
-        const int   _height;
+        Shape       _frame;
 
     public:
         PaintFrame(void) = delete;
-        PaintFrame(const int width, const int height);
+        PaintFrame(const int x, const int y, \
+            const int width, const int height);
 
         ~PaintFrame(void) = default;
+
+        void        render(SDL_Renderer* renderer);
 };
 
 #endif

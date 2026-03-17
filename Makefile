@@ -11,6 +11,7 @@ SRCS = srcs/main.cpp \
 	srcs/paint/paintsoftware/React.cpp \
 	srcs/paint/paintsoftware/Routine.cpp \
 	srcs/paint/paintframe/Init.cpp \
+	srcs/paint/paintframe/Render.cpp \
 	srcs/lib/base/Color.cpp \
 	srcs/lib/base/Cursor.cpp \
 	srcs/lib/base/Engine.cpp \

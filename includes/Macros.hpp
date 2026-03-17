@@ -74,6 +74,19 @@
 # define DEF_MIN_W DEF_MAX_PAINT_W
 # define DEF_MIN_H DEF_MAX_PAINT_H
 
+# define DEF_BUTTON_W 65
+# define DEF_BUTTON_H 65
+
+# define CENTER_SPACE_W 20
+# define CENTER_SPACE_H 30
+
+/* Limits */
+
+# define W_LIMIT 20
+
+# define H_UP_LIMIT 30
+# define H_DOWN_LIMIT 150
+
 /* Default colors */
 
 # define DEF_BACK_COLOR {42, 42, 42, 255}
