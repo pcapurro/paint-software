@@ -3,8 +3,9 @@
 
 # include "Window.hpp"
 
-# include "ImageButton.hpp"
-# include "Shape.hpp"
+# include "BrushOptions.hpp"
+# include "MainBox.hpp"
+# include "ToolBox.hpp"
 
 # include "PaintFrame.hpp"
 
@@ -13,16 +14,11 @@ class PaintSoftware : public Window
     private:
         optional<PaintFrame>				_paintFrame;
 
-		vector<unique_ptr<ImageButton>>		_mainButtons;
-		vector<unique_ptr<ImageButton>>		_tools;
+		optional<MainBox>					_mainBox;
+		optional<ToolBox>					_toolBox;
+		optional<BrushOptions>				_brushOptions;
 
-		vector<unique_ptr<ImageButton>>		_brushCursors;
-		vector<Shape>						_opacityCursors;
-
-		vector<Shape>						_colorsOptions;
-		vector<Shape>						_randomColors;
-
-		vector<Shape>						_decoyShapes;
+		optional<Shape>						_leftEndLine;
 
 		void								initFrame(const int frameWidth, const int frameHeight);
 
@@ -30,10 +26,6 @@ class PaintSoftware : public Window
 		void								initTools(SDL_Renderer* renderer);
 
 		void								initBrushOptions(SDL_Renderer* renderer);
-		void								initOpacityOption(SDL_Renderer* renderer);
-
-		void								initColorsOptions(SDL_Renderer* renderer);
-		void								initRandomColors(SDL_Renderer* renderer);
 
     public:
 		PaintSoftware(const string& name, const int width, const int height, \

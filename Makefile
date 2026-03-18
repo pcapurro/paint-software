@@ -10,6 +10,9 @@ SRCS = srcs/main.cpp \
 	srcs/paint/paintsoftware/Init.cpp \
 	srcs/paint/paintsoftware/React.cpp \
 	srcs/paint/paintsoftware/Routine.cpp \
+	srcs/paint/paintsoftware/widgets/BrushOptions.cpp \
+	srcs/paint/paintsoftware/widgets/MainBox.cpp \
+	srcs/paint/paintsoftware/widgets/ToolBox.cpp \
 	srcs/paint/paintframe/Init.cpp \
 	srcs/paint/paintframe/Render.cpp \
 	srcs/lib/base/Color.cpp \
@@ -77,6 +80,7 @@ CXX = c++
 CXXFLAGS = -std=c++17 \
 	-I includes/ \
 	-I includes/paint/ \
+	-I includes/paint/widgets \
 	-I includes/lib/base \
 	-I includes/lib/element \
 	-I includes/lib/widgets \

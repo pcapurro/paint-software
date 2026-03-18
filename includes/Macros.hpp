@@ -82,6 +82,11 @@
 # define CENTER_SPACE_W 20
 # define CENTER_SPACE_H 30
 
+# define BRUSH_PANEL_W 150
+# define BRUSH_PANEL_H 205
+
+# define BORDER 3
+
 /* Limits */
 
 # define W_LIMIT 20

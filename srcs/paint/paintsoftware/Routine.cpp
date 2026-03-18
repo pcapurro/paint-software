@@ -11,16 +11,12 @@ void	PaintSoftware::render(void)
 
 	_paintFrame->render(renderer);
 
-	for (auto& element : _mainButtons)
-		element->render(renderer);
+	_mainBox->render(renderer);
+	_toolBox->render(renderer);
+	_brushOptions->render(renderer);
 
-	for (auto& tool : _tools)
-		tool->render(renderer);
-
-	for (auto& shape : _decoyShapes)
-		shape.render(renderer);
-
-    // ...
+	if (_leftEndLine)
+		_leftEndLine->render(renderer);
 }
 
 int		PaintSoftware::waitForEvent(void)
