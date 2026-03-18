@@ -36,25 +36,17 @@ void	PaintSoftware::initMainButtons(SDL_Renderer* renderer)
 {
 	_mainButtons.reserve(4);
 
-	Image	saveButton(W_LIMIT, H_UP_LIMIT, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/green-check.bmp", renderer);
-	Image	cancelButton(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, H_UP_LIMIT, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/red-cross.bmp", renderer);
+	auto	saveButton = std::make_unique<ImageButton>(W_LIMIT, H_UP_LIMIT, DEF_BUTTON_W, DEF_BUTTON_H, \
+		"materials/icons/bmp/green-check.bmp", getBackgroundColor(), 3, getWriteColor(), renderer);
+	auto	cancelButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, H_UP_LIMIT, \
+		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/red-cross.bmp", \
+		getBackgroundColor(), 3, getWriteColor(), renderer);
 
-	Image	leftButton(W_LIMIT, H_UP_LIMIT + DEF_BUTTON_H, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/left-arrow.bmp", renderer);
-	Image	rightButton(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, H_UP_LIMIT + DEF_BUTTON_H, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/right-arrow.bmp", renderer);
-
-	saveButton.setSettings(true, BORDER_SELECT, true, \
-		SDL_SYSTEM_CURSOR_HAND, false, true);
-	cancelButton.setSettings(true, BORDER_SELECT, true, \
-		SDL_SYSTEM_CURSOR_HAND, false, true);
-
-	leftButton.setSettings(true, BORDER_SELECT, true, \
-		SDL_SYSTEM_CURSOR_HAND, false, true);
-	rightButton.setSettings(true, BORDER_SELECT, true, \
-		SDL_SYSTEM_CURSOR_HAND, false, true);
+	auto	leftButton = std::make_unique<ImageButton>(W_LIMIT, H_UP_LIMIT + DEF_BUTTON_H, DEF_BUTTON_W, DEF_BUTTON_H, \
+		"materials/icons/bmp/left-arrow.bmp", getBackgroundColor(), 3, getWriteColor(), renderer);
+	auto	rightButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, H_UP_LIMIT + DEF_BUTTON_H, \
+		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/right-arrow.bmp", \
+		getBackgroundColor(), 3, getWriteColor(), renderer);
 
 	_mainButtons.emplace_back(std::move(saveButton));
 	_mainButtons.emplace_back(std::move(cancelButton));
@@ -62,7 +54,9 @@ void	PaintSoftware::initMainButtons(SDL_Renderer* renderer)
 	_mainButtons.emplace_back(std::move(leftButton));
 	_mainButtons.emplace_back(std::move(rightButton));
 
-	// ...
+	for (auto& button : _mainButtons)
+		button->setSettings(true, BORDER_SELECT, true, \
+		SDL_SYSTEM_CURSOR_HAND, false, true);
 }
 
 void	PaintSoftware::initTools(SDL_Renderer* renderer)
@@ -71,31 +65,34 @@ void	PaintSoftware::initTools(SDL_Renderer* renderer)
 
 	int		globalY = H_UP_LIMIT + (DEF_BUTTON_H * 2) + CENTER_SPACE_H;
 
-	Image	brushButton(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/brush.bmp", renderer);
-	Image	pencilButton(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/pencil.bmp", renderer);
+	auto	brushButton = std::make_unique<ImageButton>(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
+		"materials/icons/bmp/brush.bmp", getBackgroundColor(), 3, getWriteColor(), renderer);
+	auto	pencilButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
+		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/pencil.bmp", getBackgroundColor(), 3, getWriteColor(), renderer);
 
 	globalY += DEF_BUTTON_H;
 
-	Image	bucketButton(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/bucket.bmp", renderer);
-	Image	sprayButton(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/spray.bmp", renderer);
+	auto	bucketButton = std::make_unique<ImageButton>(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
+		"materials/icons/bmp/bucket.bmp", getBackgroundColor(), 3, getWriteColor(), renderer);
+	auto	sprayButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
+		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/spray.bmp", \
+		getBackgroundColor(), 3, getWriteColor(), renderer);
 
 	globalY += DEF_BUTTON_H;
 
-	Image	eraserButton(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/eraser.bmp", renderer);
-	Image	pickerButton(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/color-picker.bmp", renderer);
+	auto	eraserButton = std::make_unique<ImageButton>(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
+		"materials/icons/bmp/eraser.bmp", getBackgroundColor(), 3, getWriteColor(), renderer);
+	auto	pickerButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
+		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/color-picker.bmp", \
+		getBackgroundColor(), 3, getWriteColor(), renderer);
 
 	globalY += DEF_BUTTON_H;
 
-	Image	lineButton(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/line.bmp", renderer);
-	Image	textButton(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/text.bmp", renderer);
+	auto	lineButton = std::make_unique<ImageButton>(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
+		"materials/icons/bmp/line.bmp", getBackgroundColor(), 3, getWriteColor(), renderer);
+	auto	textButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
+		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/text.bmp", \
+		getBackgroundColor(), 3, getWriteColor(), renderer);
 
 	_tools.emplace_back(std::move(brushButton));
 	_tools.emplace_back(std::move(pencilButton));
@@ -115,7 +112,7 @@ void	PaintSoftware::initTools(SDL_Renderer* renderer)
 void	PaintSoftware::initBrushOptions(SDL_Renderer* renderer)
 {
 	int		globalY = H_UP_LIMIT + (DEF_BUTTON_H * 6) + (CENTER_SPACE_H * 2);
-	Shape	optionsFrame(W_LIMIT, globalY, 150, 205, getWriteColor());
+	Shape	optionsFrame(W_LIMIT, globalY, 150, 205, getBackgroundColor(), true, 3, getWriteColor());
 
 	_brushCursors.reserve(4);
 	_opacityCursors.reserve(4);

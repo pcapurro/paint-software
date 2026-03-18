@@ -12,10 +12,10 @@ void	PaintSoftware::render(void)
 	_paintFrame->render(renderer);
 
 	for (auto& element : _mainButtons)
-		element.render(renderer);
+		element->render(renderer);
 
 	for (auto& tool : _tools)
-		tool.render(renderer);
+		tool->render(renderer);
 
 	for (auto& shape : _decoyShapes)
 		shape.render(renderer);

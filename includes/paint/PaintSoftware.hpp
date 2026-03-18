@@ -3,7 +3,7 @@
 
 # include "Window.hpp"
 
-# include "Image.hpp"
+# include "ImageButton.hpp"
 # include "Shape.hpp"
 
 # include "PaintFrame.hpp"
@@ -11,29 +11,29 @@
 class PaintSoftware : public Window
 {
     private:
-        optional<PaintFrame>	_paintFrame;
+        optional<PaintFrame>				_paintFrame;
 
-		vector<Image>			_mainButtons;
-		vector<Image>			_tools;
+		vector<unique_ptr<ImageButton>>		_mainButtons;
+		vector<unique_ptr<ImageButton>>		_tools;
 
-		vector<Image>			_brushCursors;
-		vector<Shape>			_opacityCursors;
+		vector<unique_ptr<ImageButton>>		_brushCursors;
+		vector<Shape>						_opacityCursors;
 
-		vector<Shape>			_colorsOptions;
-		vector<Shape>			_randomColors;
+		vector<Shape>						_colorsOptions;
+		vector<Shape>						_randomColors;
 
-		vector<Shape>			_decoyShapes;
+		vector<Shape>						_decoyShapes;
 
-		void					initFrame(const int frameWidth, const int frameHeight);
+		void								initFrame(const int frameWidth, const int frameHeight);
 
-		void					initMainButtons(SDL_Renderer* renderer);
-		void					initTools(SDL_Renderer* renderer);
+		void								initMainButtons(SDL_Renderer* renderer);
+		void								initTools(SDL_Renderer* renderer);
 
-		void					initBrushOptions(SDL_Renderer* renderer);
-		void					initOpacityOption(SDL_Renderer* renderer);
+		void								initBrushOptions(SDL_Renderer* renderer);
+		void								initOpacityOption(SDL_Renderer* renderer);
 
-		void					initColorsOptions(SDL_Renderer* renderer);
-		void					initRandomColors(SDL_Renderer* renderer);
+		void								initColorsOptions(SDL_Renderer* renderer);
+		void								initRandomColors(SDL_Renderer* renderer);
 
     public:
 		PaintSoftware(const string& name, const int width, const int height, \

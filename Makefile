@@ -32,6 +32,9 @@ SRCS = srcs/main.cpp \
 	srcs/lib/widgets/textfield/On.cpp \
 	srcs/lib/widgets/textfield/Set.cpp \
 	srcs/lib/widgets/textfield/Render.cpp \
+	srcs/lib/widgets/imagebutton/Init.cpp \
+	srcs/lib/widgets/imagebutton/On.cpp \
+	srcs/lib/widgets/imagebutton/Render.cpp \
 	srcs/lib/widgets/textbutton/Get.cpp \
 	srcs/lib/widgets/textbutton/Init.cpp \
 	srcs/lib/widgets/textbutton/On.cpp \
