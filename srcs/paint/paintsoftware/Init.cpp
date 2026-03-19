@@ -29,25 +29,25 @@ void	PaintSoftware::initFrame(const int frameWidth, const int frameHeight)
 
 void	PaintSoftware::initMainButtons(SDL_Renderer* renderer)
 {
-	_mainBox.emplace(W_LIMIT, H_UP_LIMIT, 150, 130, \
+	_mainBox.emplace(W_LIMIT, H_UP_LIMIT, LEFT_PANELS_W, 130, \
 		getBackgroundColor(), getWriteColor(), renderer);
 }
 
 void	PaintSoftware::initTools(SDL_Renderer* renderer)
 {
 	_toolBox.emplace(W_LIMIT, H_UP_LIMIT + (DEF_BUTTON_H * 2) + CENTER_SPACE_H, \
-		150, 260, getBackgroundColor(), getWriteColor(), renderer);
+		LEFT_PANELS_W, 260, getBackgroundColor(), getWriteColor(), renderer);
 }
 
 void	PaintSoftware::initBrushOptions(SDL_Renderer* renderer)
 {
 	_brushOptions.emplace(W_LIMIT, H_UP_LIMIT + (DEF_BUTTON_H * 6) + (CENTER_SPACE_H * 2), \
-		150, 205, getBackgroundColor(), getWriteColor(), renderer);
+		LEFT_PANELS_W, BRUSH_PANEL_H, getBackgroundColor(), getWriteColor(), renderer);
 
 	if (_brushOptions->getY() + _brushOptions->getHeight() + BORDER \
 		< _paintFrame->getHeight() + DEF_UP_H)
 	{
 		_leftEndLine.emplace(W_LIMIT, (_paintFrame->getY() + _paintFrame->getHeight() - BORDER), \
-			BRUSH_PANEL_W, BORDER, getWriteColor());
+			LEFT_PANELS_W, BORDER, getWriteColor());
 	}
 }

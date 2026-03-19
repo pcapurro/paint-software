@@ -6,17 +6,17 @@ MainBox::MainBox(const int x, const int y, const int width, const int height, \
 {
 	_buttons.reserve(4);
 
-	auto	saveButton = std::make_unique<ImageButton>(W_LIMIT, H_UP_LIMIT, DEF_BUTTON_W, DEF_BUTTON_H, \
+	auto	saveButton = std::make_unique<ImageButton>(getX(), getY(), DEF_BUTTON_W, DEF_BUTTON_H, \
 		"materials/icons/bmp/green-check.bmp", backColor, BORDER, writeColor, renderer);
 
-	auto	cancelButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, H_UP_LIMIT, \
+	auto	cancelButton = std::make_unique<ImageButton>(getX() + DEF_BUTTON_W + CENTER_SPACE_W, getY(), \
 		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/red-cross.bmp", \
 		backColor, BORDER, writeColor, renderer);
 
-	auto	leftButton = std::make_unique<ImageButton>(W_LIMIT, H_UP_LIMIT + DEF_BUTTON_H, DEF_BUTTON_W, DEF_BUTTON_H, \
+	auto	leftButton = std::make_unique<ImageButton>(getX(), getY() + DEF_BUTTON_H, DEF_BUTTON_W, DEF_BUTTON_H, \
 		"materials/icons/bmp/left-arrow.bmp", backColor, BORDER, writeColor, renderer);
 
-	auto	rightButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, H_UP_LIMIT + DEF_BUTTON_H, \
+	auto	rightButton = std::make_unique<ImageButton>(getX() + DEF_BUTTON_W + CENTER_SPACE_W, getY() + DEF_BUTTON_H, \
 		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/right-arrow.bmp", \
 		backColor, BORDER, writeColor, renderer);
 

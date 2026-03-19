@@ -6,34 +6,35 @@ ToolBox::ToolBox(const int x, const int y, const int width, const int height, \
 {
 	_buttons.reserve(8);
 
-	int		globalY = H_UP_LIMIT + (DEF_BUTTON_H * 2) + CENTER_SPACE_H;
+	int		globalX = getX();
+	int		globalY = getY();
 
-	auto	brushButton = std::make_unique<ImageButton>(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
+	auto	brushButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
 		"materials/icons/bmp/brush.bmp", backColor, BORDER, writeColor, renderer);
-	auto	pencilButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
+	auto	pencilButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
 		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/pencil.bmp", backColor, BORDER, writeColor, renderer);
 
 	globalY += DEF_BUTTON_H;
 
-	auto	bucketButton = std::make_unique<ImageButton>(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
+	auto	bucketButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
 		"materials/icons/bmp/bucket.bmp", backColor, BORDER, writeColor, renderer);
-	auto	sprayButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
+	auto	sprayButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
 		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/spray.bmp", \
 		backColor, BORDER, writeColor, renderer);
 
 	globalY += DEF_BUTTON_H;
 
-	auto	eraserButton = std::make_unique<ImageButton>(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
+	auto	eraserButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
 		"materials/icons/bmp/eraser.bmp", backColor, BORDER, writeColor, renderer);
-	auto	pickerButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
+	auto	pickerButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
 		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/color-picker.bmp", \
 		backColor, BORDER, writeColor, renderer);
 
 	globalY += DEF_BUTTON_H;
 
-	auto	lineButton = std::make_unique<ImageButton>(W_LIMIT, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
+	auto	lineButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
 		"materials/icons/bmp/line.bmp", backColor, BORDER, writeColor, renderer);
-	auto	textButton = std::make_unique<ImageButton>(W_LIMIT + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
+	auto	textButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
 		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/text.bmp", \
 		backColor, BORDER, writeColor, renderer);
 

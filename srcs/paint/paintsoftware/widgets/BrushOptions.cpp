@@ -10,15 +10,15 @@ BrushOptions::BrushOptions(const int x, const int y, const int width, const int 
 	_background.emplace(x, y, width, height, backColor, \
 		true, BORDER, writeColor);
 
-	int		globalY = H_UP_LIMIT + (DEF_BUTTON_H * 6) + (CENTER_SPACE_H * 2);
+	int		globalY = getY();
     int		lineHeights[] = {1, 2, 4, 6};
 
 	for (int i = 0; i < 4; i++)
 	{
-		globalY += 35;
+		globalY += BRUSH_LINES_SPACE_H;
 
-		Shape	line(W_LIMIT + (BRUSH_PANEL_W / 2) - BORDER, globalY, \
-			BRUSH_PANEL_W / 2 - (BORDER * 2), lineHeights[i], writeColor);
+		Shape	line(W_LIMIT + (getWidth() / 2) - BORDER, globalY, \
+			getWidth() / 2 - (BORDER * 2), lineHeights[i], writeColor);
 
 		_brushLines.emplace_back(std::move(line));
 	}
