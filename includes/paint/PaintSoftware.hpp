@@ -20,6 +20,8 @@ class PaintSoftware : public Window
 
 		optional<Shape>						_leftEndLine;
 
+		int									_cursor = SDL_SYSTEM_CURSOR_ARROW;
+
 		void								initFrame(const int frameWidth, const int frameHeight);
 
 		void								initMainButtons(SDL_Renderer* renderer);
@@ -36,6 +38,11 @@ class PaintSoftware : public Window
 		int         			waitForEvent(void);
 
 		void        			render(void);
+
+		void					reactMouseMotion(const int x, const int y);
+		void					reactMouseButtonDown(const int x, const int y);
+		void					reactMouseButtonUp(const int x, const int y);
+
 		int         			reactEvent(SDL_Event* event, const int x = 0, const int y = 0);
 };
 
