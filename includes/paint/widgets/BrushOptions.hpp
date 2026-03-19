@@ -8,13 +8,24 @@
 class BrushOptions : public Element
 {
     private:
-        optional<Shape>                     _background;
+        optional<Shape>             _background;
 
-		vector<unique_ptr<ImageButton>>		_brushCursors;
-		vector<Shape>						_opacityCursors;
+        vector<Shape>               _brushLines;
+        optional<Shape>             _opacityLine;
 
-        vector<Shape>                       _brushLines;
-        optional<Shape>                     _opacityLine;
+        size_t                      _brushCursor = 1;
+        vector<Shape>               _brushCursors;
+        unique_ptr<ImageButton>     _selectedBrush;
+
+        size_t                      _opacityCursor = 4;
+        vector<Shape>               _opacityCursors;
+
+        void                        initBrushLines(const Color& writeColor, SDL_Renderer* renderer);
+        void                        initOpacity(const Color& writeColor);
+
+        void                        refreshBrush(void);
+        void                        refreshOpacity(void);
+        void	                    refresh(void);
 
     public:
         BrushOptions(const int x, const int y, const int width, const int height, \
@@ -22,7 +33,7 @@ class BrushOptions : public Element
 
         ~BrushOptions(void) = default;
 
-        void        render(SDL_Renderer* renderer);
+        void                        render(SDL_Renderer* renderer);
 };
 
 #endif

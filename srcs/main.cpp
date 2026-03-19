@@ -82,7 +82,7 @@ int		main(void)
 
 		getProjectName(projectName);
 
-		// cout << "Creating a painting named " \
+		// cout << "Creating a painting named "
 			// << projectName << endl;
 
 		int		paintWidth = DEF_MAX_PAINT_W;
