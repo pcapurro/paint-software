@@ -4,7 +4,7 @@
 /* UI config */
 
 # define MIN_WINDOW_W 300
-# define MIN_WINDOW_H 150
+# define MIN_WINDOW_H 60
 
 # define MAX_BUTTONS 4
 
@@ -69,7 +69,7 @@
 # define DEF_RIGHT_W 30
 
 # define DEF_UP_H 30
-# define DEF_DOWN_H 150
+# define DEF_DOWN_H 30
 
 # define DEF_MAX_PAINT_W 1280
 # define DEF_MAX_PAINT_H 720
@@ -105,7 +105,7 @@
 # define W_LIMIT 20
 
 # define H_UP_LIMIT 30
-# define H_DOWN_LIMIT 150
+# define H_DOWN_LIMIT 30
 
 /* Default colors */
 
