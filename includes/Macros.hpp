@@ -88,7 +88,7 @@
 # define BRUSH_CURSOR_W 30
 # define BRUSH_CURSOR_H 30
 
-# define BRUSH_LINES {1, 2, 4, 6}
+# define BRUSH_LINES {1, 2, 3, 6}
 # define BRUSH_PANEL_H 205
 # define BRUSH_LINES_SPACE_H 35
 

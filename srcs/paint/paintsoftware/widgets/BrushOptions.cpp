@@ -100,24 +100,26 @@ void	BrushOptions::refreshOpacity(const int x, const int y)
 	if (x < opacityLineStartX)
 		_opacityValue = 0;
 	else if (x > opacityLineStartX + opacityWidth)
-		_opacityValue = 255;
+		_opacityValue = 100;
 	else
 	{
 		int	newOpacity = ((x - opacityLineStartX) * 100) / (opacityWidth);
 
 		_opacityCursor->setX(x);
-		_opacityValue = (newOpacity * 255) / 100;
+		_opacityValue = newOpacity;
 	}
 }
 
 int		BrushOptions::getBrush(void) const noexcept
 {
-	return _brushValue;
+	int	brushLines[] = BRUSH_LINES;
+
+	return brushLines[_brushValue];
 }
 
 int		BrushOptions::getOpacity(void) const noexcept
 {
-	return _opacityValue;
+	return (_opacityValue * 255) / 100;
 }
 
 void    BrushOptions::render(SDL_Renderer* renderer)
