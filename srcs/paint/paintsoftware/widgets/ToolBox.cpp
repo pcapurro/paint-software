@@ -68,6 +68,8 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 
 		button->setSelectColor({25, 200, 50, 130});
 	}
+
+	_buttons[_selectedTool]->setSelected(true);
 }
 
 int		ToolBox::getSelectedTool(void) const noexcept
