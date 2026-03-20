@@ -39,8 +39,12 @@ void    PaintSoftware::reactMouseButtonDown(const int x, const int y)
 
     for (auto& element : elements)
     {
-        if (element->isAbove(x, y))
-            element->onMouseDown(x, y, renderer);
+        if (!element->isAbove(x, y))
+            continue;
+        
+        element->onMouseDown(x, y, renderer);
+
+        break;
     }
 }
 
@@ -53,15 +57,19 @@ void    PaintSoftware::reactMouseButtonUp(const int x, const int y)
 
     for (auto& element : elements)
     {
-        if (element->isAbove(x, y))
-            element->onMouseUp(x, y, renderer);
+        if (!element->isAbove(x, y))
+            continue;
+
+        element->onMouseUp(x, y, renderer);
+
+        exec();
+
+        break;
     }
 }
 
-int		PaintSoftware::reactEvent(SDL_Event* event, const int x, const int y)
+int     PaintSoftware::reactEvent(SDL_Event* event, const int x, const int y)
 {
-	int		value = OK;
-
 	if (event->type == SDL_MOUSEMOTION)
 		reactMouseMotion(x, y);
     
@@ -75,5 +83,5 @@ int		PaintSoftware::reactEvent(SDL_Event* event, const int x, const int y)
 
 	refreshDisplay();
 
-	return value;
+    return OK;
 }

@@ -1,24 +1,5 @@
 #include "PaintSoftware.hpp"
 
-void	PaintSoftware::render(void)
-{
-	SDL_Renderer*	renderer = getRenderer();
-
-    renderBackground();
-
-	if (!renderer)
-		return;
-
-	_paintFrame->render(renderer);
-
-	_mainBox->render(renderer);
-	_toolBox->render(renderer);
-	_brushOptions->render(renderer);
-
-	if (_leftEndLine)
-		_leftEndLine->render(renderer);
-}
-
 int		PaintSoftware::waitForEvent(void)
 {
 	int			x = 0, y = 0;
@@ -45,9 +26,9 @@ int		PaintSoftware::waitForEvent(void)
 	else
 		setX(x), setY(y);
 
-	int value = reactEvent(&event, x, y);
+	reactEvent(&event, x, y);
 
-	return value;
+	return OK;
 }
 
 int		PaintSoftware::routine(void)
@@ -66,4 +47,23 @@ int		PaintSoftware::routine(void)
     }
 
     return OK;
+}
+
+void	PaintSoftware::render(void)
+{
+	SDL_Renderer*	renderer = getRenderer();
+
+    renderBackground();
+
+	if (!renderer)
+		return;
+
+	_paintFrame->render(renderer);
+
+	_mainBox->render(renderer);
+	_toolBox->render(renderer);
+	_brushOptions->render(renderer);
+
+	if (_leftEndLine)
+		_leftEndLine->render(renderer);
 }

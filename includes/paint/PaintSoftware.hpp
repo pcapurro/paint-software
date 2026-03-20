@@ -20,6 +20,9 @@ class PaintSoftware : public Window
 
 		optional<Shape>						_leftEndLine;
 
+		int									_selectedTool = BRUSH;
+		Color								_selectedColor;
+
 		int									_cursor = SDL_SYSTEM_CURSOR_ARROW;
 
 		void								initFrame(const int frameWidth, const int frameHeight);
@@ -34,8 +37,13 @@ class PaintSoftware : public Window
 			const int frameWidth, const int frameHeight);
 		~PaintSoftware(void) = default;
 
-		int         			routine(void);
+		void    				execMain(void);
+		void    				execTool(void);
+		void					exec(void);
+
 		int         			waitForEvent(void);
+
+		int         			routine(void);
 
 		void        			render(void);
 
@@ -43,7 +51,7 @@ class PaintSoftware : public Window
 		void					reactMouseButtonDown(const int x, const int y);
 		void					reactMouseButtonUp(const int x, const int y);
 
-		int         			reactEvent(SDL_Event* event, const int x = 0, const int y = 0);
+		int						reactEvent(SDL_Event* event, const int x = 0, const int y = 0);
 };
 
 #endif

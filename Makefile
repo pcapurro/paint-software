@@ -10,6 +10,7 @@ SRCS = srcs/main.cpp \
 	srcs/paint/paintsoftware/Init.cpp \
 	srcs/paint/paintsoftware/React.cpp \
 	srcs/paint/paintsoftware/Routine.cpp \
+	srcs/paint/paintsoftware/Exec.cpp \
 	srcs/paint/paintsoftware/widgets/BrushOptions.cpp \
 	srcs/paint/paintsoftware/widgets/MainBox.cpp \
 	srcs/paint/paintsoftware/widgets/ToolBox.cpp \
