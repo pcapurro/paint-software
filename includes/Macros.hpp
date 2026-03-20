@@ -98,7 +98,7 @@
 # define OPACITY_LINE_H 2
 # define OPACITY_LINE_SPACE_H 25
 
-# define BORDER 3
+# define BORDER 2
 
 /* Limits */
 
@@ -111,18 +111,25 @@
 
 # define DEF_BACK_COLOR {42, 42, 42, 255}
 
+/* Main buttons */
+
+# define SAVE 1
+# define CANCEL 2
+# define BACK 3
+# define FORWARD 4
+
 /* Tools */
 
-# define BRUSH 0
-# define PENCIL 1
+# define BRUSH 1
+# define PENCIL 2
 
-# define BUCKET 2
-# define SPRAY 3
+# define BUCKET 3
+# define SPRAY 4
 
-# define ERASER 4
-# define PICKER 5
+# define ERASER 5
+# define PICKER 6
 
-# define LINE 6
-# define TEXT 7
+# define LINE 7
+# define TEXT 8
 
 #endif

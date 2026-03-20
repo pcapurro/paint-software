@@ -21,33 +21,33 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 	Color	invisible = INVISIBLE;
 
 	auto	brushButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/brush.bmp", invisible, 2, writeColor, renderer);
+		"materials/icons/bmp/brush.bmp", invisible, BORDER, writeColor, renderer);
 	auto	pencilButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/pencil.bmp", invisible, 2, writeColor, renderer);
+		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/pencil.bmp", invisible, BORDER, writeColor, renderer);
 
 	globalY += DEF_BUTTON_H;
 
 	auto	bucketButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/bucket.bmp", invisible, 2, writeColor, renderer);
+		"materials/icons/bmp/bucket.bmp", invisible, BORDER, writeColor, renderer);
 	auto	sprayButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
 		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/spray.bmp", \
-		invisible, 2, writeColor, renderer);
+		invisible, BORDER, writeColor, renderer);
 
 	globalY += DEF_BUTTON_H;
 
 	auto	eraserButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/eraser.bmp", invisible, 2, writeColor, renderer);
+		"materials/icons/bmp/eraser.bmp", invisible, BORDER, writeColor, renderer);
 	auto	pickerButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
 		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/color-picker.bmp", \
-		invisible, 2, writeColor, renderer);
+		invisible, BORDER, writeColor, renderer);
 
 	globalY += DEF_BUTTON_H;
 
 	auto	lineButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/line.bmp", invisible, 2, writeColor, renderer);
+		"materials/icons/bmp/line.bmp", invisible, BORDER, writeColor, renderer);
 	auto	textButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
 		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/text.bmp", \
-		invisible, 2, writeColor, renderer);
+		invisible, BORDER, writeColor, renderer);
 
 	_buttons.emplace_back(std::move(brushButton));
 	_buttons.emplace_back(std::move(pencilButton));
@@ -69,7 +69,7 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 		button->setSelectColor({25, 200, 50, 130});
 	}
 
-	_buttons[_selectedTool]->setSelected(true);
+	_buttons[BRUSH - 1]->setSelected(true);
 }
 
 int		ToolBox::getSelectedTool(void) const noexcept
@@ -110,7 +110,7 @@ void	ToolBox::onMouseUp(const int x, const int y, \
 			_buttons[i]->setFocus(false);
 			_buttons[i]->setSelected(true);
 
-			_selectedTool = i;
+			_selectedTool = i + 1;
 		}
 		else if (_buttons[i]->isSelected())
 			_buttons[i]->setSelected(false);

@@ -49,8 +49,8 @@ void	BrushOptions::initBrushLines(SDL_Renderer* renderer)
 		Shape	brushCursor(cursorX, cursorY, \
 			BRUSH_CURSOR_W, BRUSH_CURSOR_H, getMainColor(), true, 4, getMainColor());
 
-		brushCursor.setSettings(false, NONE, true, \
-			SDL_SYSTEM_CURSOR_HAND, true, true);
+		brushCursor.setSettings(false, NONE, false, \
+			NONE, true, true);
 
 		_brushCursors.emplace_back(std::move(brushCursor));
 	}
