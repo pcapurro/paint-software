@@ -85,19 +85,6 @@
 
 # define LEFT_PANELS_W 150
 
-# define BRUSH_CURSOR_W 30
-# define BRUSH_CURSOR_H 30
-
-# define BRUSH_LINES {1, 2, 3, 6}
-# define BRUSH_PANEL_H 205
-# define BRUSH_LINES_SPACE_H 35
-
-# define OPACITY_CURSOR_W 8
-# define OPACITY_CURSOR_H 8
-
-# define OPACITY_LINE_H 2
-# define OPACITY_LINE_SPACE_H 25
-
 # define BORDER 2
 
 /* Limits */

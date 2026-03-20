@@ -3,7 +3,6 @@
 
 # include "Window.hpp"
 
-# include "BrushOptions.hpp"
 # include "MainBox.hpp"
 # include "ToolBox.hpp"
 
@@ -16,7 +15,6 @@ class PaintSoftware : public Window
 
 		optional<MainBox>					_mainBox;
 		optional<ToolBox>					_toolBox;
-		optional<BrushOptions>				_brushOptions;
 
 		optional<Shape>						_leftEndLine;
 
@@ -29,8 +27,6 @@ class PaintSoftware : public Window
 
 		void								initMainButtons(SDL_Renderer* renderer);
 		void								initTools(SDL_Renderer* renderer);
-
-		void								initBrushOptions(SDL_Renderer* renderer);
 
     public:
 		PaintSoftware(const string& name, const int width, const int height, \

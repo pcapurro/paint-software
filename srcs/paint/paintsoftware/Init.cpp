@@ -13,7 +13,6 @@ PaintSoftware::PaintSoftware(const string& name, const int width, const int heig
 
 	initMainButtons(renderer);
 	initTools(renderer);
-	initBrushOptions(renderer);
 }
 
 void	PaintSoftware::initFrame(const int frameWidth, const int frameHeight)
@@ -37,17 +36,4 @@ void	PaintSoftware::initTools(SDL_Renderer* renderer)
 {
 	_toolBox.emplace(W_LIMIT, H_UP_LIMIT + (DEF_BUTTON_H * 2) + CENTER_SPACE_H, \
 		LEFT_PANELS_W, 260, getBackgroundColor(), getWriteColor(), renderer);
-}
-
-void	PaintSoftware::initBrushOptions(SDL_Renderer* renderer)
-{
-	_brushOptions.emplace(W_LIMIT, H_UP_LIMIT + (DEF_BUTTON_H * 6) + (CENTER_SPACE_H * 2), \
-		LEFT_PANELS_W, BRUSH_PANEL_H, getBackgroundColor(), getWriteColor(), renderer);
-
-	if (_brushOptions->getY() + _brushOptions->getHeight() + BORDER \
-		< _paintFrame->getHeight() + DEF_UP_H)
-	{
-		_leftEndLine.emplace(W_LIMIT, (_paintFrame->getY() + _paintFrame->getHeight() - BORDER), \
-			LEFT_PANELS_W, BORDER, getWriteColor());
-	}
 }

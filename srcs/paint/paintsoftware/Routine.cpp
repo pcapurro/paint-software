@@ -62,7 +62,6 @@ void	PaintSoftware::render(void)
 
 	_mainBox->render(renderer);
 	_toolBox->render(renderer);
-	_brushOptions->render(renderer);
 
 	if (_leftEndLine)
 		_leftEndLine->render(renderer);
