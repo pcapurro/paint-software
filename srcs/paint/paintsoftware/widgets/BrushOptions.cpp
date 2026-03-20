@@ -135,6 +135,22 @@ void    BrushOptions::render(SDL_Renderer* renderer)
 void	BrushOptions::onMouseDown(const int x, const int y, \
 	SDL_Renderer* renderer)
 {
+	for (auto& cursor : _brushCursors)
+	{
+		if (cursor.isAbove(x, y))
+		{
+			setHover(true);
+
+			cursor.setHighlight(true);
+			cursor.setFocus(true);
+		}
+		else
+		{
+			if (cursor.isHover())
+				cursor.setFocus(false);
+		}
+	}
+
 	if (_opacityBox->isAbove(x, y))
 	{
 		setClick(true);
@@ -163,10 +179,23 @@ void	BrushOptions::onMouseHover(const int x, const int y, \
 {
 	setHover(false);
 
-	for (const auto& cursor : _brushCursors)
+	for (auto& cursor : _brushCursors)
 	{
 		if (cursor.isAbove(x, y))
+		{
 			setHover(true);
+
+			if (!cursor.isHighlighted())
+				cursor.setHighlight(true);
+		}
+		else
+		{
+			if (cursor.isHighlighted())
+				cursor.setHighlight(false);
+
+			if (cursor.isFocused())
+				cursor.setFocus(false);
+		}
 	}
 
 	if (_opacityBox->isAbove(x, y))
@@ -181,4 +210,10 @@ void	BrushOptions::onMouseHover(const int x, const int y, \
 void	BrushOptions::onMouseHoverOutside(SDL_Renderer* renderer)
 {
 	setHover(false);
+
+	for (auto& cursor : _brushCursors)
+	{
+		cursor.setFocus(false);
+		cursor.setHighlight(false);
+	}
 }

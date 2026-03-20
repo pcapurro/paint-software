@@ -110,4 +110,18 @@
 
 # define DEF_BACK_COLOR {42, 42, 42, 255}
 
+/* Tools */
+
+# define BRUSH 0
+# define PENCIL 1
+
+# define BUCKET 2
+# define SPRAY 3
+
+# define ERASER 4
+# define PICKER 5
+
+# define LINE 6
+# define TEXT 7
+
 #endif
