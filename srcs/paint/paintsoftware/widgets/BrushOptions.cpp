@@ -66,8 +66,8 @@ void	BrushOptions::initOpacity(void)
 	_opacityLine.emplace(opacityLineStartX, opacityLineY, \
 		opacityWidth, OPACITY_LINE_H, getMainColor());
 
-	_opacityBox.emplace(opacityLineStartX, opacityLineY - (OPACITY_CURSOR_H), \
-		opacityWidth, OPACITY_CURSOR_H * 3, getMainColor());
+	_opacityBox.emplace(getX(), opacityLineY - (OPACITY_CURSOR_H), \
+		getWidth(), OPACITY_CURSOR_H * 3, getMainColor());
 
 	_opacityBox->setSettings(false, NONE, true, \
 		SDL_SYSTEM_CURSOR_HAND, true, false);
@@ -97,13 +97,17 @@ void	BrushOptions::refreshOpacity(const int x, const int y)
 	int		opacityLineStartX = getX() + (BORDER * 5);
 	int		opacityWidth = getWidth() - (BORDER * 10);
 
-	if (x < opacityLineStartX || x > opacityLineStartX + opacityWidth)
-		return;
+	if (x < opacityLineStartX)
+		_opacityValue = 0;
+	else if (x > opacityLineStartX + opacityWidth)
+		_opacityValue = 255;
+	else
+	{
+		int	newOpacity = ((x - opacityLineStartX) * 100) / (opacityWidth);
 
-	int		newOpacity = ((x - opacityLineStartX) * 100) / (opacityWidth);
-
-	_opacityCursor->setX(x);
-	_opacityValue = newOpacity;
+		_opacityCursor->setX(x);
+		_opacityValue = (newOpacity * 255) / 100;
+	}
 }
 
 int		BrushOptions::getBrush(void) const noexcept
@@ -215,5 +219,13 @@ void	BrushOptions::onMouseHoverOutside(SDL_Renderer* renderer)
 	{
 		cursor.setFocus(false);
 		cursor.setHighlight(false);
+	}
+
+	if (isClicked())
+	{
+		refreshOpacity(_opacityBox->getX() \
+			+ _opacityBox->getWidth(), _opacityBox->getY());
+
+		setClick(false);
 	}
 }
