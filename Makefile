@@ -12,6 +12,7 @@ SRCS = srcs/main.cpp \
 	srcs/paint/paintsoftware/Routine.cpp \
 	srcs/paint/paintsoftware/Exec.cpp \
 	srcs/paint/paintsoftware/widgets/MainBox.cpp \
+	srcs/paint/paintsoftware/widgets/SliderBox.cpp \
 	srcs/paint/paintsoftware/widgets/ToolBox.cpp \
 	srcs/paint/paintframe/Init.cpp \
 	srcs/paint/paintframe/Render.cpp \
@@ -38,10 +39,6 @@ SRCS = srcs/main.cpp \
 	srcs/lib/widgets/imagebutton/Init.cpp \
 	srcs/lib/widgets/imagebutton/On.cpp \
 	srcs/lib/widgets/imagebutton/Render.cpp \
-	srcs/lib/widgets/sliderbox/Value.cpp \
-	srcs/lib/widgets/sliderbox/Init.cpp \
-	srcs/lib/widgets/sliderbox/On.cpp \
-	srcs/lib/widgets/sliderbox/Render.cpp \
 	srcs/lib/widgets/textbutton/Get.cpp \
 	srcs/lib/widgets/textbutton/Init.cpp \
 	srcs/lib/widgets/textbutton/On.cpp \
