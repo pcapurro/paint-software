@@ -27,7 +27,7 @@ class SliderBox : public Element
                                     const Color& textColor, SDL_Renderer* renderer);
         void                    initSlider(const Color& sliderColor);
 
-        void                    refreshValue(const int x, const int y);
+        void                    refreshValue(const int x, const int y, SDL_Renderer* renderer);
 
     protected:
 		virtual void	        onPropertiesChanged([[maybe_unused]] SDL_Renderer* renderer) override;

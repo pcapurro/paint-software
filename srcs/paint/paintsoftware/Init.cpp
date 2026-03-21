@@ -48,7 +48,7 @@ void	PaintSoftware::initBrushTools(SDL_Renderer* renderer)
 	Color	writeColor = getWriteColor();
 
 	_brushSlider.emplace(W_LIMIT, _toolBox->getY() + _toolBox->getHeight() + CENTER_SPACE_H, \
-		LEFT_PANELS_W, 45, fontPath, 1, 100, "Brush size: ", 11, true, 2, backColor, writeColor, \
+		LEFT_PANELS_W, 45, fontPath, 1, 25, "Brush size: ", 11, true, 2, backColor, writeColor, \
 		writeColor, writeColor, renderer);
 
 	_opacitySlider.emplace(W_LIMIT, _brushSlider->getY() + _brushSlider->getHeight() + (CENTER_SPACE_H / 2), \

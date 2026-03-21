@@ -177,7 +177,7 @@ void	SliderBox::onMouseDown(const int x, const int y, \
 	if (_sliderBox->isAbove(x, y))
 	{
 		setClick(true);
-		refreshValue(x, y);
+		refreshValue(x, y, renderer);
 	}
 }
 
@@ -198,7 +198,7 @@ void	SliderBox::onMouseHover(const int x, const int y, \
 		setHover(true);
 
 		if (isClicked())
-			refreshValue(x, y);
+			refreshValue(x, y, renderer);
 	}
 }
 
@@ -209,7 +209,7 @@ void	SliderBox::onMouseHoverOutside(SDL_Renderer* renderer)
 	if (isClicked())
 	{
 		refreshValue(_sliderBox->getX() \
-			+ _sliderBox->getWidth(), _sliderBox->getY());
+			+ _sliderBox->getWidth(), _sliderBox->getY(), renderer);
 
 		setClick(false);
 	}
@@ -231,7 +231,7 @@ int     SliderBox::getValue(void) const noexcept
     return (_value * _maxValue) / 100;
 }
 
-void    SliderBox::refreshValue(const int x, const int y)
+void    SliderBox::refreshValue(const int x, const int y, SDL_Renderer* renderer)
 {
 	int		lineStartX = _slider->getX();
     int     lineWidth = _slider->getWidth();
@@ -246,5 +246,15 @@ void    SliderBox::refreshValue(const int x, const int y)
 
 		_cursor->setX(x);
 		_value = newOpacity;
+
+        int realValue = (_value * _maxValue) / 100;
+
+        string  valueText = std::to_string(realValue);
+
+        if (valueText != _valueText->getTextStr())
+        {
+            _valueText->update(std::to_string(realValue), \
+                getWidth(), false, renderer);
+        }
 	}
 }
