@@ -58,19 +58,6 @@ void	getPaintingSize(int& paintWidth, int& paintHeight)
 	paintHeight = values[1];
 }
 
-void	getWindowSize(const int paintWidth, const int paintHeight, \
-    int& globalWidth, int& globalHeight)
-{
-	globalWidth = paintWidth + DEF_LEFT_W + DEF_RIGHT_W;
-	globalHeight = paintHeight + DEF_UP_H + DEF_DOWN_H;
-
-	if (globalWidth < DEF_MIN_W)
-		globalWidth = DEF_MIN_W;
-
-	if (globalHeight < DEF_MIN_H)
-		globalHeight = DEF_MIN_H;
-}
-
 int		main(void)
 {
 	try
@@ -82,25 +69,18 @@ int		main(void)
 
 		getProjectName(projectName);
 
-		// cout << "Creating a painting named "
-			// << projectName << endl;
-
 		int		paintWidth = DEF_MAX_PAINT_W;
 		int		paintHeight = DEF_MAX_PAINT_H;
 
 		getPaintingSize(paintWidth, paintHeight);
 
-		// cout << "Creating a painting of "
-			// << paintWidth << "x" << paintHeight << endl;
+		int		globalWidth = paintWidth + DEF_LEFT_W + DEF_RIGHT_W;
+		int		globalHeight = paintHeight + DEF_UP_H + DEF_DOWN_H;
 
-		int		globalWidth = 0;
-		int		globalHeight = 0;
-
-		getWindowSize(paintWidth, paintHeight, \
-			globalWidth, globalHeight);
-
-		// cout << "Creating a window of "
-			// << globalWidth << "x" << globalHeight << endl;
+		if (globalWidth < DEF_MIN_W)
+			globalWidth = DEF_MIN_W;
+		if (globalHeight < DEF_MIN_H)
+			globalHeight = DEF_MIN_H;
 
 		PaintSoftware	paint("paint-software – " + projectName, \
 			globalWidth, globalHeight, paintWidth, paintHeight);
