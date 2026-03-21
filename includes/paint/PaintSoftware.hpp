@@ -25,6 +25,8 @@ class PaintSoftware : public Window
 		int						_selectedTool = BRUSH;
 		Color					_selectedColor;
 
+		int						_brushSize;
+
 		int						_cursor = SDL_SYSTEM_CURSOR_ARROW;
 
 		void					initFrame(const int frameWidth, const int frameHeight);
@@ -41,6 +43,8 @@ class PaintSoftware : public Window
 
 		void    				execMain(void);
 		void    				execTool(void);
+		void					execBrush(void);
+
 		void					exec(void);
 
 		int         			waitForEvent(void);

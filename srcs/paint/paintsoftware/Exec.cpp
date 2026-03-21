@@ -26,9 +26,25 @@ void    PaintSoftware::execTool(void)
     if (value == _selectedTool)
         return;
 
-    _selectedTool = _toolBox->getSelectedTool();
+    _selectedTool = value;
 
     // ...
+}
+
+void    PaintSoftware::execBrush(void)
+{
+    int     newBrushValue = _brushSlider->getValue();
+    int     newOpacityValue = _opacitySlider->getValue();
+
+    if (newBrushValue != _brushSize)
+    {
+        _brushSize = newBrushValue;
+
+        // ...
+    }
+
+    if (newOpacityValue != _selectedColor.a)
+        _selectedColor.a = newOpacityValue;
 }
 
 void	PaintSoftware::exec(void)
