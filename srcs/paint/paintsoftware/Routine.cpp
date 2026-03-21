@@ -63,6 +63,9 @@ void	PaintSoftware::render(void)
 	_mainBox->render(renderer);
 	_toolBox->render(renderer);
 
+	_brushSlider->render(renderer);
+	_opacitySlider->render(renderer);
+
 	if (_leftEndLine)
 		_leftEndLine->render(renderer);
 }

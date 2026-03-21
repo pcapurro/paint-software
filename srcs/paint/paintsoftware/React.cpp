@@ -6,7 +6,7 @@ void    PaintSoftware::reactMouseMotion(const int x, const int y)
     SDL_Renderer*       renderer = getRenderer();
 
     vector<Element*>    elements = {&_paintFrame.value(), &_mainBox.value(), \
-        &_toolBox.value()};
+        &_toolBox.value(), &_brushSlider.value(), &_opacitySlider.value()};
 
     for (auto& element : elements)
     {
@@ -35,7 +35,7 @@ void    PaintSoftware::reactMouseButtonDown(const int x, const int y)
     SDL_Renderer*       renderer = getRenderer();
 
     vector<Element*>    elements = {&_paintFrame.value(), &_mainBox.value(), \
-        &_toolBox.value()};
+        &_toolBox.value(), &_brushSlider.value(), &_opacitySlider.value()};
 
     for (auto& element : elements)
     {
@@ -53,7 +53,7 @@ void    PaintSoftware::reactMouseButtonUp(const int x, const int y)
     SDL_Renderer*       renderer = getRenderer();
 
     vector<Element*>    elements = {&_paintFrame.value(), &_mainBox.value(), \
-        &_toolBox.value()};
+        &_toolBox.value(), &_brushSlider.value(), &_opacitySlider.value()};
 
     for (auto& element : elements)
     {

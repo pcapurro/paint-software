@@ -85,6 +85,10 @@
 
 # define LEFT_PANELS_W 150
 
+# define DEF_SLIDER_H 3
+# define SLIDER_CURSOR_W 6
+# define SLIDER_CURSOR_H 6
+
 # define BORDER 2
 
 /* Limits */

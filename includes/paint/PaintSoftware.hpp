@@ -5,28 +5,34 @@
 
 # include "MainBox.hpp"
 # include "ToolBox.hpp"
+# include "SliderBox.hpp"
 
 # include "PaintFrame.hpp"
 
 class PaintSoftware : public Window
 {
     private:
-        optional<PaintFrame>				_paintFrame;
+        optional<PaintFrame>	_paintFrame;
 
-		optional<MainBox>					_mainBox;
-		optional<ToolBox>					_toolBox;
+		optional<MainBox>		_mainBox;
+		optional<ToolBox>		_toolBox;
 
-		optional<Shape>						_leftEndLine;
+		optional<Shape>			_leftEndLine;
 
-		int									_selectedTool = BRUSH;
-		Color								_selectedColor;
+		optional<SliderBox>		_brushSlider;
+		optional<SliderBox>		_opacitySlider;
 
-		int									_cursor = SDL_SYSTEM_CURSOR_ARROW;
+		int						_selectedTool = BRUSH;
+		Color					_selectedColor;
 
-		void								initFrame(const int frameWidth, const int frameHeight);
+		int						_cursor = SDL_SYSTEM_CURSOR_ARROW;
 
-		void								initMainButtons(SDL_Renderer* renderer);
-		void								initTools(SDL_Renderer* renderer);
+		void					initFrame(const int frameWidth, const int frameHeight);
+
+		void					initMainButtons(SDL_Renderer* renderer);
+		void					initTools(SDL_Renderer* renderer);
+
+		void					initBrushTools(SDL_Renderer* renderer);
 
     public:
 		PaintSoftware(const string& name, const int width, const int height, \

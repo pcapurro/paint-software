@@ -38,6 +38,10 @@ SRCS = srcs/main.cpp \
 	srcs/lib/widgets/imagebutton/Init.cpp \
 	srcs/lib/widgets/imagebutton/On.cpp \
 	srcs/lib/widgets/imagebutton/Render.cpp \
+	srcs/lib/widgets/sliderbox/Value.cpp \
+	srcs/lib/widgets/sliderbox/Init.cpp \
+	srcs/lib/widgets/sliderbox/On.cpp \
+	srcs/lib/widgets/sliderbox/Render.cpp \
 	srcs/lib/widgets/textbutton/Get.cpp \
 	srcs/lib/widgets/textbutton/Init.cpp \
 	srcs/lib/widgets/textbutton/On.cpp \
