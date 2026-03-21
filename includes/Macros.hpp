@@ -81,7 +81,7 @@
 # define DEF_BUTTON_H 65
 
 # define CENTER_SPACE_W 20
-# define CENTER_SPACE_H 30
+# define CENTER_SPACE_H 20
 
 # define LEFT_PANELS_W 150
 
@@ -106,7 +106,7 @@
 /* Default colors */
 
 # define DEF_BACK_COLOR {42, 42, 42, 255}
-# define DEF_SELECT_COLOR {25, 200, 50, 130}
+# define DEF_TOOL_SELECT_COLOR {25, 200, 50, 130}
 
 /* Main buttons */
 
@@ -132,9 +132,13 @@
 /* Brush options */
 
 # define BRUSH_SIZE_MIN 1
-# define BRUSH_SIZE_MAX 25
+# define BRUSH_SIZE_MAX 50
+
+# define BRUSH_DEF_SIZE 21
 
 # define OPACITY_MIN 1
 # define OPACITY_MAX 100
+
+# define OPACITY_DEF 100
 
 #endif

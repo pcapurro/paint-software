@@ -68,6 +68,19 @@ void    PaintSoftware::reactMouseButtonUp(const int x, const int y)
     }
 }
 
+void    PaintSoftware::reactKeyButtonDown(const int key)
+{
+    if (key == SDLK_F5)
+    {
+        unsigned char a = _selectedColor.a;
+
+        _selectedColor = generateRandomColor();
+        _selectedColor.a = a;
+
+        execColor();
+    }
+}
+
 int     PaintSoftware::reactEvent(SDL_Event* event, const int x, const int y)
 {
 	if (event->type == SDL_MOUSEMOTION)
@@ -80,6 +93,9 @@ int     PaintSoftware::reactEvent(SDL_Event* event, const int x, const int y)
         else if (event->type == SDL_MOUSEBUTTONUP)
             reactMouseButtonUp(x, y);
     }
+
+    if (event->type == SDL_KEYDOWN)
+		reactKeyButtonDown(event->key.keysym.sym);
 
 	refreshDisplay();
 

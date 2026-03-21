@@ -7,6 +7,8 @@
 # include "ToolBox.hpp"
 # include "SliderBox.hpp"
 
+# include "TextButton.hpp"
+
 # include "PaintFrame.hpp"
 
 class PaintSoftware : public Window
@@ -17,10 +19,15 @@ class PaintSoftware : public Window
 		optional<MainBox>		_mainBox;
 		optional<ToolBox>		_toolBox;
 
-		optional<Shape>			_leftEndLine;
-
 		optional<SliderBox>		_brushSlider;
 		optional<SliderBox>		_opacitySlider;
+
+		optional<Text>			_colorText;
+		optional<Shape>			_colorButton;
+		optional<Shape>			_blackButton;
+		optional<Shape>			_whiteButton;
+
+		optional<Shape>			_endLine;
 
 		int						_selectedTool = BRUSH;
 		Color					_selectedColor;
@@ -36,6 +43,10 @@ class PaintSoftware : public Window
 
 		void					initBrushTools(SDL_Renderer* renderer);
 
+		void					initColors(SDL_Renderer* renderer);
+
+		Color					generateRandomColor(void) const noexcept;
+
     public:
 		PaintSoftware(const string& name, const int width, const int height, \
 			const int frameWidth, const int frameHeight);
@@ -44,6 +55,8 @@ class PaintSoftware : public Window
 		void    				execMain(void);
 		void    				execTool(void);
 		void					execBrush(void);
+
+		void					execColor(void);
 
 		void					exec(void);
 
@@ -56,6 +69,8 @@ class PaintSoftware : public Window
 		void					reactMouseMotion(const int x, const int y);
 		void					reactMouseButtonDown(const int x, const int y);
 		void					reactMouseButtonUp(const int x, const int y);
+
+		void					reactKeyButtonDown(const int key);
 
 		int						reactEvent(SDL_Event* event, const int x = 0, const int y = 0);
 };

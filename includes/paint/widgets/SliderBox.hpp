@@ -42,7 +42,7 @@ class SliderBox : public Element
         SliderBox(void) = delete;
 
         SliderBox(const int x, const int y, const int width, const int height, const string& fontPath, \
-            const int minValue, const int maxValue, const string& title, const int textSize, \
+            const int minValue, const int maxValue, const int defaultValue, const string& title, const int textSize, \
             const bool border, const int borderThickness, const Color& backColor, const Color& borderColor, \
             const Color& textColor, const Color& sliderColor, SDL_Renderer* renderer);
 

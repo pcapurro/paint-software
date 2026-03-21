@@ -11,8 +11,8 @@ class PaintFrame : public Element
 
     public:
         PaintFrame(void) = delete;
-        PaintFrame(const int x, const int y, \
-            const int width, const int height);
+        PaintFrame(const int x, const int y, const int width, \
+            const int height, Color& defaultColor);
 
         ~PaintFrame(void) = default;
 

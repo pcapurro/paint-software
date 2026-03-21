@@ -66,6 +66,11 @@ void	PaintSoftware::render(void)
 	_brushSlider->render(renderer);
 	_opacitySlider->render(renderer);
 
-	if (_leftEndLine)
-		_leftEndLine->render(renderer);
+	// _colorText->render(renderer);
+	_colorButton->render(renderer);
+	_blackButton->render(renderer);
+	_whiteButton->render(renderer);
+
+	if (_endLine)
+		_endLine->render(renderer);
 }

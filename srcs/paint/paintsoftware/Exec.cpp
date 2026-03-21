@@ -47,6 +47,18 @@ void    PaintSoftware::execBrush(void)
         _selectedColor.a = newOpacityValue;
 }
 
+void    PaintSoftware::execColor(void)
+{
+    Color   color = _colorButton->getMainColor();
+
+    if (_selectedColor == color)
+        return;
+
+    _colorButton->setMainColor(_selectedColor);
+
+    // ...
+}
+
 void	PaintSoftware::exec(void)
 {
 	execMain();

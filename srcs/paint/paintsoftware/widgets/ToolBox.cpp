@@ -61,7 +61,7 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 	_buttons.emplace_back(std::move(lineButton));
 	_buttons.emplace_back(std::move(textButton));
 
-	Color	selectColor = DEF_SELECT_COLOR;
+	Color	selectColor = DEF_TOOL_SELECT_COLOR;
 
 	for (auto& button : _buttons)
 	{
