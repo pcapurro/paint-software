@@ -85,6 +85,11 @@
 
 # define LEFT_PANELS_W 150
 
+# define DEF_MAIN_H 130
+# define DEF_TOOLBOX_H 260
+
+# define DEF_SLIDEBOX_H 45
+
 # define DEF_SLIDER_H 3
 # define SLIDER_CURSOR_W 6
 # define SLIDER_CURSOR_H 6
@@ -101,6 +106,7 @@
 /* Default colors */
 
 # define DEF_BACK_COLOR {42, 42, 42, 255}
+# define DEF_SELECT_COLOR {25, 200, 50, 130}
 
 /* Main buttons */
 
@@ -122,5 +128,13 @@
 
 # define LINE 7
 # define TEXT 8
+
+/* Brush options */
+
+# define BRUSH_SIZE_MIN 1
+# define BRUSH_SIZE_MAX 25
+
+# define OPACITY_MIN 1
+# define OPACITY_MAX 100
 
 #endif

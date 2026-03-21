@@ -61,12 +61,14 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 	_buttons.emplace_back(std::move(lineButton));
 	_buttons.emplace_back(std::move(textButton));
 
+	Color	selectColor = DEF_SELECT_COLOR;
+
 	for (auto& button : _buttons)
 	{
 		button->setSettings(true, CENTER_SELECT, \
 			false, false, true, true);
 
-		button->setSelectColor({25, 200, 50, 130});
+		button->setSelectColor(selectColor);
 	}
 
 	_buttons[BRUSH - 1]->setSelected(true);

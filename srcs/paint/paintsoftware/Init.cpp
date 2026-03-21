@@ -30,14 +30,14 @@ void	PaintSoftware::initFrame(const int frameWidth, const int frameHeight)
 
 void	PaintSoftware::initMainButtons(SDL_Renderer* renderer)
 {
-	_mainBox.emplace(W_LIMIT, H_UP_LIMIT, LEFT_PANELS_W, 130, \
+	_mainBox.emplace(W_LIMIT, H_UP_LIMIT, LEFT_PANELS_W, DEF_MAIN_H, \
 		getBackgroundColor(), getWriteColor(), renderer);
 }
 
 void	PaintSoftware::initTools(SDL_Renderer* renderer)
 {
 	_toolBox.emplace(W_LIMIT, _mainBox->getY() + _mainBox->getHeight() + CENTER_SPACE_H, \
-		LEFT_PANELS_W, 260, getBackgroundColor(), getWriteColor(), renderer);
+		LEFT_PANELS_W, DEF_TOOLBOX_H, getBackgroundColor(), getWriteColor(), renderer);
 }
 
 void	PaintSoftware::initBrushTools(SDL_Renderer* renderer)
@@ -48,10 +48,10 @@ void	PaintSoftware::initBrushTools(SDL_Renderer* renderer)
 	Color	writeColor = getWriteColor();
 
 	_brushSlider.emplace(W_LIMIT, _toolBox->getY() + _toolBox->getHeight() + CENTER_SPACE_H, \
-		LEFT_PANELS_W, 45, fontPath, 1, 25, "Brush size: ", 11, true, 2, backColor, writeColor, \
-		writeColor, writeColor, renderer);
+		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, BRUSH_SIZE_MIN, BRUSH_SIZE_MAX, "Brush size: ", 11, \
+		true, 2, backColor, writeColor, writeColor, writeColor, renderer);
 
 	_opacitySlider.emplace(W_LIMIT, _brushSlider->getY() + _brushSlider->getHeight() + (CENTER_SPACE_H / 2), \
-		LEFT_PANELS_W, 45, fontPath, 1, 100, "Opacity: ", 11, true, 2, backColor, writeColor, \
-		writeColor, writeColor, renderer);
+		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, OPACITY_MIN, OPACITY_MAX, "Opacity: ", 11, true, 2, backColor, \
+		writeColor, writeColor, writeColor, renderer);
 }
