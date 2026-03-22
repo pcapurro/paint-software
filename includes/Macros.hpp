@@ -87,6 +87,8 @@
 # define DEF_MAIN_H 130
 # define DEF_TOOLBOX_H 260
 
+# define DEF_BRUSH_FIELD_H 20
+
 # define DEF_SLIDEBOX_H 45
 
 # define DEF_SLIDER_H 3

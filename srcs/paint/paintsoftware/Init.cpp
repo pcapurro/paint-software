@@ -62,13 +62,13 @@ void	PaintSoftware::initBrushTools(SDL_Renderer* renderer)
 	Color	backColor = getBackgroundColor();
 	Color	writeColor = getWriteColor();
 
-	_brushSlider.emplace(W_LIMIT, _toolBox->getY() + _toolBox->getHeight() + CENTER_SPACE_H, \
-		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, BRUSH_SIZE_MIN, BRUSH_SIZE_MAX, BRUSH_DEF_SIZE, "Brush size: ", \
-		11, true, 2, backColor, writeColor, writeColor, writeColor, renderer);
+	_brushField.emplace(W_LIMIT, _toolBox->getY() + _toolBox->getHeight() + CENTER_SPACE_H, \
+		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, BRUSH_SIZE_MIN, BRUSH_SIZE_MAX, BRUSH_DEF_SIZE, \
+		"Brush size:", "px", 11, true, 2, backColor, writeColor, writeColor, writeColor, renderer);
 
-	_opacitySlider.emplace(W_LIMIT, _brushSlider->getY() + _brushSlider->getHeight() + (CENTER_SPACE_H / 2), \
-		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, OPACITY_MIN, OPACITY_MAX, OPACITY_DEF, "Opacity: ", 11, true, 2, backColor, \
-		writeColor, writeColor, writeColor, renderer);
+	_opacitySlider.emplace(W_LIMIT, _brushField->getY() + _brushField->getHeight() + BORDER, \
+		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, OPACITY_MIN, OPACITY_MAX, OPACITY_DEF, \
+		"Opacity: ", 11, true, 2, backColor, writeColor, writeColor, writeColor, renderer);
 }
 
 void	PaintSoftware::initColors(SDL_Renderer* renderer)
@@ -76,15 +76,25 @@ void	PaintSoftware::initColors(SDL_Renderer* renderer)
 	Color	black = BLACK;
 	Color	white = WHITE;
 
+	string	fontPath = "materials/font/OpenSans.ttf";
 	Color	writeColor = getWriteColor();
 
-	_colorButton.emplace(W_LIMIT, _opacitySlider->getY() + _opacitySlider->getHeight() \
-		+ CENTER_SPACE_H, DEF_BUTTON_W, 90, _selectedColor, true, BORDER, writeColor);
+	string	colorText = std::to_string(_selectedColor.r) + ", " + std::to_string(_selectedColor.g) \
+		+ ", " + std::to_string(_selectedColor.b) + ", " + std::to_string(_selectedColor.a);
 
-	_blackButton.emplace(_colorButton->getX() + _colorButton->getWidth() \
-		+ CENTER_SPACE_W, _colorButton->getY(), DEF_BUTTON_W, 45, black, true, BORDER, writeColor);
+	_colorText.emplace(0, _opacitySlider->getY() + _opacitySlider->getHeight() \
+		+ CENTER_SPACE_H, colorText, 12, fontPath, getWriteColor(), LEFT_PANELS_W, false, renderer);
 
-	_whiteButton.emplace(_colorButton->getX() + _colorButton->getWidth() \
-		+ CENTER_SPACE_W, _blackButton->getY() + _blackButton->getHeight(), \
+	_colorText->setX((DEF_LEFT_W / 2) - (_colorText->getWidth() / 2), renderer);
+
+	_colorButton.emplace(W_LIMIT, _colorText->getY() + _colorText->getHeight() \
+		+ (CENTER_SPACE_H / 2), (DEF_BUTTON_W * 2 + CENTER_SPACE_W), 45, _selectedColor, \
+		true, BORDER, writeColor);
+
+	_blackButton.emplace(W_LIMIT, _colorButton->getY() + _colorButton->getHeight() \
+		+ (CENTER_SPACE_H / 2), DEF_BUTTON_W, 45, black, true, BORDER, writeColor);
+
+	_whiteButton.emplace(W_LIMIT + _blackButton->getWidth() + CENTER_SPACE_W, \
+		_colorButton->getY() + _colorButton->getHeight() + (CENTER_SPACE_H / 2), \
 		DEF_BUTTON_W, 45, white, true, BORDER, writeColor);
 }

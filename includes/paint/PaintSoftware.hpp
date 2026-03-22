@@ -5,9 +5,9 @@
 
 # include "MainBox.hpp"
 # include "ToolBox.hpp"
-# include "SliderBox.hpp"
 
-# include "TextButton.hpp"
+# include "SliderBox.hpp"
+# include "ValueBox.hpp"
 
 # include "PaintFrame.hpp"
 
@@ -19,7 +19,7 @@ class PaintSoftware : public Window
 		optional<MainBox>		_mainBox;
 		optional<ToolBox>		_toolBox;
 
-		optional<SliderBox>		_brushSlider;
+		optional<ValueBox>		_brushField;
 		optional<SliderBox>		_opacitySlider;
 
 		optional<Text>			_colorText;

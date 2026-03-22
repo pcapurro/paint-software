@@ -33,7 +33,7 @@ void    PaintSoftware::execTool(void)
 
 void    PaintSoftware::execBrush(void)
 {
-    int     newBrushValue = _brushSlider->getValue();
+    int     newBrushValue = _brushField->getValue();
     int     newOpacityValue = _opacitySlider->getValue();
 
     if (newBrushValue != _brushSize)
@@ -44,7 +44,10 @@ void    PaintSoftware::execBrush(void)
     }
 
     if (newOpacityValue != _selectedColor.a)
+    {
         _selectedColor.a = newOpacityValue;
+        execColor();
+    }
 }
 
 void    PaintSoftware::execColor(void)
@@ -55,6 +58,11 @@ void    PaintSoftware::execColor(void)
         return;
 
     _colorButton->setMainColor(_selectedColor);
+
+    string	colorText = std::to_string(_selectedColor.r) + ", " + std::to_string(_selectedColor.g) \
+		+ ", " + std::to_string(_selectedColor.b) + ", " + std::to_string(_selectedColor.a);
+
+    _colorText->update(colorText, LEFT_PANELS_W, false, getRenderer());
 
     // ...
 }
