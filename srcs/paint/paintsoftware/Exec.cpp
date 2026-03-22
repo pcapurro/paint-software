@@ -63,6 +63,7 @@ void    PaintSoftware::execColor(void)
 		+ ", " + std::to_string(_selectedColor.b) + ", " + std::to_string(_selectedColor.a);
 
     _colorText->update(colorText, LEFT_PANELS_W, false, getRenderer());
+    _colorText->setX((DEF_LEFT_W / 2) - (_colorText->getWidth() / 2));
 
     // ...
 }
