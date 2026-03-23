@@ -25,7 +25,9 @@ void    PaintSoftware::updateTool(void)
 
 void    PaintSoftware::updateBrush(void)
 {
-    _brushSize = _brushField->getValue();
+    _brushSize = _brushSlider->getValue();
+
+    cout << "updateBrush()" << endl;
 
     // ...
 }
@@ -66,7 +68,7 @@ void	PaintSoftware::update(void)
     else if (_toolBox->getSelectedTool() != _selectedTool)
         updateTool();
 
-    else if (_brushField->getValue() != _brushSize)
+    else if (_brushSlider->getValue() != _brushSize)
         updateBrush();
     else if (_opacitySlider->getValue() != _selectedColor.a)
         updateOpacity();

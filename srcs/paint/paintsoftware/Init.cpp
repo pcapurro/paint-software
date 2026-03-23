@@ -62,11 +62,11 @@ void	PaintSoftware::initBrushTools(SDL_Renderer* renderer)
 	Color	backColor = getBackgroundColor();
 	Color	writeColor = getWriteColor();
 
-	_brushField.emplace(W_LIMIT, _toolBox->getY() + _toolBox->getHeight() + CENTER_SPACE_H, \
+	_brushSlider.emplace(W_LIMIT, _toolBox->getY() + _toolBox->getHeight() + CENTER_SPACE_H, \
 		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, BRUSH_SIZE_MIN, BRUSH_SIZE_MAX, BRUSH_DEF_SIZE, \
-		"Brush size:", "px", 11, true, 2, backColor, writeColor, writeColor, writeColor, renderer);
+		"Brush size: ", 11, true, 2, backColor, writeColor, writeColor, writeColor, renderer);
 
-	_opacitySlider.emplace(W_LIMIT, _brushField->getY() + _brushField->getHeight() + BORDER, \
+	_opacitySlider.emplace(W_LIMIT, _brushSlider->getY() + _brushSlider->getHeight() + BORDER, \
 		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, OPACITY_MIN, OPACITY_MAX, OPACITY_DEF, \
 		"Opacity: ", 11, true, 2, backColor, writeColor, writeColor, writeColor, renderer);
 }

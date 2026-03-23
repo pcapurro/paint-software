@@ -17,7 +17,6 @@ SRCS = srcs/main.cpp \
 	srcs/paint/paintsoftware/widgets/MainBox.cpp \
 	srcs/paint/paintsoftware/widgets/SliderBox.cpp \
 	srcs/paint/paintsoftware/widgets/ToolBox.cpp \
-	srcs/paint/paintsoftware/widgets/ValueBox.cpp \
 	srcs/paint/paintframe/Init.cpp \
 	srcs/paint/paintframe/Render.cpp \
 	srcs/lib/base/Color.cpp \

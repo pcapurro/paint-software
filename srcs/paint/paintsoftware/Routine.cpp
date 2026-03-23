@@ -63,7 +63,7 @@ void	PaintSoftware::render(void)
 	_mainBox->render(renderer);
 	_toolBox->render(renderer);
 
-	_brushField->render(renderer);
+	_brushSlider->render(renderer);
 	_opacitySlider->render(renderer);
 
 	_colorText->render(renderer);
