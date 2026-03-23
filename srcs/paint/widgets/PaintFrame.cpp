@@ -5,5 +5,12 @@ PaintFrame::PaintFrame(const int x, const int y, const int width, \
         Element({x, y, width, height}), \
         _frame(x, y, width, height, defaultColor)
 {
-    ;
+    // ...
+}
+
+void    PaintFrame::render(SDL_Renderer* renderer)
+{
+    _frame.render(renderer);
+
+    // ...
 }

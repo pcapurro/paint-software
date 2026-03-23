@@ -7,18 +7,19 @@
 NAME = paint-software
 
 SRCS = srcs/main.cpp \
-	srcs/paint/paintsoftware/Init.cpp \
-	srcs/paint/paintsoftware/React.cpp \
-	srcs/paint/paintsoftware/Routine.cpp \
-	srcs/paint/paintsoftware/Exec.cpp \
-	srcs/paint/paintsoftware/Update.cpp \
-	srcs/paint/paintsoftware/Tools.cpp \
-	srcs/paint/paintsoftware/widgets/ColorButton.cpp \
-	srcs/paint/paintsoftware/widgets/MainBox.cpp \
-	srcs/paint/paintsoftware/widgets/SliderBox.cpp \
-	srcs/paint/paintsoftware/widgets/ToolBox.cpp \
-	srcs/paint/paintframe/Init.cpp \
-	srcs/paint/paintframe/Render.cpp \
+	srcs/paint/windows/paintsoftware/Init.cpp \
+	srcs/paint/windows/paintsoftware/React.cpp \
+	srcs/paint/windows/paintsoftware/Routine.cpp \
+	srcs/paint/windows/paintsoftware/Exec.cpp \
+	srcs/paint/windows/paintsoftware/Update.cpp \
+	srcs/paint/windows/paintsoftware/Tools.cpp \
+	srcs/paint/windows/ColorSelection.cpp \
+	srcs/paint/windows/PathSelection.cpp \
+	srcs/paint/widgets/ColorButton.cpp \
+	srcs/paint/widgets/MainBox.cpp \
+	srcs/paint/widgets/SliderBox.cpp \
+	srcs/paint/widgets/ToolBox.cpp \
+	srcs/paint/widgets/PaintFrame.cpp \
 	srcs/lib/base/Color.cpp \
 	srcs/lib/base/Cursor.cpp \
 	srcs/lib/base/Engine.cpp \
@@ -85,6 +86,7 @@ CXXFLAGS = -std=c++17 \
 	-I includes/ \
 	-I includes/paint/ \
 	-I includes/paint/widgets \
+	-I includes/paint/windows \
 	-I includes/lib/base \
 	-I includes/lib/element \
 	-I includes/lib/widgets \

@@ -10,6 +10,9 @@
 
 # include "PaintFrame.hpp"
 
+# include "PathSelection.hpp"
+# include "ColorSelection.hpp"
+
 class PaintSoftware : public Window
 {
     private:

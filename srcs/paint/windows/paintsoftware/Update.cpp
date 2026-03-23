@@ -27,8 +27,6 @@ void    PaintSoftware::updateBrush(void)
 {
     _brushSize = _brushSlider->getValue();
 
-    cout << "updateBrush()" << endl;
-
     // ...
 }
 
