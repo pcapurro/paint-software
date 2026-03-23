@@ -6,7 +6,8 @@ void    PaintSoftware::reactMouseMotion(const int x, const int y)
     SDL_Renderer*       renderer = getRenderer();
 
     vector<Element*>    elements = {&_paintFrame.value(), &_mainBox.value(), \
-        &_toolBox.value(), &_brushField.value(), &_opacitySlider.value()};
+        &_toolBox.value(), &_brushField.value(), &_opacitySlider.value(), \
+        &_colorButton.value(), &_blackButton.value(), &_whiteButton.value()};
 
     for (auto& element : elements)
     {
@@ -35,7 +36,8 @@ void    PaintSoftware::reactMouseButtonDown(const int x, const int y)
     SDL_Renderer*       renderer = getRenderer();
 
     vector<Element*>    elements = {&_paintFrame.value(), &_mainBox.value(), \
-        &_toolBox.value(), &_brushField.value(), &_opacitySlider.value()};
+        &_toolBox.value(), &_brushField.value(), &_opacitySlider.value(), \
+        &_colorButton.value(), &_blackButton.value(), &_whiteButton.value()};
 
     for (auto& element : elements)
     {
@@ -53,16 +55,22 @@ void    PaintSoftware::reactMouseButtonUp(const int x, const int y)
     SDL_Renderer*       renderer = getRenderer();
 
     vector<Element*>    elements = {&_paintFrame.value(), &_mainBox.value(), \
-        &_toolBox.value(), &_brushField.value(), &_opacitySlider.value()};
+        &_toolBox.value(), &_brushField.value(), &_opacitySlider.value(), \
+        &_colorButton.value(), &_blackButton.value(), &_whiteButton.value()};
 
-    for (auto& element : elements)
+    for (int i = 0; i < elements.size(); i++)
     {
-        if (!element->isAbove(x, y))
+        if (!elements[i]->isAbove(x, y))
             continue;
 
-        element->onMouseUp(x, y, renderer);
+        elements[i]->onMouseUp(x, y, renderer);
 
-        exec();
+        if (i == 5)
+            execColorSwitch();
+        else if (i == 6)
+            updateColor(BLACK);
+        else if (i == 7)
+            updateColor(WHITE);
 
         break;
     }
@@ -71,14 +79,7 @@ void    PaintSoftware::reactMouseButtonUp(const int x, const int y)
 void    PaintSoftware::reactKeyButtonDown(const int key)
 {
     if (key == SDLK_F5)
-    {
-        unsigned char a = _selectedColor.a;
-
-        _selectedColor = generateRandomColor();
-        _selectedColor.a = a;
-
-        execColor();
-    }
+        updateColor(generateRandomColor());
 }
 
 int     PaintSoftware::reactEvent(SDL_Event* event, const int x, const int y)
@@ -97,6 +98,7 @@ int     PaintSoftware::reactEvent(SDL_Event* event, const int x, const int y)
     if (event->type == SDL_KEYDOWN)
 		reactKeyButtonDown(event->key.keysym.sym);
 
+    update();
 	refreshDisplay();
 
     return OK;

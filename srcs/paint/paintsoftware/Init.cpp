@@ -83,18 +83,19 @@ void	PaintSoftware::initColors(SDL_Renderer* renderer)
 		+ ", " + std::to_string(_selectedColor.b) + ", " + std::to_string(_selectedColor.a);
 
 	_colorText.emplace(0, _opacitySlider->getY() + _opacitySlider->getHeight() \
-		+ CENTER_SPACE_H, colorText, 12, fontPath, getWriteColor(), LEFT_PANELS_W, false, renderer);
+		+ CENTER_SPACE_H, colorText, 12, fontPath, getWriteColor(), LEFT_PANELS_W, \
+		false, renderer);
 
 	_colorText->setX((DEF_LEFT_W / 2) - (_colorText->getWidth() / 2), renderer);
 
 	_colorButton.emplace(W_LIMIT, _colorText->getY() + _colorText->getHeight() \
-		+ (CENTER_SPACE_H / 2), (DEF_BUTTON_W * 2 + CENTER_SPACE_W), 45, _selectedColor, \
-		true, BORDER, writeColor);
+		+ (CENTER_SPACE_H / 2), (DEF_BUTTON_W * 2 + CENTER_SPACE_W), DEF_MAIN_COLOR_H, \
+		_selectedColor, getWriteColor(), renderer);
 
 	_blackButton.emplace(W_LIMIT, _colorButton->getY() + _colorButton->getHeight() \
-		+ (CENTER_SPACE_H / 2), DEF_BUTTON_W, 45, black, true, BORDER, writeColor);
+		+ (CENTER_SPACE_H / 2), DEF_BUTTON_W, DEF_SIDE_COLOR_H, black, getWriteColor(), renderer);
 
 	_whiteButton.emplace(W_LIMIT + _blackButton->getWidth() + CENTER_SPACE_W, \
 		_colorButton->getY() + _colorButton->getHeight() + (CENTER_SPACE_H / 2), \
-		DEF_BUTTON_W, 45, white, true, BORDER, writeColor);
+		DEF_BUTTON_W, DEF_SIDE_COLOR_H, white, getWriteColor(), renderer);
 }

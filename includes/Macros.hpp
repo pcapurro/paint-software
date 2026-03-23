@@ -95,6 +95,9 @@
 # define SLIDER_CURSOR_W 6
 # define SLIDER_CURSOR_H 6
 
+# define DEF_MAIN_COLOR_H 45
+# define DEF_SIDE_COLOR_H 36
+
 # define BORDER 2
 
 /* Limits */
@@ -138,8 +141,8 @@
 # define BRUSH_DEF_SIZE 21
 
 # define OPACITY_MIN 1
-# define OPACITY_MAX 100
+# define OPACITY_MAX 255
 
-# define OPACITY_DEF 100
+# define OPACITY_DEF 255
 
 #endif

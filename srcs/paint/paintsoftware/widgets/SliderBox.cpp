@@ -66,10 +66,18 @@ void    SliderBox::initSlider(const Color& sliderColor)
     _slider.emplace(sliderX, sliderY, sliderWidth, \
         DEF_SLIDER_H, sliderColor);
 
+    _slider->setSettings(false, NONE, false, \
+        NONE, true, true);
+
     int     cursorY = (sliderY + (DEF_SLIDER_H / 2)) - (SLIDER_CURSOR_H / 2);
 
-    _cursor.emplace(sliderX, cursorY, SLIDER_CURSOR_W, \
+    _cursor.emplace(getX(), cursorY, SLIDER_CURSOR_W, \
         SLIDER_CURSOR_H, sliderColor);
+
+    _cursor->setSettings(false, NONE, false, \
+        NONE, true, true);
+
+    refreshCursor();
 
     Color   invisible = INVISIBLE;
 
@@ -125,50 +133,8 @@ void	SliderBox::onPositionChanged(SDL_Renderer* renderer)
 
 void	SliderBox::onStyleChanged(void)
 {
-    Shape*      back = &_background.value();
-
-    back->setMainColor(getMainColor());
-    back->setSelectColor(getSelectColor());
-}
-
-void	SliderBox::onSettingsChanged(void)
-{
-    Shape*      back = &_background.value();
-
-    if (isHoverPossible())
-    {
-        back->enableHover();
-        back->setHoverCursor(getHoverCursor());
-    }
-    else
-        back->disableHover();
-
-    if (isSelectPossible())
-    {
-        back->enableSelect();
-        back->setSelectColor(getSelectColor());
-    }
-
-    if (isHighlightPossible())
-        back->enableHighlight();
-    else
-        back->disableHighlight();
-
-    if (isFocusPossible())
-        back->enableFocus();
-    else
-        back->disableFocus();
-}
-
-void	SliderBox::onStateChanged(void)
-{
-    Shape*      back = &_background.value();
-
-    back->setHover(isHover());
-    back->setSelected(isSelected());
-
-    back->setHighlight(isHighlighted());
-    back->setFocus(isFocused());
+    _background->setMainColor(getMainColor());
+    _background->setSelectColor(getSelectColor());
 }
 
 void	SliderBox::onMouseDown(const int x, const int y, \
@@ -178,6 +144,9 @@ void	SliderBox::onMouseDown(const int x, const int y, \
 	{
 		setClick(true);
 		refreshValue(x, y, renderer);
+
+        _slider->setHighlight(false);
+        _cursor->setHighlight(false);
 	}
 }
 
@@ -199,6 +168,13 @@ void	SliderBox::onMouseHover(const int x, const int y, \
 
 		if (isClicked())
 			refreshValue(x, y, renderer);
+        else
+        {
+            if (!_slider->isHighlighted())
+                _slider->setHighlight(true);
+            if (!_cursor->isHighlighted())
+                _cursor->setHighlight(true);
+        }
 	}
 }
 
@@ -207,12 +183,13 @@ void	SliderBox::onMouseHoverOutside(SDL_Renderer* renderer)
 	setHover(false);
 
 	if (isClicked())
-	{
-		refreshValue(_sliderBox->getX() \
-			+ _sliderBox->getWidth(), _sliderBox->getY(), renderer);
-
 		setClick(false);
-	}
+
+    if (_slider->isHighlighted())
+        _slider->setHighlight(false);
+
+    if (_cursor->isHighlighted())
+        _cursor->setHighlight(false);
 }
 
 void    SliderBox::render(SDL_Renderer* renderer)
@@ -228,7 +205,7 @@ void    SliderBox::render(SDL_Renderer* renderer)
 
 int     SliderBox::getValue(void) const noexcept
 {
-    return (_value * _maxValue) / 100;
+    return _value;
 }
 
 void    SliderBox::refreshValue(const int x, const int y, SDL_Renderer* renderer)
@@ -237,24 +214,28 @@ void    SliderBox::refreshValue(const int x, const int y, SDL_Renderer* renderer
     int     lineWidth = _slider->getWidth();
 
 	if (x < lineStartX)
-		_value = 0;
+		_value = _minValue;
 	else if (x > lineStartX + lineWidth)
-		_value = 100;
+		_value = _maxValue;
 	else
 	{
-		int	newOpacity = ((x - lineStartX) * 100) / (lineWidth);
-
 		_cursor->setX(x);
-		_value = newOpacity;
+		_value = ((x - lineStartX) * _maxValue) / lineWidth;
+    }
 
-        int realValue = (_value * _maxValue) / 100;
+    string  valueText = std::to_string(_value);
 
-        string  valueText = std::to_string(realValue);
+    if (valueText != _valueText->getTextStr())
+    {
+        _valueText->update(std::to_string(_value), \
+            getWidth(), false, renderer);
+    }
+}
 
-        if (valueText != _valueText->getTextStr())
-        {
-            _valueText->update(std::to_string(realValue), \
-                getWidth(), false, renderer);
-        }
-	}
+void    SliderBox::refreshCursor(void)
+{
+    int		lineStartX = _slider->getX();
+    int     cursorX = (_value * _slider->getWidth()) / _maxValue;
+
+    _cursor->setX(lineStartX + cursorX);
 }

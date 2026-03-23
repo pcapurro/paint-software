@@ -22,6 +22,8 @@ ValueBox::ValueBox(const int x, const int y, const int width, const int height, 
     initField(fontPath, backColor, \
         textColor, borderColor);
 
+    _field->add(std::to_string(defaultValue), renderer);
+
     setHoverCursor(SDL_SYSTEM_CURSOR_HAND);
 }
 

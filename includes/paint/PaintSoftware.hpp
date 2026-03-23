@@ -5,7 +5,7 @@
 
 # include "MainBox.hpp"
 # include "ToolBox.hpp"
-
+# include "ColorButton.hpp"
 # include "SliderBox.hpp"
 # include "ValueBox.hpp"
 
@@ -23,9 +23,9 @@ class PaintSoftware : public Window
 		optional<SliderBox>		_opacitySlider;
 
 		optional<Text>			_colorText;
-		optional<Shape>			_colorButton;
-		optional<Shape>			_blackButton;
-		optional<Shape>			_whiteButton;
+		optional<ColorButton>	_colorButton;
+		optional<ColorButton>	_blackButton;
+		optional<ColorButton>	_whiteButton;
 
 		optional<Shape>			_endLine;
 
@@ -52,13 +52,22 @@ class PaintSoftware : public Window
 			const int frameWidth, const int frameHeight);
 		~PaintSoftware(void) = default;
 
-		void    				execMain(void);
-		void    				execTool(void);
-		void					execBrush(void);
+		void    				updateMain(void);
+		void    				updateTool(void);
+		void					updateBrush(void);
+		void					updateOpacity(void);
+		void    				updateColor(const Color& newColor);
+		void    				updateColorText(void);
 
-		void					execColor(void);
+		void					update(void);
 
-		void					exec(void);
+		void					execSave(void);
+		void					execCancel(void);
+
+		void					execBack(void);
+		void					execForward(void);
+
+		void					execColorSwitch(void);
 
 		int         			waitForEvent(void);
 

@@ -28,15 +28,13 @@ class SliderBox : public Element
         void                    initSlider(const Color& sliderColor);
 
         void                    refreshValue(const int x, const int y, SDL_Renderer* renderer);
+        void                    refreshCursor(void);
 
     protected:
 		virtual void	        onPropertiesChanged([[maybe_unused]] SDL_Renderer* renderer) override;
         virtual void	        onPositionChanged([[maybe_unused]] SDL_Renderer* renderer) override;
 
 		virtual void	        onStyleChanged(void) override;
-
-		virtual void	        onSettingsChanged(void) override;
-		virtual void	        onStateChanged(void) override;
 
     public:
         SliderBox(void) = delete;
