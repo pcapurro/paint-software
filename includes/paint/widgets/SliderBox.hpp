@@ -47,6 +47,7 @@ class SliderBox : public Element
         ~SliderBox(void) = default;
 
         int                     getValue(void) const noexcept;
+        void                    update(const int value, SDL_Renderer* renderer);
 
         void                    render(SDL_Renderer* renderer);
 

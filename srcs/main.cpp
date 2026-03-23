@@ -10,7 +10,7 @@
 void    getProjectName(string& projectName)
 {
 	DialogTextBox      window(
-		"Create a new painting...",
+		"Create a new painting",
 		"materials/font/OpenSans.ttf",
 		400, 170,
 		LIGHT_MODE,
@@ -32,7 +32,7 @@ void    getProjectName(string& projectName)
 void	getPaintingSize(int& paintWidth, int& paintHeight)
 {
 	DialogValuesBox     window(
-		"Create a new painting...",
+		"Create a new painting",
 		"materials/font/OpenSans.ttf",
 		400, 170,
 		LIGHT_MODE,

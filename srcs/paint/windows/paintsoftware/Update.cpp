@@ -30,13 +30,21 @@ void    PaintSoftware::updateBrush(void)
     // ...
 }
 
-void    PaintSoftware::updateOpacity(void)
+void    PaintSoftware::updateOpacityFromSlider(void)
 {
     _selectedColor.a = _opacitySlider->getValue();
 
     updateColorText();
 
     // ...
+}
+
+void    PaintSoftware::updateOpacityFromValue(const uint8_t opacity)
+{
+    _selectedColor.a = opacity;
+    _opacitySlider->update(opacity, getRenderer());
+
+    updateColorText();
 }
 
 void    PaintSoftware::updateColor(const Color& newColor)
@@ -69,5 +77,5 @@ void	PaintSoftware::update(void)
     else if (_brushSlider->getValue() != _brushSize)
         updateBrush();
     else if (_opacitySlider->getValue() != _selectedColor.a)
-        updateOpacity();
+        updateOpacityFromSlider();
 }

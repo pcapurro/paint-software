@@ -208,6 +208,19 @@ int     SliderBox::getValue(void) const noexcept
     return _value;
 }
 
+void    SliderBox::update(const int value, SDL_Renderer* renderer)
+{
+    if (_value == value)
+        return;
+
+    _value = value;
+
+    _valueText->update(std::to_string(_value), \
+        getWidth(), false, renderer);
+
+    refreshCursor();
+}
+
 void    SliderBox::refreshValue(const int x, const int y, SDL_Renderer* renderer)
 {
 	int		lineStartX = _slider->getX();

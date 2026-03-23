@@ -145,4 +145,8 @@
 
 # define OPACITY_DEF 255
 
+/* Color selection */
+
+# define COLOR_VIEW_W 50
+
 #endif

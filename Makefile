@@ -13,7 +13,15 @@ SRCS = srcs/main.cpp \
 	srcs/paint/windows/paintsoftware/Exec.cpp \
 	srcs/paint/windows/paintsoftware/Update.cpp \
 	srcs/paint/windows/paintsoftware/Tools.cpp \
-	srcs/paint/windows/ColorSelection.cpp \
+	srcs/paint/windows/colorselection/Add.cpp \
+	srcs/paint/windows/colorselection/LeftAdd.cpp \
+	srcs/paint/windows/colorselection/RightAdd.cpp \
+	srcs/paint/windows/colorselection/Event.cpp \
+	srcs/paint/windows/colorselection/Get.cpp \
+	srcs/paint/windows/colorselection/Init.cpp \
+	srcs/paint/windows/colorselection/React.cpp \
+	srcs/paint/windows/colorselection/Render.cpp \
+	srcs/paint/windows/colorselection/Routine.cpp \
 	srcs/paint/windows/PathSelection.cpp \
 	srcs/paint/widgets/ColorButton.cpp \
 	srcs/paint/widgets/MainBox.cpp \

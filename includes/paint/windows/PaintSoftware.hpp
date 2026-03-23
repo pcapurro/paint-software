@@ -57,7 +57,8 @@ class PaintSoftware : public Window
 		void    				updateMain(void);
 		void    				updateTool(void);
 		void					updateBrush(void);
-		void					updateOpacity(void);
+		void					updateOpacityFromSlider(void);
+		void					updateOpacityFromValue(const uint8_t opacity);
 		void    				updateColor(const Color& newColor);
 		void    				updateColorText(void);
 
