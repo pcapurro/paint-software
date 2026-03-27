@@ -1,15 +1,15 @@
 #include "Global.hpp"
 
 #include "Engine.hpp"
-
 #include "DialogValuesBox.hpp"
 #include "DialogTextBox.hpp"
 
 #include "PaintSoftware.hpp"
+#include "ColorSelection.hpp"
 
 void    getProjectName(string& projectName)
 {
-	DialogTextBox      window(
+	DialogTextBox	window(
 		"Create a new painting",
 		"materials/font/OpenSans.ttf",
 		400, 170,
@@ -20,18 +20,33 @@ void    getProjectName(string& projectName)
 		30
 	);
 
-	if (window.routine() == END)
-		return;
+	int			value = OK;
+	string		newName;
 
-	string	newName = window.getFinalAnswer();
+	SDL_Event	lastEvent;
 
-	if (newName.size() > 0)
-		projectName = window.getFinalAnswer();
+	while (value == OK)
+	{
+		while (SDL_PollEvent(&lastEvent))
+			value = window.reactEvent(&lastEvent);
+
+		window.render();
+		window.refreshDisplay();
+
+		SDL_Delay(16);
+
+		if (value == OK)
+			continue;
+
+		newName = window.getFinalAnswer();
+		if (newName.size() > 0)
+			projectName = newName;
+	}
 }
 
 void	getPaintingSize(int& paintWidth, int& paintHeight)
 {
-	DialogValuesBox     window(
+	DialogValuesBox		window(
 		"Create a new painting",
 		"materials/font/OpenSans.ttf",
 		400, 170,
@@ -46,16 +61,75 @@ void	getPaintingSize(int& paintWidth, int& paintHeight)
 		{DEF_MAX_PAINT_W, DEF_MAX_PAINT_H}
 	);
 
-	if (window.routine() == END)
-		return;
+	int			value = OK;
 
-	vector<int>		values = window.getFinalValues();
+	string		newName;
+	SDL_Event	lastEvent;
 
-	if (values[0] == 0 || values[1] == 0)
-		return;
+	while (value == OK)
+	{
+		while (SDL_PollEvent(&lastEvent))
+			value = window.reactEvent(&lastEvent);
 
-	paintWidth = values[0];
-	paintHeight = values[1];
+		window.render();
+		window.refreshDisplay();
+
+		SDL_Delay(16);
+
+		if (value == OK)
+			continue;
+
+		if (value != END)
+		{
+			vector<int>	values = window.getFinalValues();
+
+			if (!values[0] || !values[1])
+				return;
+
+			paintWidth = values[0];
+			paintHeight = values[1];
+		}
+	}
+}
+
+void	launch(const string& projectName, const int globalWidth, \
+	const int globalHeight, const int paintWidth, const int paintHeight)
+{
+	PaintSoftware				paintWindow("paint-software – " + projectName, \
+		globalWidth, globalHeight, paintWidth, paintHeight);
+	optional<ColorSelection>	colorWindow, cancelWindow, saveWindow;
+
+	vector<Window*>				windows;
+
+	SDL_Event					lastEvent;
+	int							value = OK;
+
+	windows.reserve(4);
+	windows.push_back(&paintWindow);
+
+	while (value == OK)
+	{
+		while (SDL_PollEvent(&lastEvent))
+		{
+			int	windowId = lastEvent.window.windowID;
+
+			for (auto& window : windows)
+			{
+				if (windowId != window->getWindowId())
+					continue;
+
+				value = window->reactEvent(&lastEvent);
+
+				if (value == END && windowId == paintWindow.getWindowId())
+					return;
+			}
+		}
+
+		for (auto& window : windows)
+			window->render(), window->refreshDisplay();
+
+		SDL_Delay(16);
+	}
 }
 
 int		main(void)
@@ -77,15 +151,8 @@ int		main(void)
 		int		globalWidth = paintWidth + DEF_LEFT_W + DEF_RIGHT_W;
 		int		globalHeight = paintHeight + DEF_UP_H + DEF_DOWN_H;
 
-		if (globalWidth < DEF_MIN_W)
-			globalWidth = DEF_MIN_W;
-		if (globalHeight < DEF_MIN_H)
-			globalHeight = DEF_MIN_H;
-
-		PaintSoftware	paint("paint-software – " + projectName, \
-			globalWidth, globalHeight, paintWidth, paintHeight);
-
-		paint.routine();
+		launch(projectName, globalWidth < DEF_MIN_W ? DEF_MIN_W : globalWidth, \
+			globalHeight < DEF_MIN_H ? DEF_MIN_H : globalHeight, paintWidth, paintHeight);
 	}
 	catch (std::exception& except)
 	{

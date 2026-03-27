@@ -9,19 +9,17 @@ NAME = paint-software
 SRCS = srcs/main.cpp \
 	srcs/paint/windows/paintsoftware/Init.cpp \
 	srcs/paint/windows/paintsoftware/React.cpp \
-	srcs/paint/windows/paintsoftware/Routine.cpp \
+	srcs/paint/windows/paintsoftware/Render.cpp \
 	srcs/paint/windows/paintsoftware/Exec.cpp \
 	srcs/paint/windows/paintsoftware/Update.cpp \
 	srcs/paint/windows/paintsoftware/Tools.cpp \
 	srcs/paint/windows/colorselection/Add.cpp \
 	srcs/paint/windows/colorselection/LeftAdd.cpp \
 	srcs/paint/windows/colorselection/RightAdd.cpp \
-	srcs/paint/windows/colorselection/Event.cpp \
 	srcs/paint/windows/colorselection/Get.cpp \
 	srcs/paint/windows/colorselection/Init.cpp \
 	srcs/paint/windows/colorselection/React.cpp \
 	srcs/paint/windows/colorselection/Render.cpp \
-	srcs/paint/windows/colorselection/Routine.cpp \
 	srcs/paint/windows/PathSelection.cpp \
 	srcs/paint/widgets/ColorButton.cpp \
 	srcs/paint/widgets/MainBox.cpp \
@@ -63,25 +61,19 @@ SRCS = srcs/main.cpp \
 	srcs/lib/widgets/valuefield/Check.cpp \
 	srcs/lib/widgets/valuefield/Render.cpp \
 	srcs/lib/window/dialogbox/Add.cpp \
-	srcs/lib/window/dialogbox/Event.cpp \
 	srcs/lib/window/dialogbox/Init.cpp \
 	srcs/lib/window/dialogbox/React.cpp \
 	srcs/lib/window/dialogbox/Render.cpp \
-	srcs/lib/window/dialogbox/Routine.cpp \
 	srcs/lib/window/dialogtextbox/Add.cpp \
-	srcs/lib/window/dialogtextbox/Event.cpp \
 	srcs/lib/window/dialogtextbox/Get.cpp \
 	srcs/lib/window/dialogtextbox/Init.cpp \
 	srcs/lib/window/dialogtextbox/React.cpp \
 	srcs/lib/window/dialogtextbox/Render.cpp \
-	srcs/lib/window/dialogtextbox/Routine.cpp \
 	srcs/lib/window/dialogvaluesbox/Add.cpp \
-	srcs/lib/window/dialogvaluesbox/Event.cpp \
 	srcs/lib/window/dialogvaluesbox/Get.cpp \
 	srcs/lib/window/dialogvaluesbox/Init.cpp \
 	srcs/lib/window/dialogvaluesbox/React.cpp \
 	srcs/lib/window/dialogvaluesbox/Render.cpp \
-	srcs/lib/window/dialogvaluesbox/Routine.cpp \
 	srcs/lib/window/window/Core.cpp \
 	srcs/lib/window/window/Delete.cpp \
 	srcs/lib/window/window/Get.cpp \

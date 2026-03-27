@@ -37,6 +37,9 @@ using std::cerr;
 void    getProjectName(string& projectName);
 void	getPaintingSize(int& paintWidth, int& paintHeight);
 
+void    launch(const string& projectName, const int globalWidth, \
+	const int globalHeight, const int paintWidth, const int paintHeight);
+
 int     main(void);
 
 #endif

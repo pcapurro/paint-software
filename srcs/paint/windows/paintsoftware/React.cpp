@@ -65,9 +65,7 @@ void    PaintSoftware::reactMouseButtonUp(const int x, const int y)
 
         elements[i]->onMouseUp(x, y, renderer);
 
-        if (i == 5)
-            execColorSwitch();
-        else if (i == 6)
+        if (i == 6)
             updateColor(BLACK);
         else if (i == 7)
             updateColor(WHITE);
@@ -82,8 +80,28 @@ void    PaintSoftware::reactKeyButtonDown(const int key)
         updateColor(generateRandomColor());
 }
 
-int     PaintSoftware::reactEvent(SDL_Event* event, const int x, const int y)
+int     PaintSoftware::reactEvent(SDL_Event* event)
 {
+	int		value = OK;
+
+	int		x = 0;
+	int		y = 0;
+
+	if (event->type == SDL_QUIT \
+		|| (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE))
+		return END;
+
+	if (event->type == SDL_MOUSEMOTION)
+		x = event->motion.x, y = event->motion.y;
+	else if (event->type == SDL_MOUSEBUTTONDOWN \
+		|| event->type == SDL_MOUSEBUTTONUP)
+		x = event->button.x, y = event->button.y;
+
+	if (x < 0 || x > getWidth() || y < 0 || y > getHeight())
+		return OK;
+	else
+		setX(x), setY(y);
+
 	if (event->type == SDL_MOUSEMOTION)
 		reactMouseMotion(x, y);
     

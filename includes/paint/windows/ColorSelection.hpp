@@ -69,9 +69,6 @@ class ColorSelection : public Window
 			const bool titleLimit = false, const string& text = "[Description]");
 
 		~ColorSelection(void) = default;
-
-		virtual int						routine(void);
-		virtual int						waitForEvent(void);
 		
 		virtual void					render(void);
 
@@ -86,10 +83,9 @@ class ColorSelection : public Window
 
 		void							reactColorUpdate(void);
 
-		virtual int						reactEvent(SDL_Event* event, \
-											const int x = 0, const int y = 0);
+		virtual int						reactEvent(SDL_Event* event);
 
-        vector<uint8_t>					getFinalValues(void) const;
+        vector<uint8_t>					getFinalValues(void);
 
 };
 

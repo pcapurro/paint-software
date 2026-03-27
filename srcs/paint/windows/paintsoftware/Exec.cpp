@@ -20,26 +20,13 @@ void    PaintSoftware::execForward(void)
     // ...
 }
 
-void    PaintSoftware::execColorSwitch(void)
+void    PaintSoftware::execColorSwitch(const Color& newColor)
 {
-    ColorSelection  window("paint-software – color selection", "materials/font/OpenSans.ttf", \
-        400, 170, LIGHT_MODE, "Color selection", true, "Select a brush a color.");
+    Color   color = newColor;
 
-    window.routine();
+    if (color.a < 1)
+        color.a = 255;
 
-    Color           newColor;
-    vector<uint8_t> values = window.getFinalValues();
-
-    newColor.r = values[0];
-    newColor.g = values[1];
-    newColor.b = values[2];
-
-    newColor.a = values[3];
-
-    if (newColor.a < 1)
-        newColor.a = 255;
-
-    updateColor(newColor);
-
-    updateOpacityFromValue(newColor.a);
+    updateColor(color);
+    updateOpacityFromValue(color.a);
 }

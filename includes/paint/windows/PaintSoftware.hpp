@@ -70,11 +70,7 @@ class PaintSoftware : public Window
 		void					execBack(void);
 		void					execForward(void);
 
-		void					execColorSwitch(void);
-
-		int         			waitForEvent(void);
-
-		int         			routine(void);
+		void					execColorSwitch(const Color& newColor);
 
 		void        			render(void);
 
@@ -84,7 +80,7 @@ class PaintSoftware : public Window
 
 		void					reactKeyButtonDown(const int key);
 
-		int						reactEvent(SDL_Event* event, const int x = 0, const int y = 0);
+		int						reactEvent(SDL_Event* event);
 };
 
 #endif
