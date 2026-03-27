@@ -89,8 +89,8 @@ int		main(void)
 	}
 	catch (std::exception& except)
 	{
-		cerr << "Error!" << endl;
-		cerr << except.what() << endl;
+		cerr << RED_TXT << "Error! ";
+		cerr << except.what() << END_COLOR << endl;
 
 		return 1;
 	}
