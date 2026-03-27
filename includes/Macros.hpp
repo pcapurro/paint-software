@@ -52,6 +52,9 @@
 # define BLUE {0, 0, 255, 255}
 # define YELLOW {255, 255, 0, 255}
 
+# define LIGHT_GREY {200, 200, 200, 255}
+# define DARK_GREY {128, 128, 128, 255}
+
 # define INVISIBLE {0, 0, 0, 0}
 
 /* Text colors */
@@ -148,5 +151,10 @@
 /* Color selection */
 
 # define COLOR_VIEW_W 50
+
+/* Paint frame */
+
+# define PNG_W 30
+# define PNG_H 30
 
 #endif

@@ -7,7 +7,10 @@
 class PaintFrame : public Element
 {
     private:
-        Shape       _frame;
+        Shape           _frame;
+        vector<Shape>   _pngBack;
+
+        void            initPngBack(void);
 
     public:
         PaintFrame(void) = delete;
@@ -16,7 +19,7 @@ class PaintFrame : public Element
 
         ~PaintFrame(void) = default;
 
-        void        render(SDL_Renderer* renderer);
+        void            render(SDL_Renderer* renderer);
 };
 
 #endif
