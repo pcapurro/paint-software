@@ -1,6 +1,6 @@
-#include "PaintSoftware.hpp"
+#include "PaintView.hpp"
 
-void	PaintSoftware::render(void)
+void	PaintView::render(void)
 {
 	SDL_Renderer*	renderer = getRenderer();
 

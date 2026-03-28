@@ -1,5 +1,5 @@
-#ifndef PAINTSOFTWARE_HPP
-# define PAINTSOFTWARE_HPP
+#ifndef PAINTVIEW_HPP
+# define PAINTVIEW_HPP
 
 # include "Window.hpp"
 
@@ -13,7 +13,7 @@
 # include "PathSelection.hpp"
 # include "ColorSelection.hpp"
 
-class PaintSoftware : public Window
+class PaintView : public Window
 {
     private:
         optional<PaintFrame>	_paintFrame;
@@ -50,9 +50,9 @@ class PaintSoftware : public Window
 		Color					generateRandomColor(void) const noexcept;
 
     public:
-		PaintSoftware(const string& name, const int width, const int height, \
+		PaintView(const string& name, const int width, const int height, \
 			const int frameWidth, const int frameHeight);
-		~PaintSoftware(void) = default;
+		~PaintView(void) = default;
 
 		void    				updateMain(void);
 		void    				updateTool(void);

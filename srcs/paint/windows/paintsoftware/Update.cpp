@@ -1,6 +1,6 @@
-#include "PaintSoftware.hpp"
+#include "PaintView.hpp"
 
-void    PaintSoftware::updateMain(void)
+void    PaintView::updateMain(void)
 {
     int     value = _mainBox->getLastButtonClicked();
 
@@ -16,21 +16,21 @@ void    PaintSoftware::updateMain(void)
     // ...
 }
 
-void    PaintSoftware::updateTool(void)
+void    PaintView::updateTool(void)
 {
     _selectedTool = _toolBox->getSelectedTool();
 
     // ...
 }
 
-void    PaintSoftware::updateBrush(void)
+void    PaintView::updateBrush(void)
 {
     _brushSize = _brushSlider->getValue();
 
     // ...
 }
 
-void    PaintSoftware::updateOpacityFromSlider(void)
+void    PaintView::updateOpacityFromSlider(void)
 {
     _selectedColor.a = _opacitySlider->getValue();
 
@@ -39,7 +39,7 @@ void    PaintSoftware::updateOpacityFromSlider(void)
     // ...
 }
 
-void    PaintSoftware::updateOpacityFromValue(const uint8_t opacity)
+void    PaintView::updateOpacityFromValue(const uint8_t opacity)
 {
     _selectedColor.a = opacity;
     _opacitySlider->update(opacity, getRenderer());
@@ -47,7 +47,7 @@ void    PaintSoftware::updateOpacityFromValue(const uint8_t opacity)
     updateColorText();
 }
 
-void    PaintSoftware::updateColor(const Color& newColor)
+void    PaintView::updateColor(const Color& newColor)
 {
     _selectedColor.r = newColor.r;
     _selectedColor.g = newColor.g;
@@ -58,7 +58,7 @@ void    PaintSoftware::updateColor(const Color& newColor)
     updateColorText();
 }
 
-void    PaintSoftware::updateColorText(void)
+void    PaintView::updateColorText(void)
 {
     string	colorText = std::to_string(_selectedColor.r) + ", " + std::to_string(_selectedColor.g) \
 		+ ", " + std::to_string(_selectedColor.b) + ", " + std::to_string(_selectedColor.a);
@@ -67,7 +67,7 @@ void    PaintSoftware::updateColorText(void)
     _colorText->setX((DEF_LEFT_W / 2) - (_colorText->getWidth() / 2));
 }
 
-void	PaintSoftware::update(void)
+void	PaintView::update(void)
 {
     if (_mainBox->getLastButtonClicked() != NONE)
         updateMain();

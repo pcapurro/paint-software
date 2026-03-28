@@ -26,19 +26,22 @@ SRCS = srcs/main.cpp \
 	srcs/paint/widgets/SliderBox.cpp \
 	srcs/paint/widgets/ToolBox.cpp \
 	srcs/paint/widgets/PaintFrame.cpp \
-	srcs/lib/base/Color.cpp \
-	srcs/lib/base/Cursor.cpp \
-	srcs/lib/base/Engine.cpp \
-	srcs/lib/base/Font.cpp \
-	srcs/lib/base/Properties.cpp \
-	srcs/lib/base/ImageTexture.cpp \
-	srcs/lib/base/TextTexture.cpp \
-	srcs/lib/base/TTF.cpp \
-	srcs/lib/element/Element.cpp \
-	srcs/lib/element/Image.cpp \
-	srcs/lib/element/Render.cpp \
-	srcs/lib/element/Shape.cpp \
-	srcs/lib/element/Text.cpp \
+	srcs/paint/softwares/Paint.cpp \
+	srcs/paint/softwares/PaintingSize.cpp \
+	srcs/paint/softwares/ProjectName.cpp \
+	srcs/lib/bases/Color.cpp \
+	srcs/lib/bases/Cursor.cpp \
+	srcs/lib/bases/Engine.cpp \
+	srcs/lib/bases/Font.cpp \
+	srcs/lib/bases/Properties.cpp \
+	srcs/lib/bases/ImageTexture.cpp \
+	srcs/lib/bases/TextTexture.cpp \
+	srcs/lib/bases/TTF.cpp \
+	srcs/lib/elements/Element.cpp \
+	srcs/lib/elements/Image.cpp \
+	srcs/lib/elements/Render.cpp \
+	srcs/lib/elements/Shape.cpp \
+	srcs/lib/elements/Text.cpp \
 	srcs/lib/widgets/textfield/Cursor.cpp \
 	srcs/lib/widgets/textfield/Edit.cpp \
 	srcs/lib/widgets/textfield/Get.cpp \
@@ -60,25 +63,28 @@ SRCS = srcs/main.cpp \
 	srcs/lib/widgets/valuefield/On.cpp \
 	srcs/lib/widgets/valuefield/Check.cpp \
 	srcs/lib/widgets/valuefield/Render.cpp \
-	srcs/lib/window/dialogbox/Add.cpp \
-	srcs/lib/window/dialogbox/Init.cpp \
-	srcs/lib/window/dialogbox/React.cpp \
-	srcs/lib/window/dialogbox/Render.cpp \
-	srcs/lib/window/dialogtextbox/Add.cpp \
-	srcs/lib/window/dialogtextbox/Get.cpp \
-	srcs/lib/window/dialogtextbox/Init.cpp \
-	srcs/lib/window/dialogtextbox/React.cpp \
-	srcs/lib/window/dialogtextbox/Render.cpp \
-	srcs/lib/window/dialogvaluesbox/Add.cpp \
-	srcs/lib/window/dialogvaluesbox/Get.cpp \
-	srcs/lib/window/dialogvaluesbox/Init.cpp \
-	srcs/lib/window/dialogvaluesbox/React.cpp \
-	srcs/lib/window/dialogvaluesbox/Render.cpp \
-	srcs/lib/window/window/Core.cpp \
-	srcs/lib/window/window/Delete.cpp \
-	srcs/lib/window/window/Get.cpp \
-	srcs/lib/window/window/Init.cpp \
-	srcs/lib/window/window/Set.cpp \
+	srcs/lib/windows/dialogbox/Add.cpp \
+	srcs/lib/windows/dialogbox/Init.cpp \
+	srcs/lib/windows/dialogbox/React.cpp \
+	srcs/lib/windows/dialogbox/Render.cpp \
+	srcs/lib/windows/dialogtextbox/Add.cpp \
+	srcs/lib/windows/dialogtextbox/Get.cpp \
+	srcs/lib/windows/dialogtextbox/Init.cpp \
+	srcs/lib/windows/dialogtextbox/React.cpp \
+	srcs/lib/windows/dialogtextbox/Render.cpp \
+	srcs/lib/windows/dialogvaluesbox/Add.cpp \
+	srcs/lib/windows/dialogvaluesbox/Get.cpp \
+	srcs/lib/windows/dialogvaluesbox/Init.cpp \
+	srcs/lib/windows/dialogvaluesbox/React.cpp \
+	srcs/lib/windows/dialogvaluesbox/Render.cpp \
+	srcs/lib/windows/window/Core.cpp \
+	srcs/lib/windows/window/Delete.cpp \
+	srcs/lib/windows/window/Get.cpp \
+	srcs/lib/windows/window/Init.cpp \
+	srcs/lib/windows/window/Set.cpp \
+	srcs/lib/softwares/DialogBoxPreview.cpp \
+	srcs/lib/softwares/DialogTextBoxPreview.cpp \
+	srcs/lib/softwares/DialogValuesBoxPreview.cpp \
 
 CXX = c++
 
@@ -87,10 +93,12 @@ CXXFLAGS = -std=c++17 \
 	-I includes/paint/ \
 	-I includes/paint/widgets \
 	-I includes/paint/windows \
-	-I includes/lib/base \
-	-I includes/lib/element \
+	-I includes/paint/softwares \
+	-I includes/lib/bases \
+	-I includes/lib/elements \
 	-I includes/lib/widgets \
-	-I includes/lib/window
+	-I includes/lib/windows \
+	-I includes/lib/softwares
 
 SDLFLAGS = -lSDL2 -lSDL2_ttf
 

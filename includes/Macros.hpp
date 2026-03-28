@@ -73,6 +73,9 @@
 # define DEF_UP_H 30
 # define DEF_DOWN_H 30
 
+# define DEF_MIN_PAINT_W 50
+# define DEF_MIN_PAINT_H 50
+
 # define DEF_MAX_PAINT_W 1280
 # define DEF_MAX_PAINT_H 720
 

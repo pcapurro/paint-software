@@ -1,26 +1,26 @@
-#include "PaintSoftware.hpp"
+#include "PaintView.hpp"
 
-void    PaintSoftware::execSave(void)
+void    PaintView::execSave(void)
 {
     // ...
 }
 
-void    PaintSoftware::execCancel(void)
+void    PaintView::execCancel(void)
 {
     // ...
 }
 
-void    PaintSoftware::execBack(void)
+void    PaintView::execBack(void)
 {
     // ...
 }
 
-void    PaintSoftware::execForward(void)
+void    PaintView::execForward(void)
 {
     // ...
 }
 
-void    PaintSoftware::execColorSwitch(const Color& newColor)
+void    PaintView::execColorSwitch(const Color& newColor)
 {
     Color   color = newColor;
 

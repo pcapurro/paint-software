@@ -1,6 +1,6 @@
-#include "PaintSoftware.hpp"
+#include "PaintView.hpp"
 
-void    PaintSoftware::reactMouseMotion(const int x, const int y)
+void    PaintView::reactMouseMotion(const int x, const int y)
 {
     bool                isHover = false;
     SDL_Renderer*       renderer = getRenderer();
@@ -31,7 +31,7 @@ void    PaintSoftware::reactMouseMotion(const int x, const int y)
         SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_ARROW));
 }
 
-void    PaintSoftware::reactMouseButtonDown(const int x, const int y)
+void    PaintView::reactMouseButtonDown(const int x, const int y)
 {
     SDL_Renderer*       renderer = getRenderer();
 
@@ -50,7 +50,7 @@ void    PaintSoftware::reactMouseButtonDown(const int x, const int y)
     }
 }
 
-void    PaintSoftware::reactMouseButtonUp(const int x, const int y)
+void    PaintView::reactMouseButtonUp(const int x, const int y)
 {
     SDL_Renderer*       renderer = getRenderer();
 
@@ -74,13 +74,13 @@ void    PaintSoftware::reactMouseButtonUp(const int x, const int y)
     }
 }
 
-void    PaintSoftware::reactKeyButtonDown(const int key)
+void    PaintView::reactKeyButtonDown(const int key)
 {
     if (key == SDLK_F5)
         updateColor(generateRandomColor());
 }
 
-int     PaintSoftware::reactEvent(SDL_Event* event)
+int     PaintView::reactEvent(SDL_Event* event)
 {
 	int		value = OK;
 
