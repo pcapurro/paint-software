@@ -146,16 +146,16 @@ void	ColorSelection::reactCharactersDown(const char* text)
 	SDL_Renderer*		renderer = getRenderer();
 	bool				refresh = false;
 
-	if (_leftUpField->isClicked())
+	if (_leftUpField->isClicked() || _leftUpField->isSelected())
 		_leftUpField->add(text, renderer), refresh = true;
 
-	else if (_leftDownField->isClicked())
+	else if (_leftDownField->isClicked() || _leftDownField->isSelected())
 		_leftDownField->add(text, renderer), refresh = true;
 
-	else if (_rightUpField->isClicked())
+	else if (_rightUpField->isClicked() || _rightUpField->isSelected())
 		_rightUpField->add(text, renderer), refresh = true;
 
-	else if (_rightDownField->isClicked())
+	else if (_rightDownField->isClicked() || _rightDownField->isSelected())
 		_rightDownField->add(text, renderer), refresh = true;
 
 	if (refresh)
@@ -166,6 +166,10 @@ void	ColorSelection::reactCharactersDown(const char* text)
 
 void	ColorSelection::reactColorUpdate(void)
 {
+	if (_leftUpField->empty() || _rightUpField->empty()
+		|| _leftDownField->empty())
+		return;
+
 	Color	newColor;
 
 	newColor.r = _leftUpField->getValue();
@@ -184,7 +188,7 @@ int		ColorSelection::reactEvent(SDL_Event* event)
 	int		x = 0;
 	int		y = 0;
 
-	if (event->type == SDL_QUIT \
+	if (event->window.event == SDL_WINDOWEVENT_CLOSE \
 		|| (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE))
 		return State::End;
 

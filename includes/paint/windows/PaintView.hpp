@@ -116,7 +116,7 @@ class PaintView : public Window
 
 		void					reactMouseMotion(const int x, const int y);
 		void					reactMouseButtonDown(const int x, const int y);
-		void					reactMouseButtonUp(const int x, const int y);
+		int						reactMouseButtonUp(const int x, const int y);
 
 		void					reactKeyButtonDown(const int key);
 
@@ -135,6 +135,8 @@ class PaintView : public Window
 
 		static constexpr int	MinimumWidth = MaxPaintWidth;
 		static constexpr int	MinimumHeight = MaxPaintHeight;
+
+		static constexpr int	ColorSwitch = 256;
 };
 
 #endif

@@ -1,20 +1,19 @@
 #include "ColorSelection.hpp"
 
-vector<uint8_t>  ColorSelection::getFinalValues(void)
+bool    ColorSelection::error(void) const noexcept
 {
-    _finalValues.clear();
+    return _error;
+}
 
-    uint8_t leftUpValue = _leftUpField->getValue();
-    uint8_t rightUpValue = _rightUpField->getValue();
+Color   ColorSelection::getFinalColor(void) const
+{
+    Color   color;
 
-    uint8_t leftDownValue = _leftDownField->getValue();
-    uint8_t rightDownValue = _rightDownField->getValue();
+    color.r = _leftUpField->getValue();
+    color.g = _rightUpField->getValue();
+    color.b = _leftDownField->getValue();
 
-    _finalValues.push_back(leftUpValue);
-    _finalValues.push_back(rightUpValue);
+    color.a = _rightDownField->getValue();
 
-    _finalValues.push_back(leftDownValue);
-    _finalValues.push_back(rightDownValue);
-
-    return _finalValues;
+    return color;
 }

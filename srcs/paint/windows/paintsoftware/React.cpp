@@ -50,7 +50,7 @@ void    PaintView::reactMouseButtonDown(const int x, const int y)
     }
 }
 
-void    PaintView::reactMouseButtonUp(const int x, const int y)
+int     PaintView::reactMouseButtonUp(const int x, const int y)
 {
     SDL_Renderer*       renderer = getRenderer();
 
@@ -65,13 +65,17 @@ void    PaintView::reactMouseButtonUp(const int x, const int y)
 
         elements[i]->onMouseUp(x, y, renderer);
 
-        if (i == 6)
+        if (i == 5)
+            return ColorSwitch;
+        else if (i == 6)
             updateColor(Color::Black);
         else if (i == 7)
             updateColor(Color::White);
 
         break;
     }
+
+    return State::Ok;
 }
 
 void    PaintView::reactKeyButtonDown(const int key)
@@ -82,6 +86,8 @@ void    PaintView::reactKeyButtonDown(const int key)
 
 int     PaintView::reactEvent(SDL_Event* event)
 {
+    int     value = State::Ok;
+
 	int		x = 0;
 	int		y = 0;
 
@@ -108,7 +114,7 @@ int     PaintView::reactEvent(SDL_Event* event)
         if (event->type == SDL_MOUSEBUTTONDOWN)
             reactMouseButtonDown(x, y);
         else if (event->type == SDL_MOUSEBUTTONUP)
-            reactMouseButtonUp(x, y);
+            value = reactMouseButtonUp(x, y);
     }
 
     if (event->type == SDL_KEYDOWN)
@@ -117,5 +123,5 @@ int     PaintView::reactEvent(SDL_Event* event)
     update();
 	refreshDisplay();
 
-    return State::Ok;
+    return value;
 }

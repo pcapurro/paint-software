@@ -38,7 +38,6 @@ class ColorSelection : public Window
 		string							_fontPath;
 
 		bool							_error = false;
-		vector<uint8_t>					_finalValues;
 
 
 		static constexpr int			limitHeight = 1;
@@ -77,6 +76,9 @@ class ColorSelection : public Window
 			const bool titleLimit = false, const string& text = "[Text]");
 
 		~ColorSelection(void) = default;
+
+		bool							error(void) const noexcept;
+		Color							getFinalColor(void) const;
 		
 		virtual void					render(void);
 
@@ -92,8 +94,6 @@ class ColorSelection : public Window
 		void							reactColorUpdate(void);
 
 		virtual int						reactEvent(SDL_Event* event);
-
-        vector<uint8_t>					getFinalValues(void);
 };
 
 #endif

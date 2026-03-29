@@ -4,11 +4,14 @@
 # include "Software.hpp"
 
 # include "PaintView.hpp"
+# include "ColorSelection.hpp"
 
 class Paint : public Software
 {
     private:
-        optional<PaintView>     _paint;
+        optional<PaintView>         _paint;
+
+        optional<ColorSelection>    _colorSelection;
 
     public:
         Paint(void) = delete;

@@ -20,7 +20,6 @@ ColorSelection::ColorSelection(const string& name, const string& fontPath, \
 		setWriteColor(Color::Black), setBackgroundColor(Color::White);
 
 	_elements.reserve(8);
-	_finalValues.reserve(4);
 
 	if (titleText.size() > 0)
 	{

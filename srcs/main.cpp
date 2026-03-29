@@ -33,8 +33,10 @@ void	getPaintingSize(int& paintWidth, int& paintHeight)
 void    launch(const string& projectName, const int globalWidth, \
 	const int globalHeight, const int paintWidth, const int paintHeight)
 {
-	Paint	paintWindow(projectName, globalWidth < PaintView::MinimumWidth ? PaintView::MinimumWidth : globalWidth, \
-		globalHeight < PaintView::MinimumHeight ? PaintView::MinimumHeight : globalHeight, paintWidth, paintHeight);
+	Paint	paintWindow(projectName, globalWidth < PaintView::MinimumWidth ? \
+		PaintView::MinimumWidth : globalWidth, \
+		globalHeight < PaintView::MinimumHeight ? PaintView::MinimumHeight : \
+		globalHeight, paintWidth, paintHeight);
 
 	paintWindow.routine();
 }
