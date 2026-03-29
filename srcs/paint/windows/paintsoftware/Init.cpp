@@ -4,8 +4,8 @@ PaintView::PaintView(const string& name, const int width, const int height, \
     const int frameWidth, const int frameHeight) : \
 		Window(name, width, height)
 {
-	setBackgroundColor(BLACK);
-	setWriteColor(WHITE);
+	setBackgroundColor(Color::Black);
+	setWriteColor(Color::White);
 
 	std::srand(std::time(nullptr));
 
@@ -23,20 +23,20 @@ PaintView::PaintView(const string& name, const int width, const int height, \
 	initColors(renderer);
 
 	if (_colorButton->getY() + _colorButton->getHeight() < \
-		(_paintFrame->getY() + _paintFrame->getHeight()) - (LINE / 2) - CENTER_SPACE_H)
+		(_paintFrame->getY() + _paintFrame->getHeight()) - (LineHeight / 2) - CenterSpaceHeight)
 	{
-		_endLine.emplace(W_LIMIT, _paintFrame->getY() + _paintFrame->getHeight() - (LINE / 2), \
-			LEFT_PANELS_W, (LINE / 2), getWriteColor());
+		_endLine.emplace(WidthLimit, _paintFrame->getY() + _paintFrame->getHeight() - (LineHeight / 2), \
+			LeftPanelsWidth, (LineHeight), getWriteColor());
 	}
 }
 
 void	PaintView::initFrame(const int frameWidth, const int frameHeight)
 {
-	int		frameSpaceWidth = getWidth() - DEF_LEFT_W - DEF_RIGHT_W;
-	int		frameSpaceHeight = getHeight() - DEF_UP_H - DEF_DOWN_H;
+	int		frameSpaceWidth = getWidth() - LeftWidth - RightWidth;
+	int		frameSpaceHeight = getHeight() - UpHeight - DownHeight;
 
-	int		frameX = DEF_LEFT_W + ((frameSpaceWidth / 2) - (frameWidth / 2));
-	int		frameY = DEF_UP_H + ((frameSpaceHeight / 2) - (frameHeight / 2));
+	int		frameX = LeftWidth + ((frameSpaceWidth / 2) - (frameWidth / 2));
+	int		frameY = UpHeight + ((frameSpaceHeight / 2) - (frameHeight / 2));
 
 	Color	backColor = getWriteColor();
 
@@ -45,14 +45,14 @@ void	PaintView::initFrame(const int frameWidth, const int frameHeight)
 
 void	PaintView::initMainButtons(SDL_Renderer* renderer)
 {
-	_mainBox.emplace(W_LIMIT, H_UP_LIMIT, LEFT_PANELS_W, DEF_MAIN_H, \
+	_mainBox.emplace(WidthLimit, HeightUpLimit, LeftPanelsWidth, MainHeight, \
 		getBackgroundColor(), getWriteColor(), renderer);
 }
 
 void	PaintView::initTools(SDL_Renderer* renderer)
 {
-	_toolBox.emplace(W_LIMIT, _mainBox->getY() + _mainBox->getHeight() + CENTER_SPACE_H, \
-		LEFT_PANELS_W, DEF_TOOLBOX_H, getBackgroundColor(), getWriteColor(), renderer);
+	_toolBox.emplace(WidthLimit, _mainBox->getY() + _mainBox->getHeight() + CenterSpaceHeight, \
+		LeftPanelsWidth, ToolboxHeight, getBackgroundColor(), getWriteColor(), renderer);
 }
 
 void	PaintView::initBrushTools(SDL_Renderer* renderer)
@@ -62,19 +62,19 @@ void	PaintView::initBrushTools(SDL_Renderer* renderer)
 	Color	backColor = getBackgroundColor();
 	Color	writeColor = getWriteColor();
 
-	_brushSlider.emplace(W_LIMIT, _toolBox->getY() + _toolBox->getHeight() + CENTER_SPACE_H, \
-		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, BRUSH_SIZE_MIN, BRUSH_SIZE_MAX, BRUSH_DEF_SIZE, \
+	_brushSlider.emplace(WidthLimit, _toolBox->getY() + _toolBox->getHeight() + CenterSpaceHeight, \
+		LeftPanelsWidth, SlideBoxHeight, fontPath, BrushMinimumSize, BrushMaximumSize, BrushDefaultSize, \
 		"Brush size: ", 11, true, 2, backColor, writeColor, writeColor, writeColor, renderer);
 
-	_opacitySlider.emplace(W_LIMIT, _brushSlider->getY() + _brushSlider->getHeight() + BORDER, \
-		LEFT_PANELS_W, DEF_SLIDEBOX_H, fontPath, OPACITY_MIN, OPACITY_MAX, OPACITY_DEF, \
+	_opacitySlider.emplace(WidthLimit, _brushSlider->getY() + _brushSlider->getHeight() + Border, \
+		LeftPanelsWidth, SlideBoxHeight, fontPath, OpacityMinimum, OpacityMaximum, DefaultOpacity, \
 		"Opacity: ", 11, true, 2, backColor, writeColor, writeColor, writeColor, renderer);
 }
 
 void	PaintView::initColors(SDL_Renderer* renderer)
 {
-	Color	black = BLACK;
-	Color	white = WHITE;
+	Color	black = Color::Black;
+	Color	white = Color::White;
 
 	string	fontPath = "materials/font/OpenSans.ttf";
 	Color	writeColor = getWriteColor();
@@ -83,19 +83,19 @@ void	PaintView::initColors(SDL_Renderer* renderer)
 		+ ", " + std::to_string(_selectedColor.b) + ", " + std::to_string(_selectedColor.a);
 
 	_colorText.emplace(0, _opacitySlider->getY() + _opacitySlider->getHeight() \
-		+ CENTER_SPACE_H, colorText, 12, fontPath, getWriteColor(), LEFT_PANELS_W, \
+		+ CenterSpaceHeight, colorText, 12, fontPath, getWriteColor(), LeftPanelsWidth, \
 		false, renderer);
 
-	_colorText->setX((DEF_LEFT_W / 2) - (_colorText->getWidth() / 2), renderer);
+	_colorText->setX((LeftWidth / 2) - (_colorText->getWidth() / 2), renderer);
 
-	_colorButton.emplace(W_LIMIT, _colorText->getY() + _colorText->getHeight() \
-		+ (CENTER_SPACE_H / 2), (DEF_BUTTON_W * 2 + CENTER_SPACE_W), DEF_MAIN_COLOR_H, \
+	_colorButton.emplace(WidthLimit, _colorText->getY() + _colorText->getHeight() \
+		+ (CenterSpaceHeight / 2), (ButtonWidth * 2 + CenterSpaceWidth), MainColorHeight, \
 		_selectedColor, getWriteColor(), renderer);
 
-	_blackButton.emplace(W_LIMIT, _colorButton->getY() + _colorButton->getHeight() \
-		+ (CENTER_SPACE_H / 2), DEF_BUTTON_W, DEF_SIDE_COLOR_H, black, getWriteColor(), renderer);
+	_blackButton.emplace(WidthLimit, _colorButton->getY() + _colorButton->getHeight() \
+		+ (CenterSpaceHeight / 2), ButtonWidth, SideColorHeight, black, getWriteColor(), renderer);
 
-	_whiteButton.emplace(W_LIMIT + _blackButton->getWidth() + CENTER_SPACE_W, \
-		_colorButton->getY() + _colorButton->getHeight() + (CENTER_SPACE_H / 2), \
-		DEF_BUTTON_W, DEF_SIDE_COLOR_H, white, getWriteColor(), renderer);
+	_whiteButton.emplace(WidthLimit + _blackButton->getWidth() + CenterSpaceWidth, \
+		_colorButton->getY() + _colorButton->getHeight() + (CenterSpaceHeight / 2), \
+		ButtonWidth, SideColorHeight, white, getWriteColor(), renderer);
 }

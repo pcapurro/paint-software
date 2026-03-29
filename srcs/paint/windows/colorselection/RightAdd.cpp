@@ -2,21 +2,21 @@
 
 void	ColorSelection::addRightFieldsTitles(const string& fontPath)
 {
-    int				textSize = getHeight() * TEXT_RATIO;
+    int				textSize = getHeight() * Render::TextRatio;
 
     int             leftUpFieldUnitX = _leftUpField->getX() \
-						+ _leftUpField->getWidth() + (CENTER_SPACE_W / 2);
+						+ _leftUpField->getWidth() + (CenterSpaceWidth / 2);
     int             leftDownFieldUnitX = _leftDownField->getX() \
-						+ _leftDownField->getWidth() + (CENTER_SPACE_W / 2);
+						+ _leftDownField->getWidth() + (CenterSpaceWidth / 2);
 
     int             limitX = leftUpFieldUnitX > leftDownFieldUnitX \
                         ? leftUpFieldUnitX : leftDownFieldUnitX;
 
-	int				limitY = getHeight() * LIMIT_RATIO;
+	int				limitY = getHeight() * Render::LimitRatio;
 
 	SDL_Renderer*	renderer = getRenderer();
 
-	Color			green = GREEN;
+	Color			green = Color::Green;
 
 	auto 	downRightText = std::make_unique<Text>(getX() + limitX, 0, "A", textSize, \
 		fontPath, getWriteColor(), 0, false, renderer);
@@ -34,8 +34,8 @@ void	ColorSelection::addRightFieldsTitles(const string& fontPath)
 
 void	ColorSelection::addRightFields(const string& fontPath, const int maxText)
 {
-    int				textSize = getHeight() * TEXT_RATIO;
-	int				limitX = getWidth() * LIMIT_RATIO;
+    int				textSize = getHeight() * Render::TextRatio;
+	int				limitX = getWidth() * Render::LimitRatio;
 
 	int				globalWidth = ((textSize * 5) / 10) * 10;
 	int				globalHeight = ((textSize * 2) / 10) * 10;
@@ -57,10 +57,10 @@ void	ColorSelection::addRightFields(const string& fontPath, const int maxText)
 		fontPath, getWriteColor(), maxText, 1, 255);
 
 	_rightDownField->setY(downText->getY(), renderer);	
-	_rightDownField->setSettings(true, HIGHLIGHT_SELECT, true, SDL_SYSTEM_CURSOR_IBEAM, false, false);
+	_rightDownField->setSettings(true, Render::HighlightSelect, true, SDL_SYSTEM_CURSOR_IBEAM, false, false);
 
-	Color	blue = BLUE;
-	blue.a = HIGHLIGHT_OPACITY;
+	Color	blue = Color::Blue;
+	blue.a = Render::HiglihtOpacity;
 
 	_rightDownField->setSelectColor(blue);
 
@@ -68,7 +68,7 @@ void	ColorSelection::addRightFields(const string& fontPath, const int maxText)
 		getBackgroundColor(), getWriteColor(), fontPath, getWriteColor(), maxText, 0, 255);
 
 	_rightUpField->setY(upText->getY(), renderer);
-	_rightUpField->setSettings(true, HIGHLIGHT_SELECT, true, SDL_SYSTEM_CURSOR_IBEAM, false, false);
+	_rightUpField->setSettings(true, Render::HighlightSelect, true, SDL_SYSTEM_CURSOR_IBEAM, false, false);
 
 	_rightUpField->setSelectColor(blue);
 
@@ -80,8 +80,8 @@ void	ColorSelection::addRightFields(const string& fontPath, const int maxText)
 
 void	ColorSelection::addRightFieldsErrors(const string& fontPath)
 {
-    int				textSize = getHeight() * TEXT_RATIO;
-	int				limitX = getWidth() * LIMIT_RATIO;
+    int				textSize = getHeight() * Render::TextRatio;
+	int				limitX = getWidth() * Render::LimitRatio;
 
 	SDL_Renderer*	renderer = getRenderer();
 
@@ -93,7 +93,7 @@ void	ColorSelection::addRightFieldsErrors(const string& fontPath)
 	_rightDownError->setX(downText->getX() + downText->getWidth() + (limitX / 2));
 	_rightDownError->setY(_rightDownField->getY() + _rightDownField->getHeight());
 
-	Color	color = RED;
+	Color	color = Color::Red;
 
 	_rightDownError->setColor(color);
 	_rightDownError->setVisibility(false);

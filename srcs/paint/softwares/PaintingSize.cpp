@@ -6,21 +6,21 @@ PaintingSize::PaintingSize(void)
 		"Create a new painting",
 		"materials/font/OpenSans.ttf",
 		400, 170,
-		LIGHT_MODE,
+		Window::LightMode,
 		"Painting size",
 		true,
 		"Specify width and height of your painting.",
 		4,
 		vector<string>{"width:", "height:"},
 		vector<string>{"px", "px"},
-		vector<int>{DEF_MIN_PAINT_W, DEF_MIN_PAINT_H},
-		vector<int>{DEF_MAX_PAINT_W, DEF_MAX_PAINT_H}
+		vector<int>{PaintView::MinPaintWidth, PaintView::MinPaintHeight},
+		vector<int>{PaintView::MaxPaintWidth, PaintView::MaxPaintHeight}
 	);
 
     _values.reserve(2);
 
-	_values.push_back(DEF_MAX_PAINT_W);
-	_values.push_back(DEF_MAX_PAINT_H);
+	_values.push_back(PaintView::MaxPaintWidth);
+	_values.push_back(PaintView::MaxPaintHeight);
 }
 
 vector<int>     PaintingSize::getValues(void) const
@@ -30,28 +30,28 @@ vector<int>     PaintingSize::getValues(void) const
 
 int     PaintingSize::routine(void)
 {
-	int			        value = OK;
+	int			        value = State::Ok;
 	SDL_Event	        lastEvent;
 
-	while (value == OK)
+	while (value == State::Ok)
 	{
 		while (SDL_PollEvent(&lastEvent))
 		{
 			value = _window->reactEvent(&lastEvent);
 
-			if (value == RETURN)
+			if (value == State::Return)
 			{
 				if (!_window->error())
 				{
 					_values = _window->getFinalValues();
 
 					if (!_values[0])
-						_values[0] = DEF_MAX_PAINT_W;
+						_values[0] = PaintView::MaxPaintWidth;
 					if (!_values[1])
-						_values[1] = DEF_MAX_PAINT_H;
+						_values[1] = PaintView::MaxPaintHeight;
 				}
 				else
-					value = OK;
+					value = State::Ok;
 			}
 		}
 

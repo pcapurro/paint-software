@@ -3,6 +3,7 @@
 
 # include "Software.hpp"
 
+# include "PaintView.hpp"
 # include "DialogValuesBox.hpp"
 
 class PaintingSize : public Software

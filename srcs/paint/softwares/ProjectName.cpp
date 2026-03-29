@@ -6,7 +6,7 @@ ProjectName::ProjectName(void)
         "Create a new painting",
 		"materials/font/OpenSans.ttf",
 		400, 170,
-		LIGHT_MODE,
+		Window::LightMode,
 		"Project name",
 		true,
 		"Specify the name of the project.",
@@ -21,16 +21,16 @@ string  ProjectName::getName(void) const
 
 int     ProjectName::routine(void)
 {
-	int			    value = OK;
+	int			    value = State::Ok;
 	SDL_Event	    lastEvent;
 
-	while (value == OK)
+	while (value == State::Ok)
 	{
 		while (SDL_PollEvent(&lastEvent))
 		{
 			value = _window->reactEvent(&lastEvent);
 
-			if (value == RETURN)
+			if (value == State::Return)
 			{
 				if (!_window->error())
 				{
@@ -40,7 +40,7 @@ int     ProjectName::routine(void)
 						_name = _window->getFinalAnswer();
 				}
 				else
-					value = OK;
+					value = State::Ok;
 			}
 		}
 

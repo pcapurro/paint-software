@@ -15,21 +15,21 @@ void	MainBox::initButtons(SDL_Renderer* renderer)
 	_buttons.reserve(4);
 
 	Color	writeColor = getMainColor();
-	Color	invisible = INVISIBLE;
+	Color	invisible = Color::Invisible;
 
-	auto	saveButton = std::make_unique<ImageButton>(getX(), getY(), DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/mainbox/green-check.bmp", invisible, BORDER, writeColor, renderer);
+	auto	saveButton = std::make_unique<ImageButton>(getX(), getY(), ButtonWidth, ButtonHeight, \
+		"materials/icons/bmp/mainbox/green-check.bmp", invisible, Border, writeColor, renderer);
 
-	auto	cancelButton = std::make_unique<ImageButton>(getX() + DEF_BUTTON_W + CENTER_SPACE_W, getY(), \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/mainbox/red-cross.bmp", \
-		invisible, BORDER, writeColor, renderer);
+	auto	cancelButton = std::make_unique<ImageButton>(getX() + ButtonWidth + CenterSpaceWidth, getY(), \
+		ButtonWidth, ButtonHeight, "materials/icons/bmp/mainbox/red-cross.bmp", \
+		invisible, Border, writeColor, renderer);
 
-	auto	leftButton = std::make_unique<ImageButton>(getX(), getY() + DEF_BUTTON_H, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/mainbox/left-arrow.bmp", invisible, BORDER, writeColor, renderer);
+	auto	leftButton = std::make_unique<ImageButton>(getX(), getY() + ButtonHeight, ButtonWidth, ButtonHeight, \
+		"materials/icons/bmp/mainbox/left-arrow.bmp", invisible, Border, writeColor, renderer);
 
-	auto	rightButton = std::make_unique<ImageButton>(getX() + DEF_BUTTON_W + CENTER_SPACE_W, getY() + DEF_BUTTON_H, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/mainbox/right-arrow.bmp", \
-		invisible, BORDER, writeColor, renderer);
+	auto	rightButton = std::make_unique<ImageButton>(getX() + ButtonWidth + CenterSpaceWidth, getY() + ButtonHeight, \
+		ButtonWidth, ButtonHeight, "materials/icons/bmp/mainbox/right-arrow.bmp", \
+		invisible, Border, writeColor, renderer);
 
 	_buttons.emplace_back(std::move(saveButton));
 	_buttons.emplace_back(std::move(cancelButton));
@@ -39,14 +39,14 @@ void	MainBox::initButtons(SDL_Renderer* renderer)
 
 	for (auto& button : _buttons)
 	{
-		button->setSettings(false, NONE, false, \
-			NONE, true, true);
+		button->setSettings(false, State::None, false, \
+			State::None, true, true);
 	}
 }
 
 int		MainBox::getLastButtonClicked(void)
 {
-	return std::exchange(_lastButtonClicked, NONE);
+	return std::exchange(_lastButtonClicked, State::None);
 }
 
 void    MainBox::render(SDL_Renderer* renderer)

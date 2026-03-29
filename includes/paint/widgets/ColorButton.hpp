@@ -8,6 +8,8 @@ class ColorButton : public Element
     private:
         optional<Shape>         _back;
 
+        static constexpr int    Border = 2;
+
     protected:
 		virtual void	        onPropertiesChanged([[maybe_unused]] SDL_Renderer* renderer) override;
         virtual void	        onPositionChanged([[maybe_unused]] SDL_Renderer* renderer) override;
@@ -23,16 +25,14 @@ class ColorButton : public Element
 
         ~ColorButton(void) = default;
 
-        bool            hasClicked(void) noexcept;
+        void                    render(SDL_Renderer* renderer);
 
-        void            render(SDL_Renderer* renderer);
-
-        virtual void    onMouseUp([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
+        virtual void            onMouseUp([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
             [[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
 
-		virtual void    onMouseHover([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
+		virtual void            onMouseHover([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
             [[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
-		virtual void    onMouseHoverOutside([[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
+		virtual void            onMouseHoverOutside([[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
 };
 
 #endif

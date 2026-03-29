@@ -18,36 +18,36 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 	int		globalY = getY();
 
 	Color	writeColor = getMainColor();
-	Color	invisible = INVISIBLE;
+	Color	invisible = Color::Invisible;
 
-	auto	brushButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/toolbox/brush.bmp", invisible, BORDER, writeColor, renderer);
-	auto	pencilButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/toolbox/pencil.bmp", invisible, BORDER, writeColor, renderer);
+	auto	brushButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
+		"materials/icons/bmp/toolbox/brush.bmp", invisible, Border, writeColor, renderer);
+	auto	pencilButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
+		ButtonWidth, ButtonHeight, "materials/icons/bmp/toolbox/pencil.bmp", invisible, Border, writeColor, renderer);
 
-	globalY += DEF_BUTTON_H;
+	globalY += ButtonHeight;
 
-	auto	bucketButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/toolbox/bucket.bmp", invisible, BORDER, writeColor, renderer);
-	auto	sprayButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/toolbox/spray.bmp", \
-		invisible, BORDER, writeColor, renderer);
+	auto	bucketButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
+		"materials/icons/bmp/toolbox/bucket.bmp", invisible, Border, writeColor, renderer);
+	auto	sprayButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
+		ButtonWidth, ButtonHeight, "materials/icons/bmp/toolbox/spray.bmp", \
+		invisible, Border, writeColor, renderer);
 
-	globalY += DEF_BUTTON_H;
+	globalY += ButtonHeight;
 
-	auto	eraserButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/toolbox/eraser.bmp", invisible, BORDER, writeColor, renderer);
-	auto	pickerButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/toolbox/color-picker.bmp", \
-		invisible, BORDER, writeColor, renderer);
+	auto	eraserButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
+		"materials/icons/bmp/toolbox/eraser.bmp", invisible, Border, writeColor, renderer);
+	auto	pickerButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
+		ButtonWidth, ButtonHeight, "materials/icons/bmp/toolbox/color-picker.bmp", \
+		invisible, Border, writeColor, renderer);
 
-	globalY += DEF_BUTTON_H;
+	globalY += ButtonHeight;
 
-	auto	lineButton = std::make_unique<ImageButton>(globalX, globalY, DEF_BUTTON_W, DEF_BUTTON_H, \
-		"materials/icons/bmp/toolbox/line.bmp", invisible, BORDER, writeColor, renderer);
-	auto	rectangleButton = std::make_unique<ImageButton>(globalX + DEF_BUTTON_W + CENTER_SPACE_W, globalY, \
-		DEF_BUTTON_W, DEF_BUTTON_H, "materials/icons/bmp/toolbox/rectangle.bmp", \
-		invisible, BORDER, writeColor, renderer);
+	auto	lineButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
+		"materials/icons/bmp/toolbox/line.bmp", invisible, Border, writeColor, renderer);
+	auto	rectangleButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
+		ButtonWidth, ButtonHeight, "materials/icons/bmp/toolbox/rectangle.bmp", \
+		invisible, Border, writeColor, renderer);
 
 	_buttons.emplace_back(std::move(brushButton));
 	_buttons.emplace_back(std::move(pencilButton));
@@ -61,17 +61,17 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 	_buttons.emplace_back(std::move(lineButton));
 	_buttons.emplace_back(std::move(rectangleButton));
 
-	Color	selectColor = DEF_TOOL_SELECT_COLOR;
+	Color	selectColor = {25, 200, 50, 130};
 
 	for (auto& button : _buttons)
 	{
-		button->setSettings(true, CENTER_SELECT, \
+		button->setSettings(true, Render::CenterSelect, \
 			false, false, true, true);
 
 		button->setSelectColor(selectColor);
 	}
 
-	_buttons[BRUSH - 1]->setSelected(true);
+	_buttons[Brush - 1]->setSelected(true);
 }
 
 int		ToolBox::getSelectedTool(void) const noexcept

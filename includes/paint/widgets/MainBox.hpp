@@ -9,9 +9,17 @@ class MainBox : public Element
     private:
         vector<unique_ptr<ImageButton>>     _buttons;
 
-        int                                 _lastButtonClicked = NONE;
+        int                     _lastButtonClicked = State::None;
 
-        void            initButtons(SDL_Renderer* renderer);
+        static constexpr int    Border = 2;
+
+        static constexpr int    CenterSpaceWidth = 20;
+		static constexpr int    CenterSpaceHeight = 20;
+
+        static constexpr int	ButtonWidth = 65;
+		static constexpr int	ButtonHeight = 65;
+
+        void                    initButtons(SDL_Renderer* renderer);
 
     public:
         MainBox(const int x, const int y, const int width, const int height, \
@@ -19,18 +27,18 @@ class MainBox : public Element
 
         ~MainBox(void) = default;
 
-        int             getLastButtonClicked(void);
+        int                     getLastButtonClicked(void);
 
-        void            render(SDL_Renderer* renderer);
+        void                    render(SDL_Renderer* renderer);
 
-        virtual void    onMouseDown([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
+        virtual void            onMouseDown([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
             [[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
-        virtual void    onMouseUp([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
+        virtual void            onMouseUp([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
             [[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
 
-		virtual void    onMouseHover([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
+		virtual void            onMouseHover([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
             [[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
-		virtual void    onMouseHoverOutside([[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
+		virtual void            onMouseHoverOutside([[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
 };
 
 #endif

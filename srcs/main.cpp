@@ -33,8 +33,8 @@ void	getPaintingSize(int& paintWidth, int& paintHeight)
 void    launch(const string& projectName, const int globalWidth, \
 	const int globalHeight, const int paintWidth, const int paintHeight)
 {
-	Paint	paintWindow(projectName, globalWidth < DEF_MIN_W ? DEF_MIN_W : globalWidth, \
-		globalHeight < DEF_MIN_H ? DEF_MIN_H : globalHeight, paintWidth, paintHeight);
+	Paint	paintWindow(projectName, globalWidth < PaintView::MinimumWidth ? PaintView::MinimumWidth : globalWidth, \
+		globalHeight < PaintView::MinimumHeight ? PaintView::MinimumHeight : globalHeight, paintWidth, paintHeight);
 
 	paintWindow.routine();
 }
@@ -50,21 +50,23 @@ int		main(void)
 
 		getProjectName(projectName);
 
-		int		paintWidth = DEF_MAX_PAINT_W;
-		int		paintHeight = DEF_MAX_PAINT_H;
+		int		paintWidth = PaintView::MaxPaintWidth;
+		int		paintHeight = PaintView::MaxPaintHeight;
 
 		getPaintingSize(paintWidth, paintHeight);
 
-		int		globalWidth = paintWidth + DEF_LEFT_W + DEF_RIGHT_W;
-		int		globalHeight = paintHeight + DEF_UP_H + DEF_DOWN_H;
+		int		globalWidth = paintWidth + \
+			PaintView::LeftWidth + PaintView::RightWidth;
+		int		globalHeight = paintHeight + \
+			PaintView::UpHeight + PaintView::DownHeight;
 
 		launch(projectName, globalWidth, globalHeight, \
 			paintWidth, paintHeight);
 	}
 	catch (std::exception& except)
 	{
-		cerr << RED_TXT << "Error! ";
-		cerr << except.what() << END_COLOR << endl;
+		cerr << "\033[31m" << "Error! ";
+		cerr << except.what() << "\033[0m" << endl;
 
 		return 1;
 	}

@@ -12,14 +12,14 @@ PaintFrame::PaintFrame(const int x, const int y, const int width, \
 
 void    PaintFrame::initPngBack(void)
 {
-    const int   nbW = (getWidth() / PNG_W);
-    const int   nbH = (getHeight() / PNG_H);
+    const int   nbW = (getWidth() / PngWidth);
+    const int   nbH = (getHeight() / PngHeight);
 
     int         pngX = getX();
     int         pngY = getY();
 
-    Color       pngColor = LIGHT_GREY;
-    Color       darkGrey = DARK_GREY;
+    Color       pngColor = Color::GreyLight;
+    Color       darkGrey = Color::GreyDark;
 
     _pngBack.reserve(((nbW * nbH) / 2) + 1);
 
@@ -31,13 +31,13 @@ void    PaintFrame::initPngBack(void)
         for (int k = 0; k < nbW; k++)
         {
             if ((k + i) % 2 != 0)
-                _pngBack.emplace_back(pngX, pngY, PNG_W, PNG_H, pngColor);
+                _pngBack.emplace_back(pngX, pngY, PngWidth, PngHeight, pngColor);
 
-            pngX += PNG_W;
+            pngX += PngWidth;
         }
 
         pngX = getX();
-        pngY += PNG_H;
+        pngY += PngHeight;
     }
 }
 

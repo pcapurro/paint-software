@@ -12,14 +12,14 @@ Paint::Paint(const string& projectName, const int globalWidth, \
 int     Paint::routine(void)
 {
 	SDL_Event       lastEvent;
-	int             value = OK;
+	int             value = State::Ok;
 
 	vector<Window*>	windows;
 
 	windows.reserve(4);
 	windows.push_back(&_paint.value());
 
-	while (value == OK)
+	while (value == State::Ok)
 	{
 		while (SDL_PollEvent(&lastEvent))
 		{
@@ -32,7 +32,7 @@ int     Paint::routine(void)
 
 				value = window->reactEvent(&lastEvent);
 
-				if (value == END && windowId == _paint->getWindowId())
+				if (value == State::End && windowId == _paint->getWindowId())
 					return value;
 
 				// ...

@@ -33,16 +33,16 @@ void    SliderBox::initTexts(const string& title, const int textSize, const stri
 
     if (title.size() > 0)
     {
-        int     titleX = x + borderThickness + (BORDER * 4);
-        int     titleY = y + borderThickness + BORDER;
+        int     titleX = x + borderThickness + (Border * 4);
+        int     titleY = y + borderThickness + Border;
 
         _title.emplace(titleX, titleY, title, textSize, fontPath, \
             textColor, width, false, renderer);
     }
 
-    int     valueX = _title ? _title->getX() + _title->getWidth() + BORDER \
-        : x + borderThickness + (BORDER * 4);
-    int     valueY = y + borderThickness + BORDER;
+    int     valueX = _title ? _title->getX() + _title->getWidth() + Border \
+        : x + borderThickness + (Border * 4);
+    int     valueY = y + borderThickness + Border;
 
     _valueText.emplace(valueX, valueY, std::to_string(_value), \
         textSize, fontPath, textColor, width, false, renderer);
@@ -58,32 +58,32 @@ void    SliderBox::initSlider(const Color& sliderColor)
 
     int     borderThickness = _background->getBorderThickness();
 
-    int     sliderX = x + borderThickness + (BORDER * 4);
-    int     sliderY = (y + height) - borderThickness - (DEF_SLIDER_H * 2) - (BORDER * 3);
+    int     sliderX = x + borderThickness + (Border * 4);
+    int     sliderY = (y + height) - borderThickness - (SliderHeight * 2) - (Border * 3);
 
-    int     sliderWidth = width - (BORDER * 8) - (borderThickness * 2);
+    int     sliderWidth = width - (Border * 8) - (borderThickness * 2);
 
     _slider.emplace(sliderX, sliderY, sliderWidth, \
-        DEF_SLIDER_H, sliderColor);
+        SliderHeight, sliderColor);
 
-    _slider->setSettings(false, NONE, false, \
-        NONE, true, true);
+    _slider->setSettings(false, State::None, false, \
+        State::None, true, true);
 
-    int     cursorY = (sliderY + (DEF_SLIDER_H / 2)) - (SLIDER_CURSOR_H / 2);
+    int     cursorY = (sliderY + (SliderHeight / 2)) - (SliderCursorHeight / 2);
 
-    _cursor.emplace(getX(), cursorY, SLIDER_CURSOR_W, \
-        SLIDER_CURSOR_H, sliderColor);
+    _cursor.emplace(getX(), cursorY, SliderCursorWidth, \
+        SliderCursorHeight, sliderColor);
 
-    _cursor->setSettings(false, NONE, false, \
-        NONE, true, true);
+    _cursor->setSettings(false, State::None, false, \
+        State::None, true, true);
 
     refreshCursor();
 
-    Color   invisible = INVISIBLE;
+    Color   invisible = Color::Invisible;
 
     _sliderBox.emplace(x + borderThickness, _valueText->getY() + \
         _valueText->getHeight(), width - (borderThickness * 2), height - \
-        _valueText->getHeight() - ((borderThickness * 2) + BORDER), invisible);
+        _valueText->getHeight() - ((borderThickness * 2) + Border), invisible);
 }
 
 void	SliderBox::onPropertiesChanged(SDL_Renderer* renderer)
@@ -103,29 +103,29 @@ void	SliderBox::onPositionChanged(SDL_Renderer* renderer)
 
     if (_title)
     {
-        int     titleX = properties.x + _background->getBorderThickness() + (BORDER * 4);
-        int     titleY = properties.y + _background->getBorderThickness() + BORDER;
+        int     titleX = properties.x + _background->getBorderThickness() + (Border * 4);
+        int     titleY = properties.y + _background->getBorderThickness() + Border;
 
         _title->setX(titleX, renderer);
         _title->setY(titleY, renderer);
     }
 
-    int     valueX = _title ? _title->getX() + _title->getWidth() + BORDER \
-        : properties.x + _background->getBorderThickness() + (BORDER * 4);
-    int     valueY = properties.y + _background->getBorderThickness() + BORDER;
+    int     valueX = _title ? _title->getX() + _title->getWidth() + Border \
+        : properties.x + _background->getBorderThickness() + (Border * 4);
+    int     valueY = properties.y + _background->getBorderThickness() + Border;
 
     _valueText->setX(valueX, renderer);
     _valueText->setY(valueY, renderer);
 
-    int     sliderX = properties.x + _background->getBorderThickness() + (BORDER * 4);
+    int     sliderX = properties.x + _background->getBorderThickness() + (Border * 4);
     int     sliderY = (properties.y + properties.height) - \
-        _background->getBorderThickness() - (DEF_SLIDER_H * 2) - (BORDER * 3);
+        _background->getBorderThickness() - (SliderHeight * 2) - (Border * 3);
 
     _slider->setX(sliderX);
     _slider->setY(sliderY);
 
     int     cursorX = (_value * _slider->getWidth()) / _maxValue;
-    int     cursorY = (sliderY + (DEF_SLIDER_H / 2)) - (SLIDER_CURSOR_H / 2);
+    int     cursorY = (sliderY + (SliderHeight / 2)) - (SliderCursorHeight / 2);
 
     _cursor->setX(cursorX);
     _cursor->setY(cursorY);

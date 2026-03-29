@@ -31,12 +31,52 @@ class PaintView : public Window
 
 		optional<Shape>			_endLine;
 
-		int						_selectedTool = BRUSH;
+		int						_selectedTool = ToolBox::Brush;
 		Color					_selectedColor;
 
 		int						_brushSize;
 
 		int						_cursor = SDL_SYSTEM_CURSOR_ARROW;
+
+		static constexpr int    Border = 2;
+
+		static constexpr int	ButtonWidth = 65;
+		static constexpr int	ButtonHeight = 65;
+
+		static constexpr int	CenterSpaceWidth = 20;
+		static constexpr int	CenterSpaceHeight = 20;
+
+		static constexpr int	LeftPanelsWidth = 150;
+
+		static constexpr int	MainHeight = 130;
+		static constexpr int	ToolboxHeight = 260;
+
+		static constexpr int	SlideBoxHeight = 45;
+
+		static constexpr int	MainColorHeight = 45;
+		static constexpr int	SideColorHeight = 36;
+
+		static constexpr int	BorderLen = 2;
+
+		static constexpr int	WidthLimit = 20;
+		static constexpr int	HeightUpLimit = 30;
+		static constexpr int	HeightDownLimit = 30;
+
+		static constexpr int	Save = 1;
+		static constexpr int	Cancel = 2;
+		static constexpr int	Back = 3;
+		static constexpr int	Forward = 4;
+
+		static constexpr int	BrushMinimumSize = 1;
+		static constexpr int	BrushMaximumSize = 50;
+		static constexpr int	BrushDefaultSize = 21;
+
+		static constexpr int	OpacityMinimum = 1;
+		static constexpr int	OpacityMaximum = 255;
+
+		static constexpr int	DefaultOpacity = 255;
+		
+		static constexpr int	LineHeight = 7;
 
 		void					initFrame(const int frameWidth, const int frameHeight);
 
@@ -81,6 +121,20 @@ class PaintView : public Window
 		void					reactKeyButtonDown(const int key);
 
 		int						reactEvent(SDL_Event* event);
+
+		static constexpr int	LeftWidth = 190;
+		static constexpr int	RightWidth = 30;
+
+		static constexpr int	UpHeight = 30;
+		static constexpr int	DownHeight = 30;
+
+		static constexpr int	MinPaintWidth = 50;
+		static constexpr int	MinPaintHeight = 50;
+		static constexpr int	MaxPaintWidth = 1280;
+		static constexpr int	MaxPaintHeight = 720;
+
+		static constexpr int	MinimumWidth = MaxPaintWidth;
+		static constexpr int	MinimumHeight = MaxPaintHeight;
 };
 
 #endif

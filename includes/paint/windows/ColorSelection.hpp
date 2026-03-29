@@ -40,6 +40,14 @@ class ColorSelection : public Window
 		bool							_error = false;
 		vector<uint8_t>					_finalValues;
 
+
+		static constexpr int			limitHeight = 1;
+
+		static constexpr int			CenterSpaceWidth = 20;
+		static constexpr int			CenterSpaceHeight = 20;
+
+		static constexpr int			ColorViewWidth = 50;
+
 		void							addLogo(const int cursorX, const int cursorY, const string& logoPath, \
 											const int logoWidth, const int logoHeight, const bool centered = false);
 
@@ -65,7 +73,7 @@ class ColorSelection : public Window
 	public:
 		ColorSelection(void) = delete;
 		ColorSelection(const string& name, const string& fontPath, const int width = 400, \
-			const int height = 170, const int displayMode = LIGHT_MODE, const string& titleText = "[Title]", \
+			const int height = 170, const int displayMode = Window::LightMode, const string& titleText = "[Title]", \
 			const bool titleLimit = false, const string& text = "[Text]");
 
 		~ColorSelection(void) = default;
@@ -86,7 +94,6 @@ class ColorSelection : public Window
 		virtual int						reactEvent(SDL_Event* event);
 
         vector<uint8_t>					getFinalValues(void);
-
 };
 
 #endif

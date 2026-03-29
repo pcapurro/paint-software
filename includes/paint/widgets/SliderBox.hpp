@@ -23,6 +23,12 @@ class SliderBox : public Element
 
         int                     _value = 0;
 
+        static constexpr int    Border = 2;
+
+		static constexpr int	SliderHeight = 3;
+		static constexpr int	SliderCursorWidth = 6;
+		static constexpr int	SliderCursorHeight = 6;
+
         void                    initTexts(const string& title, const int textSize, const string& fontPath, \
                                     const Color& textColor, SDL_Renderer* renderer);
         void                    initSlider(const Color& sliderColor);

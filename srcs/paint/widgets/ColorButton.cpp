@@ -5,10 +5,10 @@ ColorButton::ColorButton(const int x, const int y, const int width, const int he
         Element({x, y, width, height}, {}, {false, false, true, SDL_SYSTEM_CURSOR_HAND, false, false})
 {
     _back.emplace(x, y, width, height, \
-        backColor, true, BORDER, writeColor);
+        backColor, true, Border, writeColor);
 
-    _back->setSettings(false, NONE, false, \
-        NONE, true, true);
+    _back->setSettings(false, State::None, false, \
+        State::None, true, true);
 }
 
 void	ColorButton::onPropertiesChanged(SDL_Renderer* renderer)

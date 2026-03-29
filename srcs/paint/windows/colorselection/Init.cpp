@@ -6,18 +6,18 @@ ColorSelection::ColorSelection(const string& name, const string& fontPath, \
 		Window(name, width, height), \
 		_fontPath(fontPath)
 {
-	int		limitX = width * LIMIT_RATIO;
-	int		limitY = height * LIMIT_RATIO;
+	int		limitX = width * Render::LimitRatio;
+	int		limitY = height * Render::LimitRatio;
 
 	int		cursorX = limitX;
 	int		cursorY = limitY;
 
 	int		maxWidth = width - (limitX * 2);
 
-	if (displayMode == DARK_MODE)
-		setWriteColor(WHITE), setBackgroundColor(BLACK);
+	if (displayMode == Window::DarkMode)
+		setWriteColor(Color::White), setBackgroundColor(Color::Black);
 	else
-		setWriteColor(BLACK), setBackgroundColor(WHITE);
+		setWriteColor(Color::Black), setBackgroundColor(Color::White);
 
 	_elements.reserve(8);
 	_finalValues.reserve(4);

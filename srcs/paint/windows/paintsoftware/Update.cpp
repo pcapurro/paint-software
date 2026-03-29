@@ -4,13 +4,13 @@ void    PaintView::updateMain(void)
 {
     int     value = _mainBox->getLastButtonClicked();
 
-    // if (value == SAVE)
+    // if (value == Save)
     //     ;
-    // else if (value == CANCEL)
+    // else if (value == Cancel)
     //     ;
-    // else if (value == BACK)
+    // else if (value == Back)
     //     ;
-    // else if (value == FORWARD)
+    // else if (value == Forward)
     //     ;
 
     // ...
@@ -63,13 +63,13 @@ void    PaintView::updateColorText(void)
     string	colorText = std::to_string(_selectedColor.r) + ", " + std::to_string(_selectedColor.g) \
 		+ ", " + std::to_string(_selectedColor.b) + ", " + std::to_string(_selectedColor.a);
 
-    _colorText->update(colorText, LEFT_PANELS_W, false, getRenderer());
-    _colorText->setX((DEF_LEFT_W / 2) - (_colorText->getWidth() / 2));
+    _colorText->update(colorText, LeftPanelsWidth, false, getRenderer());
+    _colorText->setX((LeftWidth / 2) - (_colorText->getWidth() / 2));
 }
 
 void	PaintView::update(void)
 {
-    if (_mainBox->getLastButtonClicked() != NONE)
+    if (_mainBox->getLastButtonClicked() != State::None)
         updateMain();
     else if (_toolBox->getSelectedTool() != _selectedTool)
         updateTool();
