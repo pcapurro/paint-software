@@ -86,9 +86,9 @@ SRCS = srcs/main.cpp \
 	srcs/lib/softwares/DialogTextBoxPreview.cpp \
 	srcs/lib/softwares/DialogValuesBoxPreview.cpp \
 
-CXX = c++
+CXX = c++ -std=c++17
 
-CXXFLAGS = -std=c++17 \
+CXXFLAGS = -Wall -Wextra -Werror \
 	-I includes/ \
 	-I includes/paint/ \
 	-I includes/paint/widgets \

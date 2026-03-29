@@ -1,7 +1,7 @@
 #include "MainBox.hpp"
 
 MainBox::MainBox(const int x, const int y, const int width, const int height, \
-    const Color& backColor, const Color& writeColor, SDL_Renderer* renderer) : \
+    const Color& /*backColor*/, const Color& writeColor, SDL_Renderer* renderer) : \
         Element({x, y, width, height}, {}, {false, false, true, SDL_SYSTEM_CURSOR_HAND, false, false})
 {
 	setMainColor(writeColor);
@@ -56,9 +56,9 @@ void    MainBox::render(SDL_Renderer* renderer)
 }
 
 void	MainBox::onMouseDown(const int x, const int y, \
-	SDL_Renderer* renderer)
+	SDL_Renderer* /*renderer*/)
 {
-	for (int i = 0; i < _buttons.size(); i++)
+	for (size_t i = 0; i < _buttons.size(); i++)
 	{
 		if (_buttons[i]->isAbove(x, y))
 		{
@@ -73,9 +73,9 @@ void	MainBox::onMouseDown(const int x, const int y, \
 }
 
 void	MainBox::onMouseUp(const int x, const int y, \
-	SDL_Renderer* renderer)
+	SDL_Renderer* /*renderer*/)
 {
-	for (int i = 0; i < _buttons.size(); i++)
+	for (size_t i = 0; i < _buttons.size(); i++)
 	{
 		if (_buttons[i]->isAbove(x, y))
 		{
@@ -90,7 +90,7 @@ void	MainBox::onMouseUp(const int x, const int y, \
 }
 
 void	MainBox::onMouseHover(const int x, const int y, \
-	SDL_Renderer* renderer)
+	SDL_Renderer* /*renderer*/)
 {
 	setHover(false);
 
@@ -114,7 +114,7 @@ void	MainBox::onMouseHover(const int x, const int y, \
 	}
 }
 
-void	MainBox::onMouseHoverOutside(SDL_Renderer* renderer)
+void	MainBox::onMouseHoverOutside(SDL_Renderer* /*renderer*/)
 {
 	setHover(false);
 

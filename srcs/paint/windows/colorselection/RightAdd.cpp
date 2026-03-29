@@ -93,9 +93,7 @@ void	ColorSelection::addRightFieldsErrors(const string& fontPath)
 	_rightDownError->setX(downText->getX() + downText->getWidth() + (limitX / 2));
 	_rightDownError->setY(_rightDownField->getY() + _rightDownField->getHeight());
 
-	Color	color = Color::Red;
-
-	_rightDownError->setColor(color);
+	_rightDownError->setColor(Color::Red);
 	_rightDownError->setVisibility(false);
 
 	Text*	upText = dynamic_cast<Text*>(_elements[_elements.size() - 2].get());
@@ -105,6 +103,6 @@ void	ColorSelection::addRightFieldsErrors(const string& fontPath)
 	_rightUpError->setX(upText->getX() + upText->getWidth() + (limitX / 2));
 	_rightUpError->setY(_rightUpField->getY() + _rightUpField->getHeight());
 
-	_rightUpError->setColor(color);
+	_rightUpError->setColor(Color::Red);
 	_rightUpError->setVisibility(false);
 }

@@ -18,20 +18,17 @@ void    PaintFrame::initPngBack(void)
     int         pngX = getX();
     int         pngY = getY();
 
-    Color       pngColor = Color::GreyLight;
-    Color       darkGrey = Color::GreyDark;
-
     _pngBack.reserve(((nbW * nbH) / 2) + 1);
 
     _pngBack.emplace_back(pngX, pngY, getWidth(), \
-        getHeight(), darkGrey);
+        getHeight(), Color::GreyDark);
 
     for (int i = 0; i < nbH; i++)
     {
         for (int k = 0; k < nbW; k++)
         {
             if ((k + i) % 2 != 0)
-                _pngBack.emplace_back(pngX, pngY, PngWidth, PngHeight, pngColor);
+                _pngBack.emplace_back(pngX, pngY, PngWidth, PngHeight, Color::GreyLight);
 
             pngX += PngWidth;
         }

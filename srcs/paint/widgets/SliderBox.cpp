@@ -27,7 +27,6 @@ void    SliderBox::initTexts(const string& title, const int textSize, const stri
     int     y = getY();
 
     int     width = getWidth();
-    int     height = getHeight();
 
     int     borderThickness = _background->getBorderThickness();
 
@@ -79,14 +78,12 @@ void    SliderBox::initSlider(const Color& sliderColor)
 
     refreshCursor();
 
-    Color   invisible = Color::Invisible;
-
     _sliderBox.emplace(x + borderThickness, _valueText->getY() + \
         _valueText->getHeight(), width - (borderThickness * 2), height - \
-        _valueText->getHeight() - ((borderThickness * 2) + Border), invisible);
+        _valueText->getHeight() - ((borderThickness * 2) + Border), Color::Invisible);
 }
 
-void	SliderBox::onPropertiesChanged(SDL_Renderer* renderer)
+void	SliderBox::onPropertiesChanged(SDL_Renderer* /*renderer*/)
 {
     Properties  properties = {getX(), getY(), getWidth(), getHeight()};
 
@@ -151,7 +148,7 @@ void	SliderBox::onMouseDown(const int x, const int y, \
 }
 
 void	SliderBox::onMouseUp(const int x, const int y, \
-	SDL_Renderer* renderer)
+	SDL_Renderer* /*renderer*/)
 {
 	if (_sliderBox->isAbove(x, y))
 		setClick(false);
@@ -178,7 +175,7 @@ void	SliderBox::onMouseHover(const int x, const int y, \
 	}
 }
 
-void	SliderBox::onMouseHoverOutside(SDL_Renderer* renderer)
+void	SliderBox::onMouseHoverOutside(SDL_Renderer* /*renderer*/)
 {
 	setHover(false);
 
@@ -221,7 +218,7 @@ void    SliderBox::update(const int value, SDL_Renderer* renderer)
     refreshCursor();
 }
 
-void    SliderBox::refreshValue(const int x, const int y, SDL_Renderer* renderer)
+void    SliderBox::refreshValue(const int x, const int /*y*/, SDL_Renderer* renderer)
 {
 	int		lineStartX = _slider->getX();
     int     lineWidth = _slider->getWidth();

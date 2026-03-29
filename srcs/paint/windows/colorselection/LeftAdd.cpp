@@ -86,9 +86,7 @@ void	ColorSelection::addLeftFieldsErrors(const string& fontPath)
 	_leftDownError->setX(downText->getX() + downText->getWidth() + (limitX / 2));
 	_leftDownError->setY(_leftDownField->getY() + _leftDownField->getHeight());
 
-	Color	color = Color::Red;
-
-	_leftDownError->setColor(color);
+	_leftDownError->setColor(Color::Red);
 	_leftDownError->setVisibility(false);
 
 	Text*	upText = dynamic_cast<Text*>(_elements[_elements.size() - 2].get());
@@ -98,6 +96,6 @@ void	ColorSelection::addLeftFieldsErrors(const string& fontPath)
 	_leftUpError->setX(upText->getX() + upText->getWidth() + (limitX / 2));
 	_leftUpError->setY((_leftUpField->getY() + _leftUpField->getHeight()));
 
-	_leftUpError->setColor(color);
+	_leftUpError->setColor(Color::Red);
 	_leftUpError->setVisibility(false);
 }

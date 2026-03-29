@@ -4,6 +4,8 @@ void    PaintView::updateMain(void)
 {
     int     value = _mainBox->getLastButtonClicked();
 
+    (void) value;
+
     // if (value == Save)
     //     ;
     // else if (value == Cancel)

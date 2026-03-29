@@ -77,7 +77,6 @@ void	PaintView::initColors(SDL_Renderer* renderer)
 	Color	white = Color::White;
 
 	string	fontPath = "materials/font/OpenSans.ttf";
-	Color	writeColor = getWriteColor();
 
 	string	colorText = std::to_string(_selectedColor.r) + ", " + std::to_string(_selectedColor.g) \
 		+ ", " + std::to_string(_selectedColor.b) + ", " + std::to_string(_selectedColor.a);

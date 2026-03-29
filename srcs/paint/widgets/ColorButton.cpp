@@ -1,7 +1,7 @@
 #include "ColorButton.hpp"
 
 ColorButton::ColorButton(const int x, const int y, const int width, const int height, \
-    const Color& backColor, const Color& writeColor, SDL_Renderer* renderer) : \
+    const Color& backColor, const Color& writeColor, SDL_Renderer* /*renderer*/) : \
         Element({x, y, width, height}, {}, {false, false, true, SDL_SYSTEM_CURSOR_HAND, false, false})
 {
     _back.emplace(x, y, width, height, \
@@ -11,7 +11,7 @@ ColorButton::ColorButton(const int x, const int y, const int width, const int he
         State::None, true, true);
 }
 
-void	ColorButton::onPropertiesChanged(SDL_Renderer* renderer)
+void	ColorButton::onPropertiesChanged(SDL_Renderer* /*renderer*/)
 {
     Properties  properties = {getX(), getY(), getWidth(), getHeight()};
 
@@ -19,7 +19,7 @@ void	ColorButton::onPropertiesChanged(SDL_Renderer* renderer)
     _back->setHeight(properties.height);
 }
 
-void	ColorButton::onPositionChanged(SDL_Renderer* renderer)
+void	ColorButton::onPositionChanged(SDL_Renderer* /*renderer*/)
 {
     Properties  properties = {getX(), getY(), getWidth(), getHeight()};
 
@@ -80,14 +80,8 @@ void    ColorButton::render(SDL_Renderer* renderer)
     _back->render(renderer);
 }
 
-void	ColorButton::onMouseUp(const int x, const int y, \
-	SDL_Renderer* renderer)
-{
-    // ...
-}
-
-void	ColorButton::onMouseHover(const int x, const int y, \
-	SDL_Renderer* renderer)
+void	ColorButton::onMouseHover(const int /*x*/, const int /*y*/, \
+	SDL_Renderer* /*renderer*/)
 {
 	setHover(true);
 
@@ -95,7 +89,7 @@ void	ColorButton::onMouseHover(const int x, const int y, \
         _back->setHighlight(true);
 }
 
-void	ColorButton::onMouseHoverOutside(SDL_Renderer* renderer)
+void	ColorButton::onMouseHoverOutside(SDL_Renderer* /*renderer*/)
 {
 	setHover(false);
 

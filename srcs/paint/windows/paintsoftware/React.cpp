@@ -58,7 +58,7 @@ void    PaintView::reactMouseButtonUp(const int x, const int y)
         &_toolBox.value(), &_brushSlider.value(), &_opacitySlider.value(), \
         &_colorButton.value(), &_blackButton.value(), &_whiteButton.value()};
 
-    for (int i = 0; i < elements.size(); i++)
+    for (size_t i = 0; i < elements.size(); i++)
     {
         if (!elements[i]->isAbove(x, y))
             continue;
@@ -82,8 +82,6 @@ void    PaintView::reactKeyButtonDown(const int key)
 
 int     PaintView::reactEvent(SDL_Event* event)
 {
-	int		value = State::Ok;
-
 	int		x = 0;
 	int		y = 0;
 
