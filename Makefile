@@ -34,6 +34,7 @@ SRCS = srcs/main.cpp \
 	srcs/lib/bases/Engine.cpp \
 	srcs/lib/bases/Font.cpp \
 	srcs/lib/bases/Properties.cpp \
+	srcs/lib/bases/Texture.cpp \
 	srcs/lib/bases/ImageTexture.cpp \
 	srcs/lib/bases/TextTexture.cpp \
 	srcs/lib/bases/TTF.cpp \
