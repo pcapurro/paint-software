@@ -65,6 +65,8 @@ void    PaintView::updateColorText(void)
 
 void    PaintView::updateCursorImage(void)
 {
+    bool    visibility = _customCursor->isVisible();
+
     _customCursor.reset();
 
     if (_selectedTool == ToolBox::Line)
@@ -75,6 +77,8 @@ void    PaintView::updateCursorImage(void)
 
     if (_selectedTool == ToolBox::Spray || _selectedTool == ToolBox::Bucket)
         _customCursor->setHorizontalFlip(true);
+
+    _customCursor->setVisibility(visibility);
 }
 
 void    PaintView::updateCursorPosition(void)
