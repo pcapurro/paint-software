@@ -18,12 +18,12 @@ void	ColorSelection::addRightFieldsTitles(const string& fontPath)
 
 	Color			green = Color::Green;
 
-	auto 	downRightText = std::make_unique<Text>(getX() + limitX, 0, "A", textSize, \
+	auto 	downRightText = std::make_unique<Text>(limitX, 0, "A", textSize, \
 		fontPath, getWriteColor(), 0, false, renderer);
 
 	downRightText->setY(getHeight() - (limitY * 3) - downRightText->getHeight());
 
-	auto 	upRightText = std::make_unique<Text>(getX() + limitX, 0, "G", textSize, \
+	auto 	upRightText = std::make_unique<Text>(limitX, 0, "G", textSize, \
 		fontPath, green, 0, false, renderer);
 
 	upRightText->setY(downRightText->getY() - (limitY * 3) - upRightText->getHeight());

@@ -29,4 +29,7 @@ void    PaintView::execColorSwitch(const Color& newColor)
 
     updateColor(color);
     updateOpacityFromValue(color.a);
+    updateColorText();
+
+    updateCursorImage();
 }

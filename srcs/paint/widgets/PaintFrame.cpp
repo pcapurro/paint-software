@@ -2,7 +2,7 @@
 
 PaintFrame::PaintFrame(const int x, const int y, const int width, \
     const int height, Color& defaultColor) : \
-        Element({x, y, width, height}), \
+        Element({x, y, width, height}, {}, {false, false, true, SDL_SYSTEM_CURSOR_CROSSHAIR, false, false}), \
         _frame(x, y, width, height, defaultColor)
 {
     initPngBack();
@@ -46,4 +46,27 @@ void    PaintFrame::render(SDL_Renderer* renderer)
     _frame.render(renderer);
 
     // ...
+}
+
+void	PaintFrame::onMouseDown(const int /*x*/, const int /*y*/, \
+	SDL_Renderer* /*renderer*/)
+{
+	// ...
+}
+
+void	PaintFrame::onMouseUp(const int /*x*/, const int /*y*/, \
+	SDL_Renderer* /*renderer*/)
+{
+	// ...
+}
+
+void	PaintFrame::onMouseHover(const int /*x*/, const int /*y*/, \
+	SDL_Renderer* /*renderer*/)
+{
+	setHover(true);
+}
+
+void	PaintFrame::onMouseHoverOutside(SDL_Renderer* /*renderer*/)
+{
+    setHover(false);
 }

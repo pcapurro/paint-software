@@ -1,7 +1,7 @@
 #include "ToolBox.hpp"
 
 ToolBox::ToolBox(const int x, const int y, const int width, const int height, \
-    const Color& /*backColor*/, const Color& writeColor, SDL_Renderer* renderer) : \
+    const Color& writeColor, SDL_Renderer* renderer) : \
         Element({x, y, width, height}, {}, {false, false, true, SDL_SYSTEM_CURSOR_HAND, false, false})
 {
 	setMainColor(writeColor);
@@ -21,32 +21,32 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 	Color	invisible = Color::Invisible;
 
 	auto	brushButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
-		"materials/icons/bmp/toolbox/brush.bmp", invisible, Border, writeColor, renderer);
+		getToolPath(Brush), invisible, Border, writeColor, renderer);
 	auto	pencilButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
-		ButtonWidth, ButtonHeight, "materials/icons/bmp/toolbox/pencil.bmp", invisible, Border, writeColor, renderer);
+		ButtonWidth, ButtonHeight, getToolPath(Pencil), invisible, Border, writeColor, renderer);
 
 	globalY += ButtonHeight;
 
 	auto	bucketButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
-		"materials/icons/bmp/toolbox/bucket.bmp", invisible, Border, writeColor, renderer);
+		getToolPath(Bucket), invisible, Border, writeColor, renderer);
 	auto	sprayButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
-		ButtonWidth, ButtonHeight, "materials/icons/bmp/toolbox/spray.bmp", \
+		ButtonWidth, ButtonHeight, getToolPath(Spray), \
 		invisible, Border, writeColor, renderer);
 
 	globalY += ButtonHeight;
 
 	auto	eraserButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
-		"materials/icons/bmp/toolbox/eraser.bmp", invisible, Border, writeColor, renderer);
+		getToolPath(Eraser), invisible, Border, writeColor, renderer);
 	auto	pickerButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
-		ButtonWidth, ButtonHeight, "materials/icons/bmp/toolbox/color-picker.bmp", \
+		ButtonWidth, ButtonHeight, getToolPath(Picker), \
 		invisible, Border, writeColor, renderer);
 
 	globalY += ButtonHeight;
 
 	auto	lineButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
-		"materials/icons/bmp/toolbox/line.bmp", invisible, Border, writeColor, renderer);
+		getToolPath(Line), invisible, Border, writeColor, renderer);
 	auto	rectangleButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
-		ButtonWidth, ButtonHeight, "materials/icons/bmp/toolbox/rectangle.bmp", \
+		ButtonWidth, ButtonHeight, getToolPath(Rectangle), \
 		invisible, Border, writeColor, renderer);
 
 	_buttons.emplace_back(std::move(brushButton));
@@ -77,6 +77,31 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 int		ToolBox::getSelectedTool(void) const noexcept
 {
 	return _selectedTool;
+}
+
+string	ToolBox::getToolPath(const int tool)
+{
+	if (tool == Brush)
+		return "materials/icons/bmp/toolbox/brush.bmp";
+	else if (tool == Pencil)
+		return "materials/icons/bmp/toolbox/pencil.bmp";
+
+	else if (tool == Bucket)
+		return "materials/icons/bmp/toolbox/bucket.bmp";
+	else if (tool == Spray)
+		return "materials/icons/bmp/toolbox/spray.bmp";
+
+	else if (tool == Eraser)
+		return "materials/icons/bmp/toolbox/eraser.bmp";
+	else if (tool == Picker)
+		return "materials/icons/bmp/toolbox/color-picker.bmp";
+
+	else if (tool == Line)
+		return "materials/icons/bmp/toolbox/line.bmp";
+	else if (tool == Rectangle)
+		return "materials/icons/bmp/toolbox/rectangle.bmp";
+
+	return "materials/icons/bmp/toolbox/brush.bmp";
 }
 
 void    ToolBox::render(SDL_Renderer* renderer)

@@ -14,7 +14,6 @@ class Paint : public Software
         optional<ColorSelection>    _colorSelection;
 
     public:
-        Paint(void) = delete;
         Paint(const string& projectName, const int globalWidth, \
 	        const int globalHeight, const int paintWidth, const int paintHeight);
 

@@ -48,8 +48,7 @@ int     Paint::routine(void)
 						{
 							Color	newColor = _colorSelection->getFinalColor();
 
-							_paint->updateColor(newColor);
-							_paint->updateOpacityFromValue(newColor.a);
+							_paint->execColorSwitch(newColor);
 						}
 						else
 							value = State::Ok;
@@ -66,7 +65,6 @@ int     Paint::routine(void)
 			if (!window)
 				continue;
 
-			window->render();
 			window->refreshDisplay();
 		}
 

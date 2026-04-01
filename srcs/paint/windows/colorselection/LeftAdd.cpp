@@ -11,12 +11,12 @@ void	ColorSelection::addLeftFieldsTitles(const string& fontPath)
 	Color			blue = Color::Blue;
 	Color			red = Color::Red;
 
-	auto 	downLeftText = std::make_unique<Text>(getX() + limitX, 0, "B", textSize, \
+	auto 	downLeftText = std::make_unique<Text>(limitX, 0, "B", textSize, \
 		fontPath, blue, 0, false, renderer);
 
 	downLeftText->setY(getHeight() - (limitY * 3) - downLeftText->getHeight());
 
-	auto 	upLeftText = std::make_unique<Text>(getX() + limitX, 0, "R", textSize, \
+	auto 	upLeftText = std::make_unique<Text>(limitX, 0, "R", textSize, \
 		fontPath, red, 0, false, renderer);
 
 	upLeftText->setY(downLeftText->getY() - (limitY * 3) - upLeftText->getHeight());

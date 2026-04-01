@@ -7,12 +7,12 @@
 NAME = paint-software
 
 SRCS = srcs/main.cpp \
-	srcs/paint/windows/paintsoftware/Init.cpp \
-	srcs/paint/windows/paintsoftware/React.cpp \
-	srcs/paint/windows/paintsoftware/Render.cpp \
-	srcs/paint/windows/paintsoftware/Exec.cpp \
-	srcs/paint/windows/paintsoftware/Update.cpp \
-	srcs/paint/windows/paintsoftware/Tools.cpp \
+	srcs/paint/windows/paintview/Init.cpp \
+	srcs/paint/windows/paintview/React.cpp \
+	srcs/paint/windows/paintview/Render.cpp \
+	srcs/paint/windows/paintview/Exec.cpp \
+	srcs/paint/windows/paintview/Update.cpp \
+	srcs/paint/windows/paintview/Tools.cpp \
 	srcs/paint/windows/colorselection/Add.cpp \
 	srcs/paint/windows/colorselection/LeftAdd.cpp \
 	srcs/paint/windows/colorselection/RightAdd.cpp \
@@ -34,6 +34,7 @@ SRCS = srcs/main.cpp \
 	srcs/lib/bases/Engine.cpp \
 	srcs/lib/bases/Font.cpp \
 	srcs/lib/bases/Properties.cpp \
+	srcs/lib/bases/Surface.cpp \
 	srcs/lib/bases/Texture.cpp \
 	srcs/lib/bases/ImageTexture.cpp \
 	srcs/lib/bases/TextTexture.cpp \

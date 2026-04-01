@@ -3,12 +3,12 @@
 
 # include "Element.hpp"
 # include "ImageButton.hpp"
+# include "Cursor.hpp"
 
 class ToolBox : public Element
 {
     private:
         vector<unique_ptr<ImageButton>>     _buttons;
-
         int                                 _selectedTool = Brush;
 
         static constexpr int                Border = 2;
@@ -23,11 +23,12 @@ class ToolBox : public Element
 
     public:
         ToolBox(const int x, const int y, const int width, const int height, \
-            const Color& backColor, const Color& writeColor, SDL_Renderer* renderer);
+            const Color& writeColor, SDL_Renderer* renderer);
 
         ~ToolBox(void) = default;
 
         int                                 getSelectedTool(void) const noexcept;
+        static string                       getToolPath(const int tool);
 
         void                                render(SDL_Renderer* renderer);
 

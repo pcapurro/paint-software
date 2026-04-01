@@ -18,14 +18,20 @@ void    PaintView::reactMouseMotion(const int x, const int y)
             if (element->isHover())
             {
                 _cursor = element->getHoverCursor();
-
                 SDL_SetCursor(getCursor(_cursor));
+
                 isHover = true;
             }
         }
         else
             element->onMouseHoverOutside(renderer);
     }
+
+    if (_paintFrame->isAbove(x, y) && !_customCursor->isVisible())
+        _customCursor->setVisibility(true);
+
+    if (!_paintFrame->isAbove(x, y) && _customCursor->isVisible())
+        _customCursor->setVisibility(false);
 
     if (!isHover && _cursor != SDL_SYSTEM_CURSOR_ARROW)
         SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_ARROW));
@@ -68,9 +74,9 @@ int     PaintView::reactMouseButtonUp(const int x, const int y)
         if (i == 5)
             return ColorSwitch;
         else if (i == 6)
-            updateColor(Color::Black);
+            execColorSwitch(Color::Black);
         else if (i == 7)
-            updateColor(Color::White);
+            execColorSwitch(Color::White);
 
         break;
     }
@@ -81,7 +87,7 @@ int     PaintView::reactMouseButtonUp(const int x, const int y)
 void    PaintView::reactKeyButtonDown(const int key)
 {
     if (key == SDLK_F5)
-        updateColor(generateRandomColor());
+        execColorSwitch(generateRandomColor());
 }
 
 int     PaintView::reactEvent(SDL_Event* event)
@@ -104,7 +110,7 @@ int     PaintView::reactEvent(SDL_Event* event)
 	if (x < 0 || x > getWidth() || y < 0 || y > getHeight())
 		return State::Ok;
 	else
-		setX(x), setY(y);
+		setCursorX(x), setCursorY(y);
 
 	if (event->type == SDL_MOUSEMOTION)
 		reactMouseMotion(x, y);
@@ -121,7 +127,6 @@ int     PaintView::reactEvent(SDL_Event* event)
 		reactKeyButtonDown(event->key.keysym.sym);
 
     update();
-	refreshDisplay();
 
     return value;
 }

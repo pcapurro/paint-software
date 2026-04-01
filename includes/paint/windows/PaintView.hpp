@@ -34,9 +34,10 @@ class PaintView : public Window
 		int						_selectedTool = ToolBox::Brush;
 		Color					_selectedColor;
 
-		int						_brushSize;
+		int						_brushSize = BrushDefaultSize;
 
 		int						_cursor = SDL_SYSTEM_CURSOR_ARROW;
+		optional<Image>			_customCursor;
 
 		static constexpr int    Border = 2;
 
@@ -78,6 +79,11 @@ class PaintView : public Window
 		
 		static constexpr int	LineHeight = 7;
 
+		static constexpr int	DefaultCursorWidth = 45;
+		static constexpr int	DefaultCursorHeight = 45;
+
+		void					initCustomCursor(SDL_Renderer* renderer);
+
 		void					initFrame(const int frameWidth, const int frameHeight);
 
 		void					initMainButtons(SDL_Renderer* renderer);
@@ -101,6 +107,8 @@ class PaintView : public Window
 		void					updateOpacityFromValue(const uint8_t opacity);
 		void    				updateColor(const Color& newColor);
 		void    				updateColorText(void);
+		void    				updateCursorImage(void);
+		void    				updateCursorPosition(void);
 
 		void					update(void);
 
@@ -112,7 +120,7 @@ class PaintView : public Window
 
 		void					execColorSwitch(const Color& newColor);
 
-		void        			render(void);
+		void					render(void);
 
 		void					reactMouseMotion(const int x, const int y);
 		void					reactMouseButtonDown(const int x, const int y);

@@ -11,9 +11,11 @@ PaintView::PaintView(const string& name, const int width, const int height, \
 
 	_selectedColor = generateRandomColor();
 
+	initFrame(frameWidth, frameHeight);
+
 	SDL_Renderer*	renderer = getRenderer();
 
-	initFrame(frameWidth, frameHeight);
+	initCustomCursor(renderer);
 
 	initMainButtons(renderer);
 	initTools(renderer);
@@ -28,6 +30,12 @@ PaintView::PaintView(const string& name, const int width, const int height, \
 		_endLine.emplace(WidthLimit, _paintFrame->getY() + _paintFrame->getHeight() - (LineHeight / 2), \
 			LeftPanelsWidth, (LineHeight), getWriteColor());
 	}
+}
+
+void	PaintView::initCustomCursor(SDL_Renderer* renderer)
+{
+	_customCursor.emplace(getCursorX(), getCursorY() - DefaultCursorHeight, DefaultCursorWidth, \
+		DefaultCursorHeight, ToolBox::getToolPath(ToolBox::Brush).c_str(), _selectedColor, renderer);
 }
 
 void	PaintView::initFrame(const int frameWidth, const int frameHeight)
@@ -52,7 +60,7 @@ void	PaintView::initMainButtons(SDL_Renderer* renderer)
 void	PaintView::initTools(SDL_Renderer* renderer)
 {
 	_toolBox.emplace(WidthLimit, _mainBox->getY() + _mainBox->getHeight() + CenterSpaceHeight, \
-		LeftPanelsWidth, ToolboxHeight, getBackgroundColor(), getWriteColor(), renderer);
+		LeftPanelsWidth, ToolboxHeight, getWriteColor(), renderer);
 }
 
 void	PaintView::initBrushTools(SDL_Renderer* renderer)

@@ -36,8 +36,6 @@ void    PaintView::updateOpacityFromSlider(void)
 {
     _selectedColor.a = _opacitySlider->getValue();
 
-    updateColorText();
-
     // ...
 }
 
@@ -45,8 +43,6 @@ void    PaintView::updateOpacityFromValue(const uint8_t opacity)
 {
     _selectedColor.a = opacity;
     _opacitySlider->update(opacity, getRenderer());
-
-    updateColorText();
 }
 
 void    PaintView::updateColor(const Color& newColor)
@@ -56,8 +52,6 @@ void    PaintView::updateColor(const Color& newColor)
     _selectedColor.b = newColor.b;
 
     _colorButton->setMainColor(newColor);
-
-    updateColorText();
 }
 
 void    PaintView::updateColorText(void)
@@ -69,15 +63,43 @@ void    PaintView::updateColorText(void)
     _colorText->setX((LeftWidth / 2) - (_colorText->getWidth() / 2));
 }
 
+void    PaintView::updateCursorImage(void)
+{
+    _customCursor.reset();
+
+    if (_selectedTool == ToolBox::Line)
+        return;
+
+    _customCursor.emplace(getCursorX(), getCursorY(), DefaultCursorWidth, DefaultCursorHeight, \
+            ToolBox::getToolPath(_selectedTool).c_str(), _selectedColor, getRenderer());
+
+    if (_selectedTool == ToolBox::Spray || _selectedTool == ToolBox::Bucket)
+        _customCursor->setHorizontalFlip(true);
+}
+
+void    PaintView::updateCursorPosition(void)
+{
+    _customCursor->setX(getCursorX());
+
+    if (_selectedTool != ToolBox::Spray)
+        _customCursor->setY(getCursorY() - DefaultCursorHeight);
+    else
+        _customCursor->setY(getCursorY() - DefaultCursorHeight / 3);
+}
+
 void	PaintView::update(void)
 {
     if (_mainBox->getLastButtonClicked() != State::None)
         updateMain();
     else if (_toolBox->getSelectedTool() != _selectedTool)
-        updateTool();
+        updateTool(), updateCursorImage();
 
     else if (_brushSlider->getValue() != _brushSize)
         updateBrush();
     else if (_opacitySlider->getValue() != _selectedColor.a)
-        updateOpacityFromSlider();
+        updateOpacityFromSlider(), updateColorText();
+
+    else if (_customCursor->getX() != getCursorX() \
+        || _customCursor->getY() + _customCursor->getHeight() != getCursorY())
+        updateCursorPosition();
 }
