@@ -49,7 +49,8 @@ void	PaintView::initFrame(const int frameWidth, const int frameHeight)
 
 	Color	backColor = getWriteColor();
 
-	_paintFrame.emplace(frameX, frameY, frameWidth, frameHeight, backColor);
+	_paintFrame.emplace(frameX, frameY, frameWidth, \
+		frameHeight, backColor, _brushSize, _selectedColor, getRenderer());
 }
 
 void	PaintView::initCustomCursor(SDL_Renderer* renderer)

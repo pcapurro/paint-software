@@ -1,13 +1,17 @@
 #include "PaintFrame.hpp"
 
 PaintFrame::PaintFrame(const int x, const int y, const int width, \
-    const int height, Color& defaultColor) : \
-        Element({x, y, width, height}), \
-        _frame(x, y, width, height, defaultColor)
+    const int height, Color& defaultColor, const int brushSize, \
+    const Color& selectedColor, SDL_Renderer* renderer) : \
+        Element({x, y, width, height})
 {
+    _brushSize = brushSize;
+    _selectedColor = selectedColor;
+
     initPngBack();
 
-    // ...
+    initPaintData(defaultColor);
+    initPaintTexture(renderer);
 }
 
 void    PaintFrame::initPngBack(void)
@@ -38,20 +42,108 @@ void    PaintFrame::initPngBack(void)
     }
 }
 
+void    PaintFrame::initPaintData(const Color& defaultColor)
+{
+    _paintData.resize(getHeight());
+
+    for (int i = 0; i < getHeight(); i++)
+        _paintData[i].insert(_paintData[i].end(), getWidth(), defaultColor);
+}
+
+void    PaintFrame::initPaintTexture(SDL_Renderer* renderer)
+{
+    SDL_Texture*    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, \
+        SDL_TEXTUREACCESS_STREAMING, getWidth(), getHeight());
+
+    if (!texture)
+    {
+		throw std::runtime_error("SDL failed to create a painting texture (" \
+			+ string(SDL_GetError()) + ").");
+    }
+
+    _paintTexture.emplace(texture);
+    updateTexture();
+}
+
+void    PaintFrame::paint(const int x, const int y, \
+    const int brushSize, const Color& color)
+{
+    int     newX = x;
+    int     newY = y;
+
+    for (int i = 0; i < brushSize && newY < getHeight(); i++)
+    {
+        for (int k = 0; k < brushSize && newX < getWidth() && newY >= 0; k++)
+        {
+            _paintData[newY][newX] = color;
+            newX++;
+        }
+
+        newX = x;
+        newY += 1;
+    }
+}
+
+void    PaintFrame::updateTexture(void)
+{
+    SDL_Texture*            texture = _paintTexture->getTexture();
+    const SDL_PixelFormat*  format = SDL_AllocFormat(SDL_PIXELFORMAT_RGBA8888);
+
+    vector<Uint32>          paint;
+    Uint32                  pixel;
+
+    paint.reserve(getWidth() * getHeight());
+
+    for (int y = 0; y < (int) _paintData.size(); y++)
+    {
+        for (int x = 0; x < (int) _paintData[y].size(); x++)
+        {
+            pixel = _paintData[y][x].toUint32t(format);
+            paint.push_back(pixel);
+        }
+    }
+
+    SDL_UpdateTexture(texture, nullptr, paint.data(), \
+        getWidth() * sizeof(Uint32));
+}
+
 void    PaintFrame::render(SDL_Renderer* renderer)
 {
     for (auto& png : _pngBack)
         png.render(renderer);
 
-    _frame.render(renderer);
+    SDL_Rect    main;
+
+    main.x = getX();
+    main.y = getY();
+
+    main.w = getWidth();
+    main.h = getHeight();
+
+    SDL_RenderCopy(renderer, _paintTexture->getTexture(), \
+        nullptr, &main);
 
     // ...
 }
 
-void	PaintFrame::onMouseDown(const int /*x*/, const int /*y*/, \
+void    PaintFrame::setBrushSize(const int newBrushSize)
+{
+    _brushSize = newBrushSize;
+}
+
+void    PaintFrame::setSelectedColor(const Color& newColor)
+{
+    _selectedColor = newColor;
+}
+
+void	PaintFrame::onMouseDown(const int x, const int y, \
 	SDL_Renderer* /*renderer*/)
 {
-	// ...
+    int     newX = (x - getX()) - (_brushSize / 2);
+    int     newY = (y - getY()) - (_brushSize / 2);
+
+    paint(newX, newY, _brushSize, _selectedColor);
+    updateTexture();
 }
 
 void	PaintFrame::onMouseUp(const int /*x*/, const int /*y*/, \

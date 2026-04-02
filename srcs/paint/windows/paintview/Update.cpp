@@ -22,26 +22,34 @@ void    PaintView::updateTool(void)
 {
     _selectedTool = _toolBox->getSelectedTool();
 
-    // ...
+    updateCursorImage();
 }
 
 void    PaintView::updateBrush(void)
 {
     _brushSize = _brushSlider->getValue();
 
-    // ...
+    _paintFrame->setBrushSize(_brushSize);
+
+    updateBrushScope();
+    updateBrushScopePosition();
+
+    updateCursorPosition();
 }
 
 void    PaintView::updateOpacityFromSlider(void)
 {
     _selectedColor.a = _opacitySlider->getValue();
 
-    // ...
+    _paintFrame->setSelectedColor(_selectedColor);
+    updateColorText();
 }
 
 void    PaintView::updateOpacityFromValue(const uint8_t opacity)
 {
     _selectedColor.a = opacity;
+    _paintFrame->setSelectedColor(_selectedColor);
+
     _opacitySlider->update(opacity, getRenderer());
 }
 
@@ -52,6 +60,7 @@ void    PaintView::updateColor(const Color& newColor)
     _selectedColor.b = newColor.b;
 
     _colorButton->setMainColor(newColor);
+    _paintFrame->setSelectedColor(newColor);
 }
 
 void    PaintView::updateColorText(void)
@@ -118,17 +127,11 @@ void	PaintView::update(void)
         updateMain();
 
     if (_toolBox->getSelectedTool() != _selectedTool)
-        updateTool(), updateCursorImage();
+        updateTool();
 
     if (_brushSlider->getValue() != _brushSize)
-    {
         updateBrush();
-        updateBrushScope();
-        updateBrushScopePosition();
-
-        updateCursorPosition();
-    }
 
     if (_opacitySlider->getValue() != _selectedColor.a)
-        updateOpacityFromSlider(), updateColorText();
+        updateOpacityFromSlider();
 }
