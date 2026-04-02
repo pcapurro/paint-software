@@ -67,13 +67,16 @@ void    PaintView::updateCursorImage(void)
 {
     bool    visibility = _customCursor->isVisible();
 
+    int     prevX = _customCursor->getX();
+    int     prevY = _customCursor->getY();
+
     _customCursor.reset();
 
     if (_selectedTool == ToolBox::Line)
         return;
 
-    _customCursor.emplace(getCursorX(), getCursorY(), DefaultCursorWidth, DefaultCursorHeight, \
-            ToolBox::getToolPath(_selectedTool).c_str(), _selectedColor, getRenderer());
+    _customCursor.emplace(prevX, prevY, DefaultCursorWidth, DefaultCursorHeight, \
+        ToolBox::getToolPath(_selectedTool).c_str(), _selectedColor, getRenderer());
 
     if (_selectedTool == ToolBox::Spray || _selectedTool == ToolBox::Bucket)
         _customCursor->setHorizontalFlip(true);
@@ -81,29 +84,51 @@ void    PaintView::updateCursorImage(void)
     _customCursor->setVisibility(visibility);
 }
 
+void    PaintView::updateBrushScope(void)
+{
+    if (_brushScope->getWidth() != _brushSize)
+        _brushScope->setWidth(_brushSize);
+
+    if (_brushScope->getHeight() != _brushSize)
+        _brushScope->setHeight(_brushSize);
+
+    if (_brushScope->getBorderColor() != _selectedColor)
+        _brushScope->setBorderColor(_selectedColor);
+}
+
+void    PaintView::updateBrushScopePosition(void)
+{
+    _brushScope->setX(getCursorX() - (_brushScope->getWidth() / 2));
+    _brushScope->setY(getCursorY() - (_brushScope->getHeight() / 2));
+}
+
 void    PaintView::updateCursorPosition(void)
 {
-    _customCursor->setX(getCursorX());
+    _customCursor->setX(_brushScope->getX() + _brushScope->getWidth());
 
     if (_selectedTool != ToolBox::Spray)
-        _customCursor->setY(getCursorY() - DefaultCursorHeight);
+        _customCursor->setY(_brushScope->getY() - DefaultCursorHeight);
     else
-        _customCursor->setY(getCursorY() - DefaultCursorHeight / 3);
+        _customCursor->setY(_brushScope->getY() - DefaultCursorHeight / 3);
 }
 
 void	PaintView::update(void)
 {
     if (_mainBox->getLastButtonClicked() != State::None)
         updateMain();
-    else if (_toolBox->getSelectedTool() != _selectedTool)
+
+    if (_toolBox->getSelectedTool() != _selectedTool)
         updateTool(), updateCursorImage();
 
-    else if (_brushSlider->getValue() != _brushSize)
+    if (_brushSlider->getValue() != _brushSize)
+    {
         updateBrush();
-    else if (_opacitySlider->getValue() != _selectedColor.a)
-        updateOpacityFromSlider(), updateColorText();
+        updateBrushScope();
+        updateBrushScopePosition();
 
-    else if (_customCursor->getX() != getCursorX() \
-        || _customCursor->getY() + _customCursor->getHeight() != getCursorY())
         updateCursorPosition();
+    }
+
+    if (_opacitySlider->getValue() != _selectedColor.a)
+        updateOpacityFromSlider(), updateColorText();
 }

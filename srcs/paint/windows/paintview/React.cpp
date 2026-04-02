@@ -27,11 +27,11 @@ void    PaintView::reactMouseMotion(const int x, const int y)
             element->onMouseHoverOutside(renderer);
     }
 
-    if (_paintFrame->isAbove(x, y) && !_customCursor->isVisible())
-        _customCursor->setVisibility(true);
+    _customCursor->setVisibility(_paintFrame->isAbove(x, y));
+    _brushScope->setVisibility(_paintFrame->isAbove(x, y));
 
-    if (!_paintFrame->isAbove(x, y) && _customCursor->isVisible())
-        _customCursor->setVisibility(false);
+    if (_paintFrame->isAbove(x, y))
+        updateBrushScopePosition(), updateCursorPosition();
 
     if (!isHover && _cursor != SDL_SYSTEM_CURSOR_ARROW)
         SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_ARROW));

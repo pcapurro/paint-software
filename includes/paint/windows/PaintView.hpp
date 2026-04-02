@@ -37,6 +37,7 @@ class PaintView : public Window
 		int						_brushSize = BrushDefaultSize;
 
 		int						_cursor = SDL_SYSTEM_CURSOR_ARROW;
+		optional<Shape>			_brushScope;
 		optional<Image>			_customCursor;
 
 		static constexpr int    Border = 2;
@@ -82,6 +83,7 @@ class PaintView : public Window
 		static constexpr int	DefaultCursorWidth = 45;
 		static constexpr int	DefaultCursorHeight = 45;
 
+		void					initBrushScope(void);
 		void					initCustomCursor(SDL_Renderer* renderer);
 
 		void					initFrame(const int frameWidth, const int frameHeight);
@@ -108,6 +110,8 @@ class PaintView : public Window
 		void    				updateColor(const Color& newColor);
 		void    				updateColorText(void);
 		void    				updateCursorImage(void);
+		void    				updateBrushScope(void);
+		void    				updateBrushScopePosition(void);
 		void    				updateCursorPosition(void);
 
 		void					update(void);

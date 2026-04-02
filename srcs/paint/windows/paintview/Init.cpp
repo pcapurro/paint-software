@@ -12,6 +12,7 @@ PaintView::PaintView(const string& name, const int width, const int height, \
 	_selectedColor = generateRandomColor();
 
 	initFrame(frameWidth, frameHeight);
+	initBrushScope();
 
 	SDL_Renderer*	renderer = getRenderer();
 
@@ -32,10 +33,10 @@ PaintView::PaintView(const string& name, const int width, const int height, \
 	}
 }
 
-void	PaintView::initCustomCursor(SDL_Renderer* renderer)
+void	PaintView::initBrushScope(void)
 {
-	_customCursor.emplace(getCursorX(), getCursorY() - DefaultCursorHeight, DefaultCursorWidth, \
-		DefaultCursorHeight, ToolBox::getToolPath(ToolBox::Brush).c_str(), _selectedColor, renderer);
+	_brushScope.emplace(getCursorX() - (_brushSize / 2), getCursorY() - (_brushSize / 2), \
+		_brushSize, _brushSize, Color::Invisible, true, 1, _selectedColor);
 }
 
 void	PaintView::initFrame(const int frameWidth, const int frameHeight)
@@ -49,6 +50,14 @@ void	PaintView::initFrame(const int frameWidth, const int frameHeight)
 	Color	backColor = getWriteColor();
 
 	_paintFrame.emplace(frameX, frameY, frameWidth, frameHeight, backColor);
+}
+
+void	PaintView::initCustomCursor(SDL_Renderer* renderer)
+{
+	_customCursor.emplace(_brushScope->getX() + _brushScope->getWidth(), \
+		_brushScope->getY() - DefaultCursorHeight, DefaultCursorWidth, \
+		DefaultCursorHeight, ToolBox::getToolPath(ToolBox::Brush).c_str(), \
+		_selectedColor, renderer);
 }
 
 void	PaintView::initMainButtons(SDL_Renderer* renderer)

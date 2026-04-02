@@ -2,7 +2,7 @@
 
 PaintFrame::PaintFrame(const int x, const int y, const int width, \
     const int height, Color& defaultColor) : \
-        Element({x, y, width, height}, {}, {false, false, true, SDL_SYSTEM_CURSOR_CROSSHAIR, false, false}), \
+        Element({x, y, width, height}), \
         _frame(x, y, width, height, defaultColor)
 {
     initPngBack();

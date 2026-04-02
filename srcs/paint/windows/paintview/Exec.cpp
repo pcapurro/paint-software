@@ -32,4 +32,5 @@ void    PaintView::execColorSwitch(const Color& newColor)
     updateColorText();
 
     updateCursorImage();
+    updateBrushScope();
 }
