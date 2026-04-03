@@ -62,22 +62,43 @@ void    PaintFrame::initPaintTexture(SDL_Renderer* renderer)
 			+ string(SDL_GetError()) + ").");
     }
 
+    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+
     _paintTexture.emplace(texture);
     updateTexture();
 }
 
-void    PaintFrame::paint(const int x, const int y, \
-    const int brushSize, const Color& color)
+void    PaintFrame::paint(const int x, const int y)
 {
     int     newX = x;
     int     newY = y;
 
-    for (int i = 0; i < brushSize && newY < getHeight(); i++)
+    for (int i = 0; i < _brushSize && newY < getHeight(); i++)
     {
-        for (int k = 0; k < brushSize && newX < getWidth() && newY >= 0; k++)
+        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++)
         {
-            if (newX >= 0 && _paintData[newY][newX] != color)
-                _paintData[newY][newX] = color;
+            if (newX >= 0 && _paintData[newY][newX] != _selectedColor)
+                _paintData[newY][newX] = _selectedColor;
+
+            newX++;
+        }
+
+        newX = x;
+        newY += 1;
+    }
+}
+
+void    PaintFrame::erase(const int x, const int y)
+{
+    int     newX = x;
+    int     newY = y;
+
+    for (int i = 0; i < _brushSize && newY < getHeight(); i++)
+    {
+        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++)
+        {
+            if (newX >= 0 && _paintData[newY][newX].a != 0)
+                _paintData[newY][newX].a = 0;
 
             newX++;
         }
@@ -146,7 +167,10 @@ void	PaintFrame::onMouseDown(const int x, const int y, \
     int     newX = (x - getX()) - (_brushSize / 2);
     int     newY = (y - getY()) - (_brushSize / 2);
 
-    paint(newX, newY, _brushSize, _selectedColor);
+    if (_selectedTool == ToolBox::Brush)
+        paint(newX, newY);
+    else if (_selectedTool == ToolBox::Eraser)
+        erase(newX, newY);
 }
 
 void	PaintFrame::onMouseUp(const int /*x*/, const int /*y*/, \

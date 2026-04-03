@@ -28,8 +28,9 @@ class PaintFrame : public Element
         void                    initPaintData(const Color& defaultColor);
         void                    initPaintTexture(SDL_Renderer* renderer);
 
-        void                    paint(const int x, const int y, \
-                                    const int brushSize, const Color& color);
+        void                    paint(const int x, const int y);
+        void                    erase(const int x, const int y);
+
         void                    updateTexture(void);
 
     public:
