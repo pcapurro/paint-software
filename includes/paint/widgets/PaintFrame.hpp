@@ -6,6 +6,8 @@
 
 # include "Texture.hpp"
 
+# include "ToolBox.hpp"
+
 class PaintFrame : public Element
 {
     private:
@@ -14,6 +16,7 @@ class PaintFrame : public Element
 
         vector<vector<Color>>   _paintData;
 
+        int                     _selectedTool;
         int                     _brushSize;
         Color                   _selectedColor;
 
@@ -31,13 +34,14 @@ class PaintFrame : public Element
 
     public:
         PaintFrame(const int x, const int y, const int width, \
-            const int height, Color& defaultColor, const int brushSize, \
-            const Color& selectedColor, SDL_Renderer* renderer);
+            const int height, Color& defaultColor, const int selectedTool, \
+            const int brushSize, const Color& selectedColor, SDL_Renderer* renderer);
 
         ~PaintFrame(void) = default;
 
         void                    render(SDL_Renderer* renderer);
 
+        void                    setSelectedTool(const int tool);
         void                    setBrushSize(const int newBrushSize);
         void                    setSelectedColor(const Color& newColor);
 

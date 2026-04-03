@@ -22,6 +22,7 @@ void    PaintView::updateTool(void)
 {
     _selectedTool = _toolBox->getSelectedTool();
 
+    _paintFrame->setSelectedTool(_selectedTool);
     updateCursorImage();
 }
 

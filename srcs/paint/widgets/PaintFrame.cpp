@@ -1,10 +1,11 @@
 #include "PaintFrame.hpp"
 
 PaintFrame::PaintFrame(const int x, const int y, const int width, \
-    const int height, Color& defaultColor, const int brushSize, \
-    const Color& selectedColor, SDL_Renderer* renderer) : \
+    const int height, Color& defaultColor, const int selectedTool, \
+    const int brushSize, const Color& selectedColor, SDL_Renderer* renderer) : \
         Element({x, y, width, height})
 {
+    _selectedTool = selectedTool;
     _brushSize = brushSize;
     _selectedColor = selectedColor;
 
@@ -122,6 +123,11 @@ void    PaintFrame::render(SDL_Renderer* renderer)
         nullptr, &main);
 
     // ...
+}
+
+void    PaintFrame::setSelectedTool(const int tool)
+{
+    _selectedTool = tool;
 }
 
 void    PaintFrame::setBrushSize(const int newBrushSize)
