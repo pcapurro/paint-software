@@ -75,12 +75,20 @@ void    PaintFrame::paintBrush(const int x, const int y)
     int     newX = x;
     int     newY = y;
 
+    int     r = _brushSize / 2;
+
     for (int i = 0; i < _brushSize && newY < getHeight(); i++)
     {
         for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++)
         {
             if (newX >= 0 && _paintData[newY][newX] != _selectedColor)
-                _paintData[newY][newX] = _selectedColor;
+            {
+                int     dx = k - r;
+                int     dy = i - r;
+
+                if ((dx * dx) + (dy * dy) <= r * r)
+                    _paintData[newY][newX] = _selectedColor;
+            }
 
             newX++;
         }
