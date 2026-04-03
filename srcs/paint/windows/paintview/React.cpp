@@ -113,7 +113,12 @@ int     PaintView::reactEvent(SDL_Event* event)
 		setCursorX(x), setCursorY(y);
 
 	if (event->type == SDL_MOUSEMOTION)
+    {
 		reactMouseMotion(x, y);
+
+        if (event->motion.state & SDL_BUTTON_LMASK)
+            reactMouseButtonDown(x, y);
+    }
     
     if (event->button.button == SDL_BUTTON_LEFT)
     {

@@ -75,7 +75,9 @@ void    PaintFrame::paint(const int x, const int y, \
     {
         for (int k = 0; k < brushSize && newX < getWidth() && newY >= 0; k++)
         {
-            _paintData[newY][newX] = color;
+            if (newX >= 0 && _paintData[newY][newX] != color)
+                _paintData[newY][newX] = color;
+
             newX++;
         }
 
@@ -112,13 +114,9 @@ void    PaintFrame::render(SDL_Renderer* renderer)
     for (auto& png : _pngBack)
         png.render(renderer);
 
-    SDL_Rect    main;
+    updateTexture();
 
-    main.x = getX();
-    main.y = getY();
-
-    main.w = getWidth();
-    main.h = getHeight();
+    SDL_Rect    main {getX(), getY(), getWidth(), getHeight()};
 
     SDL_RenderCopy(renderer, _paintTexture->getTexture(), \
         nullptr, &main);
@@ -143,7 +141,6 @@ void	PaintFrame::onMouseDown(const int x, const int y, \
     int     newY = (y - getY()) - (_brushSize / 2);
 
     paint(newX, newY, _brushSize, _selectedColor);
-    updateTexture();
 }
 
 void	PaintFrame::onMouseUp(const int /*x*/, const int /*y*/, \
