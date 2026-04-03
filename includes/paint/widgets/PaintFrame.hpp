@@ -16,6 +16,8 @@ class PaintFrame : public Element
 
         vector<vector<Color>>   _paintData;
 
+        Color                   _pickedColor;
+
         int                     _selectedTool;
         int                     _brushSize;
         Color                   _selectedColor;
@@ -28,8 +30,10 @@ class PaintFrame : public Element
         void                    initPaintData(const Color& defaultColor);
         void                    initPaintTexture(SDL_Renderer* renderer);
 
-        void                    paint(const int x, const int y);
+        void                    paintBrush(const int x, const int y);
+        void                    paintPencil(const int x, const int y);
         void                    erase(const int x, const int y);
+        void                    pick(const int x, const int y);
 
         void                    updateTexture(void);
 
@@ -41,6 +45,8 @@ class PaintFrame : public Element
         ~PaintFrame(void) = default;
 
         void                    render(SDL_Renderer* renderer);
+
+        Color                   getPickedColor(void) const noexcept;
 
         void                    setSelectedTool(const int tool);
         void                    setBrushSize(const int newBrushSize);

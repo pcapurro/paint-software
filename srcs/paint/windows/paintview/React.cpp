@@ -18,7 +18,9 @@ void    PaintView::reactMouseMotion(const int x, const int y)
             if (element->isHover())
             {
                 _cursor = element->getHoverCursor();
-                SDL_SetCursor(getCursor(_cursor));
+
+                if (_cursor != State::None)
+                    SDL_SetCursor(getCursor(_cursor));
 
                 isHover = true;
             }
@@ -27,14 +29,16 @@ void    PaintView::reactMouseMotion(const int x, const int y)
             element->onMouseHoverOutside(renderer);
     }
 
-    _customCursor->setVisibility(_paintFrame->isAbove(x, y));
-    _brushScope->setVisibility(_paintFrame->isAbove(x, y));
+    if (isHover)
+        updateMouse();
+    else
+    {
+        _customCursor->setVisibility(false);
+        _brushScope->setVisibility(false);
 
-    if (_paintFrame->isAbove(x, y))
-        updateBrushScopePosition(), updateCursorPosition();
-
-    if (!isHover && _cursor != SDL_SYSTEM_CURSOR_ARROW)
-        SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_ARROW));
+        if (_cursor != SDL_SYSTEM_CURSOR_ARROW)
+            SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_ARROW));
+    }
 }
 
 void    PaintView::reactMouseButtonDown(const int x, const int y)
@@ -80,6 +84,9 @@ int     PaintView::reactMouseButtonUp(const int x, const int y)
 
         break;
     }
+
+    if (_paintFrame->isAbove(x, y) && _selectedTool == ToolBox::Picker)
+        execColorSwitch(_paintFrame->getPickedColor());
 
     return State::Ok;
 }

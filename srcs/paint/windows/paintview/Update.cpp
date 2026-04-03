@@ -122,6 +122,34 @@ void    PaintView::updateCursorPosition(void)
         _customCursor->setY(_brushScope->getY() - DefaultCursorHeight / 3);
 }
 
+void    PaintView::updateMouse(void)
+{
+    if (_paintFrame->isAbove(getCursorX(), getCursorY()))
+    {
+        updateBrushScopePosition();
+        updateCursorPosition();
+
+        _customCursor->setVisibility(true);
+
+        if (_selectedTool == ToolBox::Picker || _selectedTool == ToolBox::Line \
+            || _selectedTool == ToolBox::Rectangle || _selectedTool == ToolBox::Bucket)
+        {
+            _brushScope->setVisibility(false);
+            SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_CROSSHAIR));
+        }
+        else
+        {
+            _brushScope->setVisibility(true);
+            SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_ARROW));
+        }
+    }
+    else
+    {
+        _customCursor->setVisibility(false);
+        _brushScope->setVisibility(false);
+    }
+}
+
 void	PaintView::update(void)
 {
     if (_mainBox->getLastButtonClicked() != State::None)

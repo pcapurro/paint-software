@@ -113,6 +113,7 @@ class PaintView : public Window
 		void    				updateBrushScope(void);
 		void    				updateBrushScopePosition(void);
 		void    				updateCursorPosition(void);
+		void					updateMouse(void);
 
 		void					update(void);
 

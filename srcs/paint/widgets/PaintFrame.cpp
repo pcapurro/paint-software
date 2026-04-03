@@ -3,8 +3,10 @@
 PaintFrame::PaintFrame(const int x, const int y, const int width, \
     const int height, Color& defaultColor, const int selectedTool, \
     const int brushSize, const Color& selectedColor, SDL_Renderer* renderer) : \
-        Element({x, y, width, height})
+        Element({x, y, width, height}, {}, {false, false, true, State::None, false, false})
 {
+    _pickedColor = _selectedColor;
+
     _selectedTool = selectedTool;
     _brushSize = brushSize;
     _selectedColor = selectedColor;
@@ -68,7 +70,27 @@ void    PaintFrame::initPaintTexture(SDL_Renderer* renderer)
     updateTexture();
 }
 
-void    PaintFrame::paint(const int x, const int y)
+void    PaintFrame::paintBrush(const int x, const int y)
+{
+    int     newX = x;
+    int     newY = y;
+
+    for (int i = 0; i < _brushSize && newY < getHeight(); i++)
+    {
+        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++)
+        {
+            if (newX >= 0 && _paintData[newY][newX] != _selectedColor)
+                _paintData[newY][newX] = _selectedColor;
+
+            newX++;
+        }
+
+        newX = x;
+        newY += 1;
+    }
+}
+
+void    PaintFrame::paintPencil(const int x, const int y)
 {
     int     newX = x;
     int     newY = y;
@@ -106,6 +128,17 @@ void    PaintFrame::erase(const int x, const int y)
         newX = x;
         newY += 1;
     }
+}
+
+void    PaintFrame::pick(const int x, const int y)
+{
+    if (x < 0 || x >= getWidth())
+        return;
+
+    if (y < 0 || y >= getHeight())
+        return;
+
+    _pickedColor = _paintData[y][x];
 }
 
 void    PaintFrame::updateTexture(void)
@@ -146,6 +179,11 @@ void    PaintFrame::render(SDL_Renderer* renderer)
     // ...
 }
 
+Color   PaintFrame::getPickedColor(void) const noexcept
+{
+    return _pickedColor;
+}
+
 void    PaintFrame::setSelectedTool(const int tool)
 {
     _selectedTool = tool;
@@ -168,9 +206,13 @@ void	PaintFrame::onMouseDown(const int x, const int y, \
     int     newY = (y - getY()) - (_brushSize / 2);
 
     if (_selectedTool == ToolBox::Brush)
-        paint(newX, newY);
+        paintBrush(newX, newY);
+    else if (_selectedTool == ToolBox::Pencil)
+        paintPencil(newX, newY);
     else if (_selectedTool == ToolBox::Eraser)
         erase(newX, newY);
+    else if (_selectedTool == ToolBox::Picker)
+        pick(newX, newY);
 }
 
 void	PaintFrame::onMouseUp(const int /*x*/, const int /*y*/, \
