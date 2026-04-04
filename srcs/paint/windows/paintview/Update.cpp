@@ -135,11 +135,13 @@ void    PaintView::updateMouse(void)
             || _selectedTool == ToolBox::Rectangle || _selectedTool == ToolBox::Bucket)
         {
             _brushScope->setVisibility(false);
+            _cursor = SDL_SYSTEM_CURSOR_CROSSHAIR;
             SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_CROSSHAIR));
         }
         else
         {
             _brushScope->setVisibility(true);
+            _cursor = SDL_SYSTEM_CURSOR_ARROW;
             SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_ARROW));
         }
     }

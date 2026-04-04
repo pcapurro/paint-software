@@ -37,7 +37,10 @@ void    PaintView::reactMouseMotion(const int x, const int y)
         _brushScope->setVisibility(false);
 
         if (_cursor != SDL_SYSTEM_CURSOR_ARROW)
+        {
+            _cursor = SDL_SYSTEM_CURSOR_ARROW;
             SDL_SetCursor(getCursor(SDL_SYSTEM_CURSOR_ARROW));
+        }
     }
 }
 
