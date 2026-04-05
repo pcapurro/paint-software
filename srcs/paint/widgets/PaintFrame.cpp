@@ -207,6 +207,37 @@ void    PaintFrame::pick(const int x, const int y)
     _pickedColor = _paintData[y][x];
 }
 
+void    PaintFrame::paintLine(const int endX, const int endY)
+{
+    int     initX = _lineStartX;
+    int     initY = _lineStartY;
+
+    int     finalX = endX;
+    int     finalY = endY;
+
+    if (initX == -1 || initY == -1 \
+        || initX == finalX || initY == finalY)
+        return;
+
+    int     distX = finalX - initX;
+    int     distY = finalY - initY;
+
+    int     maxDist = std::max(std::abs(distX), std::abs(distY));
+
+    float   deltaX = (float) distX / maxDist;
+    float   deltaY = (float) distY / maxDist;
+
+    for (int i = 0; i <= maxDist; i++)
+    {
+        int     x = (int) (initX + deltaX * i);
+        int     y = (int) (initY + deltaY * i);
+
+        if (x < getWidth() && y < getHeight() \
+            && x >= 0 && y >= 0)
+            _paintData[y][x] = _selectedColor;
+    }
+}
+
 void    PaintFrame::paintRectangle(const int endX, const int endY)
 {
     int     initX = _rectStartX;
@@ -224,29 +255,32 @@ void    PaintFrame::paintRectangle(const int endX, const int endY)
     if (initY > finalY)
         std::swap(initY, finalY);
 
-    for (int i = 0; i < _brushSize; i++)
+    for (int x = initX; x <= finalX; x++)
     {
-        for (int x = initX; x <= finalX + i; x++)
-        {
-            if (x >= getWidth())
-                break;
+        if (x >= getWidth())
+            break;
 
-            if (initY + i < getHeight())
-                _paintData[initY + i][x] = _selectedColor;
-            if (finalY + i < getHeight())
-                _paintData[finalY + i][x] = _selectedColor;
-        }
+        if (initY < getHeight())
+            _paintData[initY][x] = _selectedColor;
+        if (finalY < getHeight())
+            _paintData[finalY][x] = _selectedColor;
+    }
 
-        for (int y = initY; y <= finalY + i; y++)
-        {
-            if (y >= getHeight())
-                break;
+    for (int y = initY; y <= finalY; y++)
+    {
+        if (y >= getHeight())
+            break;
 
-            if (initX + i < getWidth())
-                _paintData[y][initX + i] = _selectedColor;
-            if (finalX + i < getWidth())
-                _paintData[y][finalX + i] = _selectedColor;
-        }
+        if (initX < getWidth())
+            _paintData[y][initX] = _selectedColor;
+        if (finalX < getWidth())
+            _paintData[y][finalX] = _selectedColor;
+    }
+
+    for (int y = initY + 1; y < finalY; y++)
+    {
+        for (int x = initX + 1; x < finalX; x++)
+            _paintData[y][x] = _selectedColor;
     }
 }
 
@@ -332,6 +366,11 @@ void	PaintFrame::onMouseDown(const bool held, const int x, \
     else if (_selectedTool == ToolBox::Picker)
         pick(newX, newY);
 
+    else if (_selectedTool == ToolBox::Line)
+    {
+        if (!held)
+            _lineStartX = centerX, _lineStartY = centerY;
+    }
     else if (_selectedTool == ToolBox::Rectangle)
     {
         if (!held)
@@ -347,6 +386,8 @@ void	PaintFrame::onMouseUp(const int x, const int y, \
 
     if (_selectedTool == ToolBox::Rectangle)
         paintRectangle(centerX, centerY);
+    else if (_selectedTool == ToolBox::Line)
+        paintLine(centerX, centerY);
 }
 
 void	PaintFrame::onMouseHover(const int /*x*/, const int /*y*/, \

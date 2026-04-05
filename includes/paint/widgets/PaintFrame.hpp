@@ -22,6 +22,9 @@ class PaintFrame : public Element
         int                     _brushSize;
         Color                   _selectedColor;
 
+        int                     _lineStartX = -1;
+        int                     _lineStartY = -1;
+
         int                     _rectStartX = -1;
         int                     _rectStartY = -1;
 
@@ -43,6 +46,7 @@ class PaintFrame : public Element
         void                    pick(const int x, const int y);
 
         void                    paintRectangle(const int endX, const int endY);
+        void                    paintLine(const int endX, const int endY);
 
         void                    updateTexture(void);
 
