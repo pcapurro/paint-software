@@ -22,6 +22,9 @@ class PaintFrame : public Element
         int                     _brushSize;
         Color                   _selectedColor;
 
+        int                     _rectStartX = -1;
+        int                     _rectStartY = -1;
+
 		static constexpr int	PngWidth = 30;
 		static constexpr int	PngHeight = 30;
 
@@ -38,6 +41,8 @@ class PaintFrame : public Element
 
         void                    erase(const int x, const int y);
         void                    pick(const int x, const int y);
+
+        void                    paintRectangle(const int endX, const int endY);
 
         void                    updateTexture(void);
 
@@ -56,7 +61,8 @@ class PaintFrame : public Element
         void                    setBrushSize(const int newBrushSize);
         void                    setSelectedColor(const Color& newColor);
 
-        virtual void            onMouseDown([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
+        virtual void            onMouseDown([[maybe_unused]] const bool held = false, \
+            [[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
             [[maybe_unused]] SDL_Renderer* renderer = nullptr) override;
         virtual void            onMouseUp([[maybe_unused]] const int x = 0, [[maybe_unused]] const int y = 0, \
             [[maybe_unused]] SDL_Renderer* renderer = nullptr) override;

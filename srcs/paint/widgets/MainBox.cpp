@@ -55,8 +55,8 @@ void    MainBox::render(SDL_Renderer* renderer)
 		button->render(renderer);
 }
 
-void	MainBox::onMouseDown(const int x, const int y, \
-	SDL_Renderer* /*renderer*/)
+void	MainBox::onMouseDown(const bool /*held*/, const int x, \
+	const int y, SDL_Renderer* /*renderer*/)
 {
 	for (size_t i = 0; i < _buttons.size(); i++)
 	{

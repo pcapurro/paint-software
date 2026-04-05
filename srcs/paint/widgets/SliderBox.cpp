@@ -134,8 +134,8 @@ void	SliderBox::onStyleChanged(void)
     _background->setSelectColor(getSelectColor());
 }
 
-void	SliderBox::onMouseDown(const int x, const int y, \
-	SDL_Renderer* renderer)
+void	SliderBox::onMouseDown(const bool /*held*/, const int x, \
+    const int y, SDL_Renderer* renderer)
 {
 	if (_sliderBox->isAbove(x, y))
 	{

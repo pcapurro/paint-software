@@ -110,8 +110,8 @@ void    ToolBox::render(SDL_Renderer* renderer)
         button->render(renderer);
 }
 
-void	ToolBox::onMouseDown(const int x, const int y, \
-	SDL_Renderer* /*renderer*/)
+void	ToolBox::onMouseDown(const bool /*held*/, const int x, \
+	const int y, SDL_Renderer* /*renderer*/)
 {
 	for (size_t i = 0; i < _buttons.size(); i++)
 	{

@@ -92,7 +92,7 @@ void	ColorSelection::reactMouseButtonDown(const int x, const int y, \
 			if (clicks > 1)
 				button->onMouseDownDouble(x, y, renderer);
 			else
-				button->onMouseDown(x, y, renderer);
+				button->onMouseDown(false, x, y, renderer);
 		}
 		else
 			button->onMouseDownOutside(renderer);
@@ -107,7 +107,7 @@ int		ColorSelection::reactKeyButtonDown(const int key)
 	SDL_Renderer*		renderer = getRenderer();
 
 	for (const auto& button : buttons)
-		button->onButtonDown(key, renderer);
+		button->onButtonDown(false, key, renderer);
 
 	if (key == SDLK_BACKSPACE || key == SDLK_DELETE)
 		reactColorUpdate();

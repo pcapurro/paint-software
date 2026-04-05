@@ -122,21 +122,18 @@ void    PaintFrame::paintPencil(const int x, const int y)
 
 void    PaintFrame::paintBucket(const int x, const int y)
 {
-    int         realX = x - getX();
-    int         realY = y - getY();
-
     const int   width = getWidth();
     const int   height = getHeight();
 
-    if (realX < 0 || realX >= (int) width \
-        || realY < 0 || realY >= (int) height)
+    if (x < 0 || x >= (int) width \
+        || y < 0 || y >= (int) height)
         return;
 
-    if (_paintData[realY][realX] == _selectedColor)
+    if (_paintData[y][x] == _selectedColor)
         return;
 
-    vector<std::pair<int, int>>     coords = {{realX, realY}};
-    Color                           targetColor = _paintData[realY][realX];
+    vector<std::pair<int, int>>     coords = {{x, y}};
+    Color                           targetColor = _paintData[y][x];
 
     for (size_t i = 0; i < coords.size(); i++)
     {
@@ -210,6 +207,49 @@ void    PaintFrame::pick(const int x, const int y)
     _pickedColor = _paintData[y][x];
 }
 
+void    PaintFrame::paintRectangle(const int endX, const int endY)
+{
+    int     initX = _rectStartX;
+    int     initY = _rectStartY;
+
+    int     finalX = endX;
+    int     finalY = endY;
+
+    if (initX == -1 || initY == -1 \
+        || initX == finalX || initY == finalY)
+        return;
+
+    if (initX > finalX)
+        std::swap(initX, finalX);
+    if (initY > finalY)
+        std::swap(initY, finalY);
+
+    for (int i = 0; i < _brushSize; i++)
+    {
+        for (int x = initX; x <= finalX + i; x++)
+        {
+            if (x >= getWidth())
+                break;
+
+            if (initY + i < getHeight())
+                _paintData[initY + i][x] = _selectedColor;
+            if (finalY + i < getHeight())
+                _paintData[finalY + i][x] = _selectedColor;
+        }
+
+        for (int y = initY; y <= finalY + i; y++)
+        {
+            if (y >= getHeight())
+                break;
+
+            if (initX + i < getWidth())
+                _paintData[y][initX + i] = _selectedColor;
+            if (finalX + i < getWidth())
+                _paintData[y][finalX + i] = _selectedColor;
+        }
+    }
+}
+
 void    PaintFrame::updateTexture(void)
 {
     SDL_Texture*            texture = _paintTexture->getTexture();
@@ -268,11 +308,14 @@ void    PaintFrame::setSelectedColor(const Color& newColor)
     _selectedColor = newColor;
 }
 
-void	PaintFrame::onMouseDown(const int x, const int y, \
-	SDL_Renderer* /*renderer*/)
+void	PaintFrame::onMouseDown(const bool held, const int x, \
+    const int y, SDL_Renderer* /*renderer*/)
 {
-    int     newX = (x - getX()) - (_brushSize / 2);
-    int     newY = (y - getY()) - (_brushSize / 2);
+    int     centerX = x - getX();
+    int     centerY = y - getY();
+
+    int     newX = centerX - (_brushSize / 2);
+    int     newY = centerY - (_brushSize / 2);
 
     if (_selectedTool == ToolBox::Brush)
         paintBrush(newX, newY);
@@ -280,7 +323,7 @@ void	PaintFrame::onMouseDown(const int x, const int y, \
         paintPencil(newX, newY);
 
     else if (_selectedTool == ToolBox::Bucket)
-        paintBucket(x, y);
+        paintBucket(centerX, centerY);
     else if (_selectedTool == ToolBox::Spray)
         paintSpray(newX, newY);
 
@@ -288,12 +331,22 @@ void	PaintFrame::onMouseDown(const int x, const int y, \
         erase(newX, newY);
     else if (_selectedTool == ToolBox::Picker)
         pick(newX, newY);
+
+    else if (_selectedTool == ToolBox::Rectangle)
+    {
+        if (!held)
+            _rectStartX = centerX, _rectStartY = centerY;
+    }
 }
 
-void	PaintFrame::onMouseUp(const int /*x*/, const int /*y*/, \
+void	PaintFrame::onMouseUp(const int x, const int y, \
 	SDL_Renderer* /*renderer*/)
 {
-	// ...
+    int     centerX = x - getX();
+    int     centerY = y - getY();
+
+    if (_selectedTool == ToolBox::Rectangle)
+        paintRectangle(centerX, centerY);
 }
 
 void	PaintFrame::onMouseHover(const int /*x*/, const int /*y*/, \

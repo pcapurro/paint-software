@@ -128,7 +128,7 @@ class PaintView : public Window
 		void					render(void);
 
 		void					reactMouseMotion(const int x, const int y);
-		void					reactMouseButtonDown(const int x, const int y);
+		void					reactMouseButtonDown(const bool held, const int x, const int y);
 		int						reactMouseButtonUp(const int x, const int y);
 
 		void					reactKeyButtonDown(const int key);

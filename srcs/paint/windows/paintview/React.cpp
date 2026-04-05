@@ -44,7 +44,7 @@ void    PaintView::reactMouseMotion(const int x, const int y)
     }
 }
 
-void    PaintView::reactMouseButtonDown(const int x, const int y)
+void    PaintView::reactMouseButtonDown(const bool held, const int x, const int y)
 {
     SDL_Renderer*       renderer = getRenderer();
 
@@ -57,7 +57,7 @@ void    PaintView::reactMouseButtonDown(const int x, const int y)
         if (!element->isAbove(x, y))
             continue;
         
-        element->onMouseDown(x, y, renderer);
+        element->onMouseDown(held, x, y, renderer);
 
         break;
     }
@@ -127,13 +127,13 @@ int     PaintView::reactEvent(SDL_Event* event)
 		reactMouseMotion(x, y);
 
         if (event->motion.state & SDL_BUTTON_LMASK)
-            reactMouseButtonDown(x, y);
+            reactMouseButtonDown(true, x, y);
     }
     
     if (event->button.button == SDL_BUTTON_LEFT)
     {
         if (event->type == SDL_MOUSEBUTTONDOWN)
-            reactMouseButtonDown(x, y);
+            reactMouseButtonDown(false, x, y);
         else if (event->type == SDL_MOUSEBUTTONUP)
             value = reactMouseButtonUp(x, y);
     }
