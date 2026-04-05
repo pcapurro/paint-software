@@ -32,6 +32,10 @@ class PaintFrame : public Element
 
         void                    paintBrush(const int x, const int y);
         void                    paintPencil(const int x, const int y);
+
+        void                    paintBucket(const int x, const int y);
+        void                    paintSpray(const int x, const int y);
+
         void                    erase(const int x, const int y);
         void                    pick(const int x, const int y);
 

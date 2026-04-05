@@ -86,7 +86,9 @@ void    PaintFrame::paintBrush(const int x, const int y)
                 int     dx = k - r;
                 int     dy = i - r;
 
-                if ((dx * dx) + (dy * dy) <= r * r)
+                int     dist = ((dx * dx) + (dy * dy));
+
+                if (dist <= r * r)
                     _paintData[newY][newX] = _selectedColor;
             }
 
@@ -118,17 +120,76 @@ void    PaintFrame::paintPencil(const int x, const int y)
     }
 }
 
+void    PaintFrame::paintBucket(const int x, const int y)
+{
+    int         realX = x - getX();
+    int         realY = y - getY();
+
+    const int   width = getWidth();
+    const int   height = getHeight();
+
+    if (realX < 0 || realX >= (int) width \
+        || realY < 0 || realY >= (int) height)
+        return;
+
+    if (_paintData[realY][realX] == _selectedColor)
+        return;
+
+    vector<std::pair<int, int>>     coords = {{realX, realY}};
+    Color                           targetColor = _paintData[realY][realX];
+
+    for (size_t i = 0; i < coords.size(); i++)
+    {
+        int     xCopy = coords[i].first;
+        int     yCopy = coords[i].second;
+
+        while (xCopy > 0 && _paintData[yCopy][xCopy - 1] == targetColor)
+            xCopy--;
+
+        while (xCopy < width && _paintData[yCopy][xCopy] == targetColor)
+        {
+            _paintData[yCopy][xCopy] = _selectedColor;
+
+            if (yCopy - 1 >= 0 && _paintData[yCopy - 1][xCopy] == targetColor)
+                coords.emplace_back(xCopy, yCopy - 1);
+
+            if (yCopy + 1 < height && _paintData[yCopy + 1][xCopy] == targetColor)
+                coords.emplace_back(xCopy, yCopy + 1);
+
+            xCopy++;
+        }
+    }
+}
+
+void    PaintFrame::paintSpray(const int x, const int y)
+{
+    (void) x;
+    (void) y;
+
+    // ...
+}
+
 void    PaintFrame::erase(const int x, const int y)
 {
     int     newX = x;
     int     newY = y;
 
+    int     r = _brushSize / 2;
+
     for (int i = 0; i < _brushSize && newY < getHeight(); i++)
     {
         for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++)
         {
-            if (newX >= 0 && _paintData[newY][newX].a != 0)
-                _paintData[newY][newX].a = 0;
+            if (newX >= 0 && _paintData[newY][newX] != _selectedColor)
+            {
+                int     dx = k - r;
+                int     dy = i - r;
+
+                int     dist = ((dx * dx) + (dy * dy));
+
+                if (dist <= r * r)
+                    _paintData[newY][newX].a = 0;
+            }
 
             newX++;
         }
@@ -217,6 +278,12 @@ void	PaintFrame::onMouseDown(const int x, const int y, \
         paintBrush(newX, newY);
     else if (_selectedTool == ToolBox::Pencil)
         paintPencil(newX, newY);
+
+    else if (_selectedTool == ToolBox::Bucket)
+        paintBucket(x, y);
+    else if (_selectedTool == ToolBox::Spray)
+        paintSpray(newX, newY);
+
     else if (_selectedTool == ToolBox::Eraser)
         erase(newX, newY);
     else if (_selectedTool == ToolBox::Picker)
