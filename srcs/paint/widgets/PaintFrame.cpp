@@ -5,6 +5,7 @@ PaintFrame::PaintFrame(const int x, const int y, const int width, \
     const int brushSize, const Color& selectedColor, SDL_Renderer* renderer) : \
         Element({x, y, width, height}, {}, {false, false, true, State::None, false, false})
 {
+    _defaultColor = defaultColor;
     _pickedColor = _selectedColor;
 
     _selectedTool = selectedTool;
@@ -13,7 +14,7 @@ PaintFrame::PaintFrame(const int x, const int y, const int width, \
 
     initPngBack();
 
-    initPaintData(defaultColor);
+    initPaintData();
     initPaintTexture(renderer);
 }
 
@@ -45,12 +46,12 @@ void    PaintFrame::initPngBack(void)
     }
 }
 
-void    PaintFrame::initPaintData(const Color& defaultColor)
+void    PaintFrame::initPaintData(void)
 {
     _paintData.resize(getHeight());
 
     for (int i = 0; i < getHeight(); i++)
-        _paintData[i].insert(_paintData[i].end(), getWidth(), defaultColor);
+        _paintData[i].insert(_paintData[i].end(), getWidth(), _defaultColor);
 }
 
 void    PaintFrame::initPaintTexture(SDL_Renderer* renderer)
@@ -320,6 +321,13 @@ void    PaintFrame::render(SDL_Renderer* renderer)
         nullptr, &main);
 
     // ...
+}
+
+void    PaintFrame::clear(void)
+{
+    _paintData.clear();
+
+    initPaintData();
 }
 
 Color   PaintFrame::getPickedColor(void) const noexcept

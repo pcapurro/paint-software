@@ -64,11 +64,6 @@ class PaintView : public Window
 		static constexpr int	HeightUpLimit = 30;
 		static constexpr int	HeightDownLimit = 30;
 
-		static constexpr int	Save = 1;
-		static constexpr int	Cancel = 2;
-		static constexpr int	Back = 3;
-		static constexpr int	Forward = 4;
-
 		static constexpr int	BrushMinimumSize = 1;
 		static constexpr int	BrushMaximumSize = 50;
 		static constexpr int	BrushDefaultSize = 21;
@@ -150,6 +145,11 @@ class PaintView : public Window
 		static constexpr int	MinimumHeight = MaxPaintHeight;
 
 		static constexpr int	ColorSwitch = 256;
+
+		static constexpr int	Save = 1;
+		static constexpr int	Cancel = 2;
+		static constexpr int	Back = 3;
+		static constexpr int	Forward = 4;
 };
 
 #endif

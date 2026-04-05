@@ -39,6 +39,16 @@ int     Paint::routine(void)
 
 						windows[1] = &_colorSelection.value();
 					}
+					else if (value == PaintView::Cancel && !_cancel)
+					{
+						_cancel.emplace("cancel confirmation", "materials/font/OpenSans.ttf", \
+							400, 170, Window::LightMode, "Cancel confirmation", true, \
+							"Are you sure you want to erase the painting ?", \
+							vector<string>{"yes", "no"}, \
+							"materials/icons/bmp/mainbox/red-cross.bmp", 45, 45);
+
+						windows[2] = &_cancel.value();
+					}
 				}
 				else if (_colorSelection && windowId == _colorSelection->getWindowId())
 				{
@@ -56,6 +66,14 @@ int     Paint::routine(void)
 
 					if (value == State::End || value == State::Return)
 						_colorSelection.reset(), windows[1] = nullptr;
+				}
+				else if (_cancel && windowId == _cancel->getWindowId())
+				{
+					if (value == 1)
+						_paint->execCancel();
+
+					if (value != State::Ok)
+						_cancel.reset(), windows[2] = nullptr;
 				}
 			}
 		}

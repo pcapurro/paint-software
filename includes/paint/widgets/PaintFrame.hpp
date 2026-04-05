@@ -16,6 +16,7 @@ class PaintFrame : public Element
 
         vector<vector<Color>>   _paintData;
 
+        Color                   _defaultColor;
         Color                   _pickedColor;
 
         int                     _selectedTool;
@@ -33,7 +34,7 @@ class PaintFrame : public Element
 
         void                    initPngBack(void);
 
-        void                    initPaintData(const Color& defaultColor);
+        void                    initPaintData(void);
         void                    initPaintTexture(SDL_Renderer* renderer);
 
         void                    paintBrush(const int x, const int y);
@@ -58,6 +59,8 @@ class PaintFrame : public Element
         ~PaintFrame(void) = default;
 
         void                    render(SDL_Renderer* renderer);
+
+        void                    clear(void);
 
         Color                   getPickedColor(void) const noexcept;
 

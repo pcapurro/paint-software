@@ -7,7 +7,7 @@ void    PaintView::execSave(void)
 
 void    PaintView::execCancel(void)
 {
-    // ...
+    _paintFrame->clear();
 }
 
 void    PaintView::execBack(void)

@@ -78,7 +78,9 @@ int     PaintView::reactMouseButtonUp(const int x, const int y)
 
         elements[i]->onMouseUp(x, y, renderer);
 
-        if (i == 5)
+        if (i == 1)
+            return _mainBox->getLastButtonClicked();
+        else if (i == 5)
             return ColorSwitch;
         else if (i == 6)
             execColorSwitch(Color::Black);

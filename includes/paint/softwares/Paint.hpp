@@ -5,6 +5,7 @@
 
 # include "PaintView.hpp"
 # include "ColorSelection.hpp"
+# include "DialogBox.hpp"
 
 class Paint : public Software
 {
@@ -12,6 +13,7 @@ class Paint : public Software
         optional<PaintView>         _paint;
 
         optional<ColorSelection>    _colorSelection;
+        optional<DialogBox>         _cancel;
 
     public:
         Paint(const string& projectName, const int globalWidth, \
