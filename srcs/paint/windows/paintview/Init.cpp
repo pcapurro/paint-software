@@ -1,11 +1,13 @@
 #include "PaintView.hpp"
 
 PaintView::PaintView(const string& name, const int width, const int height, \
-    const int frameWidth, const int frameHeight) : \
+    const int frameWidth, const int frameHeight, const int displayMode) : \
 		Window(name, width, height)
 {
-	setBackgroundColor(Color::Black);
-	setWriteColor(Color::White);
+	if (displayMode == Window::DarkMode)
+		setBackgroundColor(Color::Black), setWriteColor(Color::White);
+	else
+		setBackgroundColor(Color::White), setWriteColor(Color::Black);
 
 	std::srand(std::time(nullptr));
 
@@ -47,11 +49,11 @@ void	PaintView::initFrame(const int frameWidth, const int frameHeight)
 	int		frameX = LeftWidth + ((frameSpaceWidth / 2) - (frameWidth / 2));
 	int		frameY = UpHeight + ((frameSpaceHeight / 2) - (frameHeight / 2));
 
-	Color	backColor = getWriteColor();
+	int		displayMode = getBackgroundColor() == Color::Black \
+		? Window::DarkMode : Window::LightMode;
 
-	_paintFrame.emplace(frameX, frameY, frameWidth, \
-		frameHeight, backColor, _selectedTool, _brushSize, \
-		_selectedColor, getRenderer());
+	_paintFrame.emplace(frameX, frameY, frameWidth, frameHeight, \
+		_selectedTool, _brushSize, _selectedColor, displayMode, getRenderer());
 }
 
 void	PaintView::initCustomCursor(SDL_Renderer* renderer)

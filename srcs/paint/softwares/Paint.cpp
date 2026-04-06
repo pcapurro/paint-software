@@ -1,10 +1,11 @@
 #include "Paint.hpp"
 
 Paint::Paint(const string& projectName, const int globalWidth, \
-	const int globalHeight, const int paintWidth, const int paintHeight)
+	const int globalHeight, const int paintWidth, const int paintHeight, \
+	const int displayMode) : _displayMode(displayMode)
 {
 	_paint.emplace("paint-software – " + projectName, globalWidth, \
-		globalHeight, paintWidth, paintHeight);
+		globalHeight, paintWidth, paintHeight, displayMode);
 }
 
 int     Paint::routine(void)
@@ -35,14 +36,14 @@ int     Paint::routine(void)
 					else if (value == PaintView::ColorSwitch && !_colorSelection)
 					{
 						_colorSelection.emplace("color selection", "materials/font/OpenSans.ttf", \
-							400, 170, Window::LightMode, "Color selection", true, "Select a new color.");
+							400, 170, _displayMode, "Color selection", true, "Select a new color.");
 
 						windows[1] = &_colorSelection.value();
 					}
 					else if (value == PaintView::Cancel && !_cancel)
 					{
 						_cancel.emplace("cancel confirmation", "materials/font/OpenSans.ttf", \
-							400, 170, Window::LightMode, "Cancel confirmation", true, \
+							400, 170, _displayMode, "Cancel confirmation", true, \
 							"Are you sure you want to erase the painting ?", \
 							vector<string>{"yes", "no"}, \
 							"materials/icons/bmp/mainbox/red-cross.bmp", 45, 45);

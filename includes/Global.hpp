@@ -32,12 +32,14 @@ using std::endl;
 
 using std::cerr;
 
-void    getProjectName(string& projectName);
-void	getPaintingSize(int& paintWidth, int& paintHeight);
+void	getDisplayMode(int& displayMode, int argc, char** argv);
+void    getProjectName(string& projectName, const int displayMode);
+void	getPaintingSize(int& paintWidth, int& paintHeight, const int displayMode);
 
 void    launch(const string& projectName, const int globalWidth, \
-	const int globalHeight, const int paintWidth, const int paintHeight);
+	const int globalHeight, const int paintWidth, const int paintHeight, \
+	const int displayMode);
 
-int     main(void);
+int     main(int argc, char** argv);
 
 #endif

@@ -18,17 +18,17 @@ void	MainBox::initButtons(SDL_Renderer* renderer)
 	Color	invisible = Color::Invisible;
 
 	auto	saveButton = std::make_unique<ImageButton>(getX(), getY(), ButtonWidth, ButtonHeight, \
-		"materials/icons/bmp/mainbox/green-check.bmp", invisible, Border, writeColor, renderer);
+		"materials/icons/bmp/mainbox/green-check.bmp", invisible, invisible, Border, writeColor, renderer);
 
 	auto	cancelButton = std::make_unique<ImageButton>(getX() + ButtonWidth + CenterSpaceWidth, getY(), \
-		ButtonWidth, ButtonHeight, "materials/icons/bmp/mainbox/red-cross.bmp", \
+		ButtonWidth, ButtonHeight, "materials/icons/bmp/mainbox/red-cross.bmp", invisible, \
 		invisible, Border, writeColor, renderer);
 
 	auto	leftButton = std::make_unique<ImageButton>(getX(), getY() + ButtonHeight, ButtonWidth, ButtonHeight, \
-		"materials/icons/bmp/mainbox/left-arrow.bmp", invisible, Border, writeColor, renderer);
+		"materials/icons/bmp/mainbox/left-arrow.bmp", writeColor, invisible, Border, writeColor, renderer);
 
 	auto	rightButton = std::make_unique<ImageButton>(getX() + ButtonWidth + CenterSpaceWidth, getY() + ButtonHeight, \
-		ButtonWidth, ButtonHeight, "materials/icons/bmp/mainbox/right-arrow.bmp", \
+		ButtonWidth, ButtonHeight, "materials/icons/bmp/mainbox/right-arrow.bmp", writeColor, \
 		invisible, Border, writeColor, renderer);
 
 	_buttons.emplace_back(std::move(saveButton));

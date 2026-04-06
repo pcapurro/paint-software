@@ -21,32 +21,32 @@ void	ToolBox::initButtons(SDL_Renderer* renderer)
 	Color	invisible = Color::Invisible;
 
 	auto	brushButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
-		getToolPath(Brush), invisible, Border, writeColor, renderer);
+		getToolPath(Brush), writeColor, invisible, Border, writeColor, renderer);
 	auto	pencilButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
-		ButtonWidth, ButtonHeight, getToolPath(Pencil), invisible, Border, writeColor, renderer);
+		ButtonWidth, ButtonHeight, getToolPath(Pencil), writeColor, invisible, Border, writeColor, renderer);
 
 	globalY += ButtonHeight;
 
 	auto	bucketButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
-		getToolPath(Bucket), invisible, Border, writeColor, renderer);
+		getToolPath(Bucket), writeColor, invisible, Border, writeColor, renderer);
 	auto	sprayButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
-		ButtonWidth, ButtonHeight, getToolPath(Spray), \
+		ButtonWidth, ButtonHeight, getToolPath(Spray), writeColor, \
 		invisible, Border, writeColor, renderer);
 
 	globalY += ButtonHeight;
 
 	auto	eraserButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
-		getToolPath(Eraser), invisible, Border, writeColor, renderer);
+		getToolPath(Eraser), writeColor, invisible, Border, writeColor, renderer);
 	auto	pickerButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
-		ButtonWidth, ButtonHeight, getToolPath(Picker), \
+		ButtonWidth, ButtonHeight, getToolPath(Picker), writeColor, \
 		invisible, Border, writeColor, renderer);
 
 	globalY += ButtonHeight;
 
 	auto	lineButton = std::make_unique<ImageButton>(globalX, globalY, ButtonWidth, ButtonHeight, \
-		getToolPath(Line), invisible, Border, writeColor, renderer);
+		getToolPath(Line), writeColor, invisible, Border, writeColor, renderer);
 	auto	rectangleButton = std::make_unique<ImageButton>(globalX + ButtonWidth + CenterSpaceWidth, globalY, \
-		ButtonWidth, ButtonHeight, getToolPath(Rectangle), \
+		ButtonWidth, ButtonHeight, getToolPath(Rectangle), writeColor, \
 		invisible, Border, writeColor, renderer);
 
 	_buttons.emplace_back(std::move(brushButton));

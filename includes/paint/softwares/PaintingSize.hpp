@@ -13,7 +13,7 @@ class PaintingSize : public Software
         vector<int>                     _values;
 
     public:
-        PaintingSize(void);
+        PaintingSize(const int displayMode = Window::LightMode);
         ~PaintingSize(void) = default;
 
         vector<int>                     getValues(void) const;

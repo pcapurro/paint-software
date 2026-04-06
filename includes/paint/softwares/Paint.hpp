@@ -10,6 +10,8 @@
 class Paint : public Software
 {
     private:
+        const int                   _displayMode;
+
         optional<PaintView>         _paint;
 
         optional<ColorSelection>    _colorSelection;
@@ -17,7 +19,8 @@ class Paint : public Software
 
     public:
         Paint(const string& projectName, const int globalWidth, \
-	        const int globalHeight, const int paintWidth, const int paintHeight);
+	        const int globalHeight, const int paintWidth, const int paintHeight, \
+            const int displayMode = Window::LightMode);
 
         ~Paint(void) = default;
 

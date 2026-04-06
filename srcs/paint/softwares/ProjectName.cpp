@@ -1,12 +1,12 @@
 #include "ProjectName.hpp"
 
-ProjectName::ProjectName(void)
+ProjectName::ProjectName(const int displayMode)
 {
     _window.emplace(
         "Create a new painting",
 		"materials/font/OpenSans.ttf",
 		400, 170,
-		Window::LightMode,
+		displayMode,
 		"Project name",
 		true,
 		"Specify the name of the project.",

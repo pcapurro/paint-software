@@ -1,11 +1,11 @@
 #include "PaintFrame.hpp"
 
 PaintFrame::PaintFrame(const int x, const int y, const int width, \
-    const int height, Color& defaultColor, const int selectedTool, \
-    const int brushSize, const Color& selectedColor, SDL_Renderer* renderer) : \
-        Element({x, y, width, height}, {}, {false, false, true, State::None, false, false})
+    const int height, const int selectedTool, const int brushSize, \
+    const Color& selectedColor, const int displayMode, SDL_Renderer* renderer) : \
+        Element({x, y, width, height}, {}, {false, false, true, State::None, false, false}) , \
+        _displayMode(displayMode)
 {
-    _defaultColor = defaultColor;
     _pickedColor = _selectedColor;
 
     _selectedTool = selectedTool;
@@ -51,7 +51,7 @@ void    PaintFrame::initPaintData(void)
     _paintData.resize(getHeight());
 
     for (int i = 0; i < getHeight(); i++)
-        _paintData[i].insert(_paintData[i].end(), getWidth(), _defaultColor);
+        _paintData[i].insert(_paintData[i].end(), getWidth(), Color::White);
 }
 
 void    PaintFrame::initPaintTexture(SDL_Renderer* renderer)
@@ -326,6 +326,17 @@ void    PaintFrame::updateTexture(void)
 
 void    PaintFrame::render(SDL_Renderer* renderer)
 {
+    if (_displayMode == Window::LightMode)
+    {
+        SDL_Rect    main {getX() - 1, getY() - 1, \
+            getWidth() + 2, getHeight() + 2};
+
+        SDL_SetRenderDrawColor(renderer, Color::Black.r, Color::Black.g, \
+            Color::Black.b, Color::Black.a);
+
+        SDL_RenderDrawRect(renderer, &main);
+    }
+
     for (auto& png : _pngBack)
         png.render(renderer);
 

@@ -94,7 +94,7 @@ class PaintView : public Window
 
     public:
 		PaintView(const string& name, const int width, const int height, \
-			const int frameWidth, const int frameHeight);
+			const int frameWidth, const int frameHeight, const int displayMode);
 		~PaintView(void) = default;
 
 		void    				updateMain(void);

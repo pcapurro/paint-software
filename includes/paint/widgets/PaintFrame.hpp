@@ -5,18 +5,20 @@
 # include "Shape.hpp"
 
 # include "Texture.hpp"
+# include "Window.hpp"
 
 # include "ToolBox.hpp"
 
 class PaintFrame : public Element
 {
     private:
+        const int               _displayMode;
+
         vector<Shape>           _pngBack;
         optional<Texture>       _paintTexture;
 
         vector<vector<Color>>   _paintData;
 
-        Color                   _defaultColor;
         Color                   _pickedColor;
 
         int                     _selectedTool;
@@ -53,8 +55,8 @@ class PaintFrame : public Element
 
     public:
         PaintFrame(const int x, const int y, const int width, \
-            const int height, Color& defaultColor, const int selectedTool, \
-            const int brushSize, const Color& selectedColor, SDL_Renderer* renderer);
+            const int height, const int selectedTool, const int brushSize, \
+            const Color& selectedColor, const int displayMode, SDL_Renderer* renderer);
 
         ~PaintFrame(void) = default;
 

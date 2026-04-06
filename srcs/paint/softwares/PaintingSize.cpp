@@ -1,12 +1,12 @@
 #include "PaintingSize.hpp"
 
-PaintingSize::PaintingSize(void)
+PaintingSize::PaintingSize(const int displayMode)
 {
 	_window.emplace(
 		"Create a new painting",
 		"materials/font/OpenSans.ttf",
 		400, 170,
-		Window::LightMode,
+		displayMode,
 		"Painting size",
 		true,
 		"Specify width and height of your painting.",

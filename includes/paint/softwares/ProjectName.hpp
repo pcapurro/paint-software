@@ -12,7 +12,7 @@ class ProjectName : public Software
         string                      _name = "untitled";
 
     public:
-        ProjectName(void);
+        ProjectName(const int displayMode = Window::LightMode);
         ~ProjectName(void) = default;
 
         string                      getName(void) const;
