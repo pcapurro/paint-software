@@ -178,7 +178,7 @@ void    PaintFrame::erase(const int x, const int y)
     {
         for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++)
         {
-            if (newX >= 0 && _paintData[newY][newX] != _selectedColor)
+            if (newX >= 0 && _paintData[newY][newX].a != 0)
             {
                 int     dx = k - r;
                 int     dy = i - r;
