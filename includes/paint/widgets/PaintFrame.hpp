@@ -23,11 +23,11 @@ class PaintFrame : public Element
         int                     _brushSize;
         Color                   _selectedColor;
 
-        int                     _lineStartX = -1;
-        int                     _lineStartY = -1;
+        std::pair<int, int>     _lineStart = { -1, -1 };
+        std::pair<int, int>     _lineEnd = { -1, -1 };
 
-        int                     _rectStartX = -1;
-        int                     _rectStartY = -1;
+        std::pair<int, int>     _rectStart = { -1, -1 };
+        std::pair<int, int>     _rectEnd = { -1, -1 };
 
 		static constexpr int	PngWidth = 30;
 		static constexpr int	PngHeight = 30;

@@ -210,15 +210,20 @@ void    PaintFrame::pick(const int x, const int y)
 
 void    PaintFrame::paintLine(const int endX, const int endY)
 {
-    int     initX = _lineStartX;
-    int     initY = _lineStartY;
+    int     initX = _lineStart.first;
+    int     initY = _lineStart.second;
 
     int     finalX = endX;
     int     finalY = endY;
 
     if (initX == -1 || initY == -1 \
         || initX == finalX || initY == finalY)
+    {
+        _lineStart = { -1, -1 };
+        _lineEnd = { -1, -1 };
+
         return;
+    }
 
     int     distX = finalX - initX;
     int     distY = finalY - initY;
@@ -237,19 +242,27 @@ void    PaintFrame::paintLine(const int endX, const int endY)
             && x >= 0 && y >= 0)
             _paintData[y][x] = _selectedColor;
     }
+
+    _lineStart = { -1, -1 };
+    _lineEnd = { -1, -1 };
 }
 
 void    PaintFrame::paintRectangle(const int endX, const int endY)
 {
-    int     initX = _rectStartX;
-    int     initY = _rectStartY;
+    int     initX = _rectStart.first;
+    int     initY = _rectStart.second;
 
     int     finalX = endX;
     int     finalY = endY;
 
     if (initX == -1 || initY == -1 \
         || initX == finalX || initY == finalY)
+    {
+        _rectStart = { -1, -1 };
+        _rectEnd = { -1, -1 };
+
         return;
+    }
 
     if (initX > finalX)
         std::swap(initX, finalX);
@@ -283,6 +296,9 @@ void    PaintFrame::paintRectangle(const int endX, const int endY)
         for (int x = initX + 1; x < finalX; x++)
             _paintData[y][x] = _selectedColor;
     }
+
+    _rectStart = { -1, -1 };
+    _rectEnd = { -1, -1 };
 }
 
 void    PaintFrame::updateTexture(void)
@@ -320,7 +336,28 @@ void    PaintFrame::render(SDL_Renderer* renderer)
     SDL_RenderCopy(renderer, _paintTexture->getTexture(), \
         nullptr, &main);
 
-    // ...
+    if (_selectedTool == ToolBox::Line
+        && _lineStart != std::pair{ -1, -1 } && _lineEnd != std::pair{ -1, -1 })
+    {
+        SDL_SetRenderDrawColor(renderer, _selectedColor.r, _selectedColor.g, \
+            _selectedColor.b, _selectedColor.a);
+
+        SDL_RenderDrawLine(renderer, getX() + _lineStart.first, getY() + _lineStart.second, \
+            getX() + _lineEnd.first, getY() + _lineEnd.second);
+    }
+
+    else if (_selectedTool == ToolBox::Rectangle
+        && _rectStart != std::pair{ -1, -1 } && _rectEnd != std::pair{ -1, -1 })
+    {
+        main = { getX() + _rectStart.first, getY() + _rectStart.second, \
+            (getX() + _rectEnd.first) - (getX() + _rectStart.first), \
+            (getY() + _rectEnd.second) - (getY() + _rectStart.second) };
+
+        SDL_SetRenderDrawColor(renderer, _selectedColor.r, _selectedColor.g, \
+            _selectedColor.b, _selectedColor.a);
+
+        SDL_RenderDrawRect(renderer, &main);
+    }
 }
 
 void    PaintFrame::clear(void)
@@ -377,12 +414,12 @@ void	PaintFrame::onMouseDown(const bool held, const int x, \
     else if (_selectedTool == ToolBox::Line)
     {
         if (!held)
-            _lineStartX = centerX, _lineStartY = centerY;
+            _lineStart = { centerX, centerY };
     }
     else if (_selectedTool == ToolBox::Rectangle)
     {
         if (!held)
-            _rectStartX = centerX, _rectStartY = centerY;
+            _rectStart = { centerX, centerY };
     }
 }
 
@@ -398,10 +435,19 @@ void	PaintFrame::onMouseUp(const int x, const int y, \
         paintLine(centerX, centerY);
 }
 
-void	PaintFrame::onMouseHover(const int /*x*/, const int /*y*/, \
+void	PaintFrame::onMouseHover(const int x, const int y, \
 	SDL_Renderer* /*renderer*/)
 {
+    int     centerX = x - getX();
+    int     centerY = y - getY();
+
 	setHover(true);
+
+    if (_selectedTool == ToolBox::Line && _lineStart != std::pair{ -1, -1 })
+        _lineEnd = { centerX, centerY };
+
+    else if (_selectedTool == ToolBox::Rectangle && _rectStart != std::pair{ -1, -1 })
+        _rectEnd = { centerX, centerY };
 }
 
 void	PaintFrame::onMouseHoverOutside(SDL_Renderer* /*renderer*/)
