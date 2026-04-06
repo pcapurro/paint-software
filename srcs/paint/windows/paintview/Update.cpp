@@ -103,7 +103,7 @@ void    PaintView::updateBrushScope(void)
         _brushScope->setHeight(_brushSize);
 
     if (_brushScope->getBorderColor() != _selectedColor)
-        _brushScope->setBorderColor(_selectedColor);
+        _brushScope->setMainColor(_selectedColor.toNewOpacity(21));
 }
 
 void    PaintView::updateBrushScopePosition(void)

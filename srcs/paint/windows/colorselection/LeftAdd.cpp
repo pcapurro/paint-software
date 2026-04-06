@@ -52,10 +52,7 @@ void	ColorSelection::addLeftFields(const string& fontPath, const int maxText)
 	_leftDownField->setY(downText->getY(), renderer);	
 	_leftDownField->setSettings(true, Render::HighlightSelect, true, SDL_SYSTEM_CURSOR_IBEAM, false, false);
 
-	Color	blue = Color::Blue;
-	blue.a = Render::HiglihtOpacity;
-
-	_leftDownField->setSelectColor(blue);
+	_leftDownField->setSelectColor(Color::Blue.toNewOpacity(Render::HiglihtOpacity));
 
 	_leftUpField = std::make_unique<ValueField>(globalX + limitX, 0, globalWidth, globalHeight, \
 		getBackgroundColor(), getWriteColor(), fontPath, getWriteColor(), maxText, 0, 255);
@@ -63,7 +60,7 @@ void	ColorSelection::addLeftFields(const string& fontPath, const int maxText)
 	_leftUpField->setY(upText->getY(), renderer);
 	_leftUpField->setSettings(true, Render::HighlightSelect, true, SDL_SYSTEM_CURSOR_IBEAM, false, false);
 
-	_leftUpField->setSelectColor(blue);
+	_leftUpField->setSelectColor(Color::Blue.toNewOpacity(Render::HiglihtOpacity));
 
 	Color	backColor = getBackgroundColor();
 

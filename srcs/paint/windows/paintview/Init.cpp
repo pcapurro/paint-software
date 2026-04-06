@@ -36,7 +36,7 @@ PaintView::PaintView(const string& name, const int width, const int height, \
 void	PaintView::initBrushScope(void)
 {
 	_brushScope.emplace(getCursorX() - (_brushSize / 2), getCursorY() - (_brushSize / 2), \
-		_brushSize, _brushSize, Color::Invisible, true, 1, _selectedColor);
+		_brushSize + 2, _brushSize + 2, _selectedColor.toNewOpacity(21), true, 1, getWriteColor());
 }
 
 void	PaintView::initFrame(const int frameWidth, const int frameHeight)
