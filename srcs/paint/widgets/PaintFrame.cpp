@@ -78,26 +78,23 @@ void    PaintFrame::paintBrush(const int x, const int y)
 
     int     r = _brushSize / 2;
 
-    for (int i = 0; i < _brushSize && newY < getHeight(); i++)
+    for (int i = 0; i < _brushSize && newY < getHeight(); i++, newY++)
     {
-        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++)
+        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++, newX++)
         {
-            if (newX >= 0 && _paintData[newY][newX] != _selectedColor)
-            {
-                int     dx = k - r;
-                int     dy = i - r;
+            if (newX < 0 || _paintData[newY][newX] == _selectedColor)
+                continue;
 
-                int     dist = ((dx * dx) + (dy * dy));
+            int     dx = k - r;
+            int     dy = i - r;
 
-                if (dist <= r * r)
-                    _paintData[newY][newX] = _selectedColor;
-            }
+            int     dist = ((dx * dx) + (dy * dy));
 
-            newX++;
+            if (dist <= r * r)
+                _paintData[newY][newX] = _selectedColor;
         }
 
         newX = x;
-        newY += 1;
     }
 }
 
@@ -106,18 +103,15 @@ void    PaintFrame::paintPencil(const int x, const int y)
     int     newX = x;
     int     newY = y;
 
-    for (int i = 0; i < _brushSize && newY < getHeight(); i++)
+    for (int i = 0; i < _brushSize && newY < getHeight(); i++, newY++)
     {
-        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++)
+        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++, newX++)
         {
             if (newX >= 0 && _paintData[newY][newX] != _selectedColor)
                 _paintData[newY][newX] = _selectedColor;
-
-            newX++;
         }
 
         newX = x;
-        newY += 1;
     }
 }
 
@@ -161,10 +155,34 @@ void    PaintFrame::paintBucket(const int x, const int y)
 
 void    PaintFrame::paintSpray(const int x, const int y)
 {
-    (void) x;
-    (void) y;
+    int     newX = x;
+    int     newY = y;
 
-    // ...
+    int     r = _brushSize / 2;
+
+    for (int i = 0; i < _brushSize && newY < getHeight(); i++, newY++)
+    {
+        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++, newX++)
+        {
+            if (newX < 0)
+                continue;
+
+            int     dx = k - r;
+            int     dy = i - r;
+
+            int     dist = ((dx * dx) + (dy * dy));
+
+            if (dist <= r * r)
+            {
+                float   ratio = std::sqrt(dist) / r;
+
+                if ((ratio <= 0.33f && rand() % 4 == 0) || rand() % 7 == 0)
+                    _paintData[newY][newX] = _selectedColor;
+            }
+        }
+
+        newX = x;
+    }
 }
 
 void    PaintFrame::erase(const int x, const int y)
@@ -174,26 +192,23 @@ void    PaintFrame::erase(const int x, const int y)
 
     int     r = _brushSize / 2;
 
-    for (int i = 0; i < _brushSize && newY < getHeight(); i++)
+    for (int i = 0; i < _brushSize && newY < getHeight(); i++, newY++)
     {
-        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++)
+        for (int k = 0; k < _brushSize && newX < getWidth() && newY >= 0; k++, newX++)
         {
-            if (newX >= 0 && _paintData[newY][newX].a != 0)
-            {
-                int     dx = k - r;
-                int     dy = i - r;
+            if (newX < 0 || _paintData[newY][newX].a == 0)
+                continue;
 
-                int     dist = ((dx * dx) + (dy * dy));
+            int     dx = k - r;
+            int     dy = i - r;
 
-                if (dist <= r * r)
-                    _paintData[newY][newX].a = 0;
-            }
+            int     dist = ((dx * dx) + (dy * dy));
 
-            newX++;
+            if (dist <= r * r)
+                _paintData[newY][newX].a = 0;
         }
 
         newX = x;
-        newY += 1;
     }
 }
 
