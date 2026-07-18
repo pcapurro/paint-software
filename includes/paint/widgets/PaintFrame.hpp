@@ -9,6 +9,8 @@
 
 # include "ToolBox.hpp"
 
+using Action = std::function<void()>;
+
 class PaintFrame : public Element
 {
     private:
@@ -25,6 +27,9 @@ class PaintFrame : public Element
         int                     _brushSize;
         Color                   _selectedColor;
 
+        int                     _timeLineCursor;
+        vector<Action>          _timeLine;
+
         std::pair<int, int>     _lineStart = { -1, -1 };
         std::pair<int, int>     _lineEnd = { -1, -1 };
 
@@ -39,6 +44,9 @@ class PaintFrame : public Element
         void                    initPaintData(void);
         void                    initPaintTexture(SDL_Renderer* renderer);
 
+        Action                  createAction(Action action);
+        void                    addAction(Action action);
+
         void                    paintBrush(const int x, const int y);
         void                    paintPencil(const int x, const int y);
 
@@ -48,8 +56,10 @@ class PaintFrame : public Element
         void                    erase(const int x, const int y);
         void                    pick(const int x, const int y);
 
-        void                    paintRectangle(const int endX, const int endY);
-        void                    paintLine(const int endX, const int endY);
+        void                    paintRectangle(const int startX, const int startY, \
+                                    const int endX, const int endY);
+        void                    paintLine(const int startX, const int startY, \
+                                    const int endX, const int endY);
 
         void                    updateTexture(void);
 
@@ -65,6 +75,9 @@ class PaintFrame : public Element
         void                    clear(void);
 
         Color                   getPickedColor(void) const noexcept;
+
+        void                    back(void);
+        void                    forward(void);
 
         void                    setSelectedTool(const int tool);
         void                    setBrushSize(const int newBrushSize);

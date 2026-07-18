@@ -79,7 +79,17 @@ int     PaintView::reactMouseButtonUp(const int x, const int y)
         elements[i]->onMouseUp(x, y, renderer);
 
         if (i == 1)
-            return _mainBox->getLastButtonClicked();
+        {
+            int     lastButton = _mainBox->getLastButtonClicked();
+
+            if (lastButton == PaintView::Save \
+                || lastButton == PaintView::Cancel)
+                return lastButton;
+            else if (lastButton == PaintView::Back)
+                execBack();
+            else if (lastButton == PaintView::Forward)
+                execForward();
+        }
         else if (i == 5)
             return ColorSwitch;
         else if (i == 6)
@@ -100,6 +110,12 @@ void    PaintView::reactKeyButtonDown(const int key)
 {
     if (key == SDLK_F5)
         execColorSwitch(generateRandomColor());
+
+    if (key == SDLK_z)
+        execBack();
+
+    if (key == SDLK_y)
+        execForward();
 }
 
 int     PaintView::reactEvent(SDL_Event* event)

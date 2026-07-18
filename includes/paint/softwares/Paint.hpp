@@ -12,6 +12,11 @@ class Paint : public Software
     private:
         const int                   _displayMode;
 
+        string                      _projectName;
+
+        int                         _paintWidth;
+        int                         _paintHeight;
+
         optional<PaintView>         _paint;
 
         optional<ColorSelection>    _colorSelection;

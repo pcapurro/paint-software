@@ -4,6 +4,11 @@ Paint::Paint(const string& projectName, const int globalWidth, \
 	const int globalHeight, const int paintWidth, const int paintHeight, \
 	const int displayMode) : _displayMode(displayMode)
 {
+	_projectName = projectName;
+
+	_paintWidth = paintWidth;
+	_paintHeight = paintHeight;
+
 	_paint.emplace("paint-software – " + projectName, globalWidth, \
 		globalHeight, paintWidth, paintHeight, displayMode);
 }
@@ -49,6 +54,12 @@ int     Paint::routine(void)
 							"materials/icons/bmp/mainbox/red-cross.bmp", 45, 45);
 
 						windows[2] = &_cancel.value();
+					}
+					else if (value == PaintView::Save)
+					{
+						std::cout << "Saving '" << _projectName << ".png' to './paintings/...'" << std::endl;
+
+						// ...
 					}
 				}
 				else if (_colorSelection && windowId == _colorSelection->getWindowId())

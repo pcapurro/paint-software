@@ -112,7 +112,6 @@ class PaintView : public Window
 
 		void					update(void);
 
-		void					execSave(void);
 		void					execCancel(void);
 
 		void					execBack(void);

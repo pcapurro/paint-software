@@ -1,10 +1,5 @@
 #include "PaintView.hpp"
 
-void    PaintView::execSave(void)
-{
-    // ...
-}
-
 void    PaintView::execCancel(void)
 {
     _paintFrame->clear();
@@ -12,12 +7,12 @@ void    PaintView::execCancel(void)
 
 void    PaintView::execBack(void)
 {
-    // ...
+    _paintFrame->back();
 }
 
 void    PaintView::execForward(void)
 {
-    // ...
+    _paintFrame->forward();
 }
 
 void    PaintView::execColorSwitch(const Color& newColor)

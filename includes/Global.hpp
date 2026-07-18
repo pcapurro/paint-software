@@ -10,6 +10,7 @@
 # include <memory>
 # include <cstdlib>
 # include <cstdio>
+# include <functional>
 # include <optional>
 # include <algorithm>
 # include <utility>
