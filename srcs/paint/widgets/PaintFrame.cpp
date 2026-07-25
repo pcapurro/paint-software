@@ -12,7 +12,7 @@ PaintFrame::PaintFrame(const int x, const int y, const int width, \
     _brushSize = brushSize;
     _selectedColor = selectedColor;
 
-    _timeLineCursor = -1;
+    _timeLineCursor = 0;
 
     initPngBack();
 
@@ -98,14 +98,11 @@ Action  PaintFrame::createAction(Action action)
 
 void    PaintFrame::addAction(Action action)
 {
-    if (_timeLineCursor < (int) _timeLine.size() - 1)
-        _timeLine.erase(_timeLine.begin() + _timeLineCursor, _timeLine.end());
+    if (!_timeLine.empty() && _timeLineCursor + 1 < (int) _timeLine.size())
+        _timeLine.erase(_timeLine.begin() + _timeLineCursor + 1, _timeLine.end());
 
     _timeLine.push_back(std::move(action));
     _timeLineCursor = _timeLine.size() - 1;
-
-    std::cout << "added action: timeLine is now of size " << _timeLine.size() << std::endl;
-    std::cout << "timeLine cursor is at " << _timeLineCursor << std::endl;
 }
 
 void    PaintFrame::paintBrush(const int x, const int y)
@@ -442,16 +439,12 @@ void    PaintFrame::back(void)
     if (_timeLineCursor == -1)
         return;
 
-    cout << "timeLine cursor before: " << _timeLineCursor << std::endl;
-
     _timeLineCursor--;
 
     clear();
 
-    for (int i = 0; i < _timeLineCursor && i < (int) _timeLine.size(); i++)
-        _timeLine[i]();
-
-    cout << "timeLine cursor after: " << _timeLineCursor << std::endl;
+    for (int i = -1; i < _timeLineCursor && i < (int) _timeLine.size(); i++)
+        _timeLine[i + 1]();
 }
 
 void    PaintFrame::forward(void)
@@ -459,16 +452,12 @@ void    PaintFrame::forward(void)
     if (_timeLineCursor + 1 >= (int) _timeLine.size())
         return;
 
-    cout << "timeLine cursor before: " << _timeLineCursor << std::endl;
-
     _timeLineCursor++;
 
     clear();
 
-    for (int i = 0; i < _timeLineCursor && i < (int) _timeLine.size(); i++)
-        _timeLine[i]();
-
-    cout << "timeLine cursor after: " << _timeLineCursor << std::endl;
+    for (int i = -1; i < _timeLineCursor && i < (int) _timeLine.size(); i++)
+        _timeLine[i + 1]();
 }
 
 void    PaintFrame::setSelectedTool(const int tool)
