@@ -93,6 +93,7 @@ CXX = c++ -std=c++17
 CXXFLAGS = -Wall -Wextra -Werror \
 	-I includes/ \
 	-I includes/paint/ \
+	-I includes/paint/timeline \
 	-I includes/paint/widgets \
 	-I includes/paint/windows \
 	-I includes/paint/softwares \

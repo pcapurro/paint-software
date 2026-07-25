@@ -9,7 +9,51 @@
 
 # include "ToolBox.hpp"
 
-using Action = std::function<void()>;
+class Parameter
+{
+    public:
+        Parameter(const int brushSize, const Color color, const int startX, \
+            const int startY, const int endX = -1, const int endY = -1)
+        {
+            this->brushSize = brushSize;
+            this->color = color;
+
+            this->startX = startX;
+            this->startY = startY;
+
+            this->endX = endX;
+            this->endY = endY;
+        }
+
+        int     brushSize;
+        Color   color;
+
+        int     startX;
+        int     startY;
+
+        int     endX;
+        int     endY;
+};
+
+class Action
+{
+    public:
+
+        Action(const int code, const vector<Parameter>& parameters)
+        {
+            this->code = code;
+            this->parameters = parameters;
+        }
+
+        void    add(const Parameter& parameter)
+        {
+            this->parameters.push_back(parameter);
+        }
+
+        int                     code;
+        vector<Parameter>       parameters;
+};
+
 
 class PaintFrame : public Element
 {
@@ -27,8 +71,8 @@ class PaintFrame : public Element
         int                     _brushSize;
         Color                   _selectedColor;
 
-        int                     _timeLineCursor;
-        vector<Action>          _timeLine;
+        int                             _timeLineCursor;
+        vector<std::optional<Action>>   _timeLine;
 
         std::pair<int, int>     _lineStart = { -1, -1 };
         std::pair<int, int>     _lineEnd = { -1, -1 };
@@ -44,8 +88,7 @@ class PaintFrame : public Element
         void                    initPaintData(void);
         void                    initPaintTexture(SDL_Renderer* renderer);
 
-        Action                  createAction(Action action);
-        void                    addAction(Action action);
+        void                    addAction(const int code, const Parameter& parameter);
 
         void                    paintBrush(const int x, const int y);
         void                    paintPencil(const int x, const int y);
@@ -77,6 +120,8 @@ class PaintFrame : public Element
 
         Color                   getPickedColor(void) const noexcept;
 
+        void                    execAction(const int code, const Parameter& parameter);
+        void                    replay(void);
         void                    back(void);
         void                    forward(void);
 

@@ -73,36 +73,20 @@ void    PaintFrame::initPaintTexture(SDL_Renderer* renderer)
     updateTexture();
 }
 
-Action  PaintFrame::createAction(Action action)
-{
-    const int       brushSize = _brushSize;
-    const Color     selectedColor = _selectedColor;
-
-    return
-    (
-        [this, brushSize, selectedColor, action = std::move(action)]
-        {
-            const int       oldBrushSize = _brushSize;
-            const Color     oldSelectedColor = _selectedColor;
-
-            _brushSize = brushSize;
-            _selectedColor = selectedColor;
-
-            action();
-
-            _brushSize = oldBrushSize;
-            _selectedColor = oldSelectedColor;
-        }
-    );
-}
-
-void    PaintFrame::addAction(Action action)
+void    PaintFrame::addAction(const int code, const Parameter& parameter)
 {
     if (!_timeLine.empty() && _timeLineCursor + 1 < (int) _timeLine.size())
         _timeLine.erase(_timeLine.begin() + _timeLineCursor + 1, _timeLine.end());
 
-    _timeLine.push_back(std::move(action));
+    if (_timeLine.empty() || _timeLine[_timeLine.size() - 1] == std::nullopt \
+        || _timeLine[_timeLine.size() - 1]->code != code)
+        _timeLine.push_back(Action(code, {parameter}));
+    else
+        _timeLine[_timeLine.size() - 1]->add(parameter);
+
     _timeLineCursor = _timeLine.size() - 1;
+
+    std::cout << "timeLine is now at " << _timeLine.size() << " elements" << std::endl;
 }
 
 void    PaintFrame::paintBrush(const int x, const int y)
@@ -440,6 +424,57 @@ Color   PaintFrame::getPickedColor(void) const noexcept
     return _pickedColor;
 }
 
+void    PaintFrame::execAction(const int code, const Parameter& parameter)
+{
+    const int       brushSize = _brushSize;
+    const Color     selectedColor = _selectedColor;
+
+    _brushSize = parameter.brushSize;
+    _selectedColor = parameter.color;
+
+    if (code == ToolBox::Brush)
+        paintBrush(parameter.startX, parameter.startY);
+    else if (code == ToolBox::Pencil)
+        paintPencil(parameter.startX, parameter.startY);
+
+    else if (code == ToolBox::Bucket)
+        paintBucket(parameter.startX, parameter.startY);
+    else if (code == ToolBox::Spray)
+        paintSpray(parameter.startX, parameter.startY);
+
+    else if (code == ToolBox::Eraser)
+        erase(parameter.startX, parameter.startY);
+    else if (code == ToolBox::Picker)
+        pick(parameter.startX, parameter.startY);
+
+    else if (code == ToolBox::Line)
+        paintLine(parameter.startX, parameter.startY, parameter.endX, parameter.endY);
+    else if (code == ToolBox::Rectangle)
+        paintRectangle(parameter.startX, parameter.startY, parameter.endX, parameter.endY);
+
+    _brushSize = brushSize;
+    _selectedColor = selectedColor;
+}
+
+void    PaintFrame::replay(void)
+{
+    clearPainting();
+
+    for (int i = -1; i < _timeLineCursor && i < (int) _timeLine.size(); i++)
+    {
+        int     code = _timeLine[i + 1]->code;
+        auto&   params = _timeLine[i + 1]->parameters;
+
+        for (const auto& param : params)
+            execAction(code, param);
+
+        std::cout << "executing action..." << std::endl;
+
+        if (i + 1 < (int) _timeLine.size() && _timeLine[i + 1]->code != code)
+            break;
+    }
+}
+
 void    PaintFrame::back(void)
 {
     if (_timeLineCursor == -1)
@@ -447,10 +482,7 @@ void    PaintFrame::back(void)
 
     _timeLineCursor--;
 
-    clearPainting();
-
-    for (int i = -1; i < _timeLineCursor && i < (int) _timeLine.size(); i++)
-        _timeLine[i + 1]();
+    replay();
 }
 
 void    PaintFrame::forward(void)
@@ -460,10 +492,7 @@ void    PaintFrame::forward(void)
 
     _timeLineCursor++;
 
-    clearPainting();
-
-    for (int i = -1; i < _timeLineCursor && i < (int) _timeLine.size(); i++)
-        _timeLine[i + 1]();
+    replay();
 }
 
 void    PaintFrame::setSelectedTool(const int tool)
@@ -491,37 +520,19 @@ void	PaintFrame::onMouseDown(const bool held, const int x, \
     int     newY = centerY - (_brushSize / 2);
 
     if (_selectedTool == ToolBox::Brush)
-    {
         paintBrush(newX, newY);
-        addAction(createAction( [this, newX, newY] { paintBrush(newX, newY); }));
-    }
     else if (_selectedTool == ToolBox::Pencil)
-    {
         paintPencil(newX, newY);
-        addAction(createAction( [this, newX, newY] { paintPencil(newX, newY); }));
-    }
 
     else if (_selectedTool == ToolBox::Bucket)
-    {
         paintBucket(centerX, centerY);
-        addAction(createAction( [this, newX, newY] { paintBucket(newX, newY); }));
-    }
     else if (_selectedTool == ToolBox::Spray)
-    {
         paintSpray(newX, newY);
-        addAction(createAction( [this, newX, newY] { paintSpray(newX, newY); }));
-    }
 
     else if (_selectedTool == ToolBox::Eraser)
-    {
         erase(newX, newY);
-        addAction(createAction( [this, newX, newY] { erase(newX, newY); }));
-    }
     else if (_selectedTool == ToolBox::Picker)
-    {
         pick(newX, newY);
-        addAction(createAction( [this, newX, newY] { pick(newX, newY); }));
-    }
 
     else if (_selectedTool == ToolBox::Line)
     {
@@ -533,6 +544,11 @@ void	PaintFrame::onMouseDown(const bool held, const int x, \
         if (!held)
             _rectStart = { centerX, centerY };
     }
+
+    if (_selectedTool == ToolBox::Bucket)
+        addAction(_selectedTool, Parameter(_brushSize, _selectedColor, centerX, centerY));
+    else if (_selectedTool != ToolBox::Line && _selectedTool != ToolBox::Rectangle)
+        addAction(_selectedTool, Parameter(_brushSize, _selectedColor, newX, newY));
 }
 
 void	PaintFrame::onMouseUp(const int x, const int y, \
@@ -547,7 +563,9 @@ void	PaintFrame::onMouseUp(const int x, const int y, \
         int     startY = _rectStart.second;
 
         paintRectangle(startX, startY, centerX, centerY);
-        addAction(createAction( [this, startX, startY, centerX, centerY] { paintRectangle(startX, startY, centerX, centerY); }));
+
+        addAction(_selectedTool, \
+            Parameter(_brushSize, _selectedColor, startX, startY, centerX, centerY));
     }
     else if (_selectedTool == ToolBox::Line)
     {
@@ -555,8 +573,13 @@ void	PaintFrame::onMouseUp(const int x, const int y, \
         int     startY = _lineStart.second;
 
         paintLine(startX, startY, centerX, centerY);
-        addAction(createAction( [this, startX, startY, centerX, centerY] { paintLine(startX, startY, centerX, centerY); }));
+
+        addAction(_selectedTool, \
+            Parameter(_brushSize, _selectedColor, startX, startY, centerX, centerY));
     }
+
+    // if (_timeLine[_timeLine.size() - 1] != std::nullopt)
+        // _timeLine.push_back(std::nullopt);
 }
 
 void	PaintFrame::onMouseHover(const int x, const int y, \
