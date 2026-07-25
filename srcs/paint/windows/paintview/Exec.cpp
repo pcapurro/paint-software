@@ -2,7 +2,8 @@
 
 void    PaintView::execCancel(void)
 {
-    _paintFrame->clear();
+    _paintFrame->clearPainting();
+    _paintFrame->clearTimeLine();
 }
 
 void    PaintView::execBack(void)

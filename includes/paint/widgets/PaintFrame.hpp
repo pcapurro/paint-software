@@ -72,7 +72,8 @@ class PaintFrame : public Element
 
         void                    render(SDL_Renderer* renderer);
 
-        void                    clear(void);
+        void                    clearTimeLine(void);
+        void                    clearPainting(void);
 
         Color                   getPickedColor(void) const noexcept;
 

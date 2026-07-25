@@ -422,7 +422,13 @@ void    PaintFrame::render(SDL_Renderer* renderer)
     }
 }
 
-void    PaintFrame::clear(void)
+void    PaintFrame::clearTimeLine(void)
+{
+    _timeLineCursor = -1;
+    _timeLine.clear();
+}
+
+void    PaintFrame::clearPainting(void)
 {
     _paintData.clear();
 
@@ -441,7 +447,7 @@ void    PaintFrame::back(void)
 
     _timeLineCursor--;
 
-    clear();
+    clearPainting();
 
     for (int i = -1; i < _timeLineCursor && i < (int) _timeLine.size(); i++)
         _timeLine[i + 1]();
@@ -454,7 +460,7 @@ void    PaintFrame::forward(void)
 
     _timeLineCursor++;
 
-    clear();
+    clearPainting();
 
     for (int i = -1; i < _timeLineCursor && i < (int) _timeLine.size(); i++)
         _timeLine[i + 1]();
