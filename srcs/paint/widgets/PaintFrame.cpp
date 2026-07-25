@@ -532,25 +532,25 @@ void	PaintFrame::onMouseDown(const bool held, const int x, \
 void	PaintFrame::onMouseUp(const int x, const int y, \
 	SDL_Renderer* /*renderer*/)
 {
-    int     startX = _rectStart.first;
-    int     startY = _rectStart.second;
-
     int     centerX = x - getX();
     int     centerY = y - getY();
 
     if (_selectedTool == ToolBox::Rectangle)
     {
+        int     startX = _rectStart.first;
+        int     startY = _rectStart.second;
+
         paintRectangle(startX, startY, centerX, centerY);
         addAction(createAction( [this, startX, startY, centerX, centerY] { paintRectangle(startX, startY, centerX, centerY); }));
     }
     else if (_selectedTool == ToolBox::Line)
     {
+        int     startX = _lineStart.first;
+        int     startY = _lineStart.second;
+
         paintLine(startX, startY, centerX, centerY);
         addAction(createAction( [this, startX, startY, centerX, centerY] { paintLine(startX, startY, centerX, centerY); }));
     }
-
-    // if (_timeLine[_timeLine.size() - 1] != nullptr)
-        // _timeLine.push_back(nullptr);
 }
 
 void	PaintFrame::onMouseHover(const int x, const int y, \
