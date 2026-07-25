@@ -98,7 +98,7 @@ int     Paint::routine(void)
 			window->refreshDisplay();
 		}
 
-		SDL_Delay(16);
+		SDL_Delay(1);
 	}
 
     return value;
