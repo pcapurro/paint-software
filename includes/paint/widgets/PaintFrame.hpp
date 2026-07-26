@@ -9,6 +9,8 @@
 
 # include "ToolBox.hpp"
 
+# define TIME_LINE_LIMIT 4096
+
 class Parameter
 {
     public:
@@ -45,11 +47,6 @@ class Action
             this->parameters = parameters;
         }
 
-        void    add(const Parameter& parameter)
-        {
-            this->parameters.push_back(parameter);
-        }
-
         int                     code;
         vector<Parameter>       parameters;
 };
@@ -71,6 +68,7 @@ class PaintFrame : public Element
         int                     _brushSize;
         Color                   _selectedColor;
 
+        bool                            _timeLineSwitch;
         int                             _timeLineCursor;
         vector<std::optional<Action>>   _timeLine;
 

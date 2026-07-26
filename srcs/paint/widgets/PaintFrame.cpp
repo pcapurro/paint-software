@@ -12,6 +12,7 @@ PaintFrame::PaintFrame(const int x, const int y, const int width, \
     _brushSize = brushSize;
     _selectedColor = selectedColor;
 
+    _timeLineSwitch = false;
     _timeLineCursor = 0;
 
     initPngBack();
@@ -78,15 +79,23 @@ void    PaintFrame::addAction(const int code, const Parameter& parameter)
     if (!_timeLine.empty() && _timeLineCursor + 1 < (int) _timeLine.size())
         _timeLine.erase(_timeLine.begin() + _timeLineCursor + 1, _timeLine.end());
 
-    if (_timeLine.empty() || _timeLine[_timeLine.size() - 1] == std::nullopt \
-        || _timeLine[_timeLine.size() - 1]->code != code)
+    if (_timeLine.empty() || _timeLineSwitch == true \
+        || _timeLine[_timeLine.size() - 1] == std::nullopt \
+        || _timeLine[_timeLine.size() - 1]->code != code
+        || _timeLine[_timeLine.size() - 1]->parameters.size() > TIME_LINE_LIMIT)
+    {
         _timeLine.push_back(Action(code, {parameter}));
+
+        if (_timeLine.size() > TIME_LINE_LIMIT)
+            _timeLine.erase(_timeLine.begin());
+    }
     else
-        _timeLine[_timeLine.size() - 1]->add(parameter);
+        _timeLine[_timeLine.size() - 1]->parameters.push_back(parameter);
 
     _timeLineCursor = _timeLine.size() - 1;
 
-    std::cout << "timeLine is now at " << _timeLine.size() << " elements" << std::endl;
+    if (_timeLineSwitch)
+        _timeLineSwitch = false;
 }
 
 void    PaintFrame::paintBrush(const int x, const int y)
@@ -468,8 +477,6 @@ void    PaintFrame::replay(void)
         for (const auto& param : params)
             execAction(code, param);
 
-        std::cout << "executing action..." << std::endl;
-
         if (i + 1 < (int) _timeLine.size() && _timeLine[i + 1]->code != code)
             break;
     }
@@ -578,8 +585,8 @@ void	PaintFrame::onMouseUp(const int x, const int y, \
             Parameter(_brushSize, _selectedColor, startX, startY, centerX, centerY));
     }
 
-    // if (_timeLine[_timeLine.size() - 1] != std::nullopt)
-        // _timeLine.push_back(std::nullopt);
+    if (!_timeLineSwitch)
+        _timeLineSwitch = true;
 }
 
 void	PaintFrame::onMouseHover(const int x, const int y, \
