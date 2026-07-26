@@ -1,6 +1,4 @@
-# Coding
 *.vscode/
 *.o
-
-# Exec
+./paintings/
 paint-software
