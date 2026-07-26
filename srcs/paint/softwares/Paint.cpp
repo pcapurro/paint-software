@@ -13,6 +13,36 @@ Paint::Paint(const string& projectName, const int globalWidth, \
 		globalHeight, paintWidth, paintHeight, displayMode);
 }
 
+int		Paint::savePainting(const vector<Uint32>& painting) const
+{
+	SDL_Surface*	surface = SDL_CreateRGBSurfaceWithFormatFrom(
+		const_cast<Uint32*>(painting.data()), _paintWidth, \
+		_paintHeight, 32, _paintWidth * sizeof(Uint32), SDL_PIXELFORMAT_RGBA8888
+	);
+
+	if (!surface)
+		return State::End;
+
+	try {
+		std::filesystem::create_directory("./paintings/");
+	}
+	catch (const std::filesystem::filesystem_error& e)
+	{
+		SDL_FreeSurface(surface);
+		return State::End;
+	}
+
+	if (IMG_SavePNG(surface, string("./paintings/" + _projectName + ".png").c_str()) != 0)
+	{
+		SDL_FreeSurface(surface);
+		return State::End;
+	}
+
+	SDL_FreeSurface(surface);
+
+	return State::Ok;
+}
+
 int     Paint::routine(void)
 {
 	SDL_Event       lastEvent;
@@ -57,9 +87,35 @@ int     Paint::routine(void)
 					}
 					else if (value == PaintView::Save)
 					{
+						int			saveValue = State::Ok;
+
 						std::cout << "Saving '" << _projectName << ".png' to './paintings/...'" << std::endl;
 
-						// ...
+						string		title, text, logo;
+
+						saveValue = savePainting(_paint->getPaintingPixels());
+
+						if (saveValue == State::Ok)
+						{
+							title = "Painting saved";
+							text = "Your painting has been saved to './paintings/'.";
+							logo = "materials/icons/bmp/mainbox/green-check.bmp";
+
+							std::cout << "Painting successfuly saved." << std::endl;
+						}
+						else
+						{
+							title = "Painting not saved";
+							text = "Failed to save your painting.";
+							logo = "materials/icons/bmp/mainbox/red-cross.bmp";
+
+							std::cerr << "Failed to save painting." << std::endl;
+						}
+
+						_save.emplace("save validation", "materials/font/OpenSans.ttf", \
+							400, 150, _displayMode, title, true, text, vector<string>{"ok"}, logo, 45, 45);
+
+						windows[3] = &_save.value();
 					}
 				}
 				else if (_colorSelection && windowId == _colorSelection->getWindowId())
@@ -86,6 +142,11 @@ int     Paint::routine(void)
 
 					if (value != State::Ok)
 						_cancel.reset(), windows[2] = nullptr;
+				}
+				else if (_save && windowId == _save->getWindowId())
+				{
+					if (value != State::Ok)
+						_save.reset(), windows[3] = nullptr;
 				}
 			}
 		}

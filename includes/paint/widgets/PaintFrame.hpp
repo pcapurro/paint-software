@@ -118,6 +118,10 @@ class PaintFrame : public Element
 
         Color                           getPickedColor(void) const noexcept;
 
+        vector<vector<Color>>           getPainting(void) const;
+        vector<Uint32>                  getPaintingPixels(void) const;
+        bool                            hasAlpha(void) const;
+
         void                            execAction(const int code, const Parameter& parameter);
         void                            replay(void);
         void                            back(void);

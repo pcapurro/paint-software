@@ -348,21 +348,7 @@ void    PaintFrame::paintRectangle(const int startX, const int startY, \
 void    PaintFrame::updateTexture(void)
 {
     SDL_Texture*            texture = _paintTexture->getTexture();
-    const SDL_PixelFormat*  format = SDL_AllocFormat(SDL_PIXELFORMAT_RGBA8888);
-
-    vector<Uint32>          paint;
-    Uint32                  pixel;
-
-    paint.reserve(getWidth() * getHeight());
-
-    for (int y = 0; y < (int) _paintData.size(); y++)
-    {
-        for (int x = 0; x < (int) _paintData[y].size(); x++)
-        {
-            pixel = _paintData[y][x].toUint32t(format);
-            paint.push_back(pixel);
-        }
-    }
+    vector<Uint32>          paint = getPaintingPixels();
 
     SDL_UpdateTexture(texture, nullptr, paint.data(), \
         getWidth() * sizeof(Uint32));
@@ -431,6 +417,43 @@ void    PaintFrame::clearPainting(void)
 Color   PaintFrame::getPickedColor(void) const noexcept
 {
     return _pickedColor;
+}
+
+vector<vector<Color>>   PaintFrame::getPainting(void) const
+{
+    return _paintData;
+}
+
+vector<Uint32>  PaintFrame::getPaintingPixels(void) const
+{
+    SDL_PixelFormat*        format = SDL_AllocFormat(SDL_PIXELFORMAT_RGBA8888);
+    vector<Uint32>          paint;
+
+    paint.reserve(getWidth() * getHeight());
+
+    for (int y = 0; y < (int) _paintData.size(); y++)
+    {
+        for (int x = 0; x < (int) _paintData[y].size(); x++)
+            paint.push_back(_paintData[y][x].toUint32t(format));
+    }
+
+    SDL_FreeFormat(format);
+
+    return paint;
+}
+
+bool    PaintFrame::hasAlpha(void) const
+{
+    for (const auto& pixelLine : _paintData)
+    {
+        for (const auto& pixel : pixelLine)
+        {
+            if (pixel.a != 255)
+                return true;
+        }
+    }
+
+    return false;
 }
 
 void    PaintFrame::execAction(const int code, const Parameter& parameter)

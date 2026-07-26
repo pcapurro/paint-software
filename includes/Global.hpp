@@ -14,12 +14,14 @@
 # include <optional>
 # include <algorithm>
 # include <utility>
+# include <filesystem>
 
 # include <time.h>
 # include <sys/time.h>
 # include <unistd.h>
 
 # include <SDL2/SDL.h>
+# include <SDL2/SDL_image.h>
 # include <SDL2/SDL_ttf.h>
 
 using std::string;

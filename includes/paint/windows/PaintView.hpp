@@ -110,6 +110,10 @@ class PaintView : public Window
 		void    				updateCursorPosition(void);
 		void					updateMouse(void);
 
+		bool					hasAlpha(void) const;
+		vector<vector<Color>>	getPainting(void) const;
+		vector<Uint32>			getPaintingPixels(void) const;
+
 		void					update(void);
 
 		void					execCancel(void);

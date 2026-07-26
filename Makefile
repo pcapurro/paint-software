@@ -13,6 +13,7 @@ SRCS = srcs/main.cpp \
 	srcs/paint/windows/paintview/Exec.cpp \
 	srcs/paint/windows/paintview/Update.cpp \
 	srcs/paint/windows/paintview/Tools.cpp \
+	srcs/paint/windows/paintview/Get.cpp \
 	srcs/paint/windows/colorselection/Add.cpp \
 	srcs/paint/windows/colorselection/LeftAdd.cpp \
 	srcs/paint/windows/colorselection/RightAdd.cpp \
@@ -103,7 +104,7 @@ CXXFLAGS = -Wall -Wextra -Werror \
 	-I includes/lib/windows \
 	-I includes/lib/softwares
 
-SDLFLAGS = -lSDL2 -lSDL2_ttf
+SDLFLAGS = -lSDL2 -lSDL2_ttf -lSDL2_image
 
 OBJS = $(SRCS:.cpp=.o)
 

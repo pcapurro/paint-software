@@ -20,7 +20,10 @@ class Paint : public Software
         optional<PaintView>         _paint;
 
         optional<ColorSelection>    _colorSelection;
+        optional<DialogBox>         _save;
         optional<DialogBox>         _cancel;
+
+        int                         savePainting(const vector<Uint32>& painting) const;
 
     public:
         Paint(const string& projectName, const int globalWidth, \
