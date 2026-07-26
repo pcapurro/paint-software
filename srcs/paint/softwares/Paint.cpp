@@ -9,7 +9,7 @@ Paint::Paint(const string& projectName, const int globalWidth, \
 	_paintWidth = paintWidth;
 	_paintHeight = paintHeight;
 
-	_paint.emplace("paint-software – " + projectName, globalWidth, \
+	_paint.emplace("paint-software - " + projectName, globalWidth, \
 		globalHeight, paintWidth, paintHeight, displayMode);
 }
 
